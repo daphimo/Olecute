@@ -530,6 +530,150 @@
         "mobile_padding_top": 60,
         "mobile_padding_bottom": 60
       }
+    },
+    "section_LpyBLV": {
+      "type": "section",
+      "blocks": {
+        "text_QeH3tF": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>New arrivals</h2>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_Et67az": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_QeH3tF",
+        "text_Et67az"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "custom_shopping_experience_LjGLbU": {
+      "type": "custom-shopping-experience",
+      "blocks": {
+        "benefit_TpTWHV": {
+          "type": "benefit",
+          "settings": {
+            "icon": "payment",
+            "title": "Cash on Delivery",
+            "description": "Pay when it arrives"
+          }
+        },
+        "benefit_CQKBnn": {
+          "type": "benefit",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Human Support",
+            "description": "WhatsApp, always"
+          }
+        },
+        "benefit_DEzWM6": {
+          "type": "benefit",
+          "settings": {
+            "icon": "globe",
+            "title": "Free Worldwide Shipping",
+            "description": "No minimum order"
+          }
+        },
+        "benefit_LDfn3L": {
+          "type": "benefit",
+          "settings": {
+            "icon": "return",
+            "title": "5-Day Easy Returns",
+            "description": "No questions asked"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_TpTWHV",
+        "benefit_CQKBnn",
+        "benefit_DEzWM6",
+        "benefit_LDfn3L"
+      ],
+      "name": "Shopping experience",
+      "settings": {
+        "heading": "You are shopping <em>for an experience</em>",
+        "desktop_columns": 4,
+        "mobile_columns": "2",
+        "heading_gap": 52,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 52,
+        "mobile_padding_bottom": 52
+      }
     }
   },
   "order": [
@@ -542,6 +686,8 @@
     "custom_testimonials_YHheC4",
     "custom_cta_banner_reqLLT",
     "custom_shopping_experience_pWgafb",
-    "custom_email_signup_N4386E"
+    "custom_email_signup_N4386E",
+    "section_LpyBLV",
+    "custom_shopping_experience_LjGLbU"
   ]
 }
