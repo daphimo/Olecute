@@ -11,58 +11,47 @@
   "type": "header",
   "name": "Header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
+    "header_marquee_bn3H9R": {
+      "type": "header-marquee",
       "blocks": {
-        "announcement_WtbK8V": {
-          "type": "_announcement",
-          "name": "t:names.announcement",
+        "text_dMT3Ne": {
+          "type": "text",
           "settings": {
-            "text": "10% DISCOUNT ON ALL PREPAID ORDER!                    ADDITIONAL Rs.50 : CUTE50 ON CHEAKOUT",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none",
-            "text_color": ""
-          },
-          "blocks": {}
+            "text": "10% off all prepaid orders"
+          }
         },
-        "announcement_BxgCk9": {
-          "type": "_announcement",
+        "text_iA6Gwp": {
+          "type": "text",
           "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none",
-            "text_color": ""
-          },
-          "blocks": {}
+            "text": "Use CUTE50 at checkout for an additional Rs.50 off"
+          }
+        },
+        "text_qGNAdK": {
+          "type": "text",
+          "settings": {
+            "text": "Welcome to Olecute"
+          }
         }
       },
       "block_order": [
-        "announcement_WtbK8V",
-        "announcement_BxgCk9"
+        "text_dMT3Ne",
+        "text_iA6Gwp",
+        "text_qGNAdK"
       ],
-      "name": "t:names.announcement_bar",
+      "name": "Announcement marquee",
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "background_color": "{{ settings.color_palette.background }}",
-        "divider_width": 1,
-        "divider_color": "{{ settings.color_palette.color2 }}",
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "accessibility_label": "Store announcements",
+        "background_color": "#32166F",
+        "text_color": "#FCF9F4",
+        "text_size": 13,
+        "item_spacing": 24,
+        "dot_size": 6,
+        "speed": 24,
+        "padding_vertical": 10
       }
     },
     "header_section": {
       "type": "custom-header",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "menu": "main-menu",
         "customer_account_menu": "customer-account-main-menu",
@@ -77,64 +66,10 @@
         "animation_speed": 325,
         "overlay_opacity": 50
       }
-    },
-    "17869756819a57090f": {
-      "type": "_blocks",
-      "blocks": {
-        "forms_inline_VG3t6V": {
-          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
-          "settings": {
-            "form_id": "",
-            "text_color": "#202020",
-            "button_background_color": "#202020",
-            "button_label_color": "#ffffff",
-            "links_color": "#1878b9",
-            "errors_color": "#e02229",
-            "text_alignment": "center",
-            "form_alignment": "center",
-            "padding_top": 0,
-            "padding_bottom": 24,
-            "padding_right": 0,
-            "padding_left": 0
-          }
-        }
-      },
-      "block_order": [
-        "forms_inline_VG3t6V"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
-    "header_section",
-    "17869756819a57090f"
+    "header_marquee_bn3H9R",
+    "header_section"
   ]
 }
