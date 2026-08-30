@@ -109,7 +109,7 @@
         "desktop_columns": 6,
         "product_gap": 18,
         "show_rating": true,
-        "animate_wave": false,
+        "animate_wave": true,
         "padding_top": 72,
         "padding_bottom": 72,
         "mobile_padding_top": 48,
