@@ -409,6 +409,31 @@
         "mobile_padding_top": 32,
         "mobile_padding_bottom": 32
       }
+    },
+    "custom_email_signup_N4386E": {
+      "type": "custom-email-signup",
+      "name": "Custom email signup",
+      "settings": {
+        "eyebrow": "STAY IN THE LOOP",
+        "heading": "New drops. Exclusive offers. <em>All yours.</em>",
+        "description": "<p>Join 1M+ women who get early access to new arrivals, seasonal edits & members-only discounts — straight to their inbox.</p>",
+        "email_placeholder": "Your email address",
+        "button_label": "SUBSCRIBE",
+        "reassurance_text": "No spam, ever. Unsubscribe anytime.",
+        "success_message": "You're on the list. Welcome in.",
+        "background_color": "#f4b51b",
+        "content_width": 700,
+        "show_top_wave": true,
+        "show_bottom_wave": true,
+        "desktop_wave_height": 85,
+        "mobile_wave_height": 48,
+        "animate_waves": false,
+        "animation_speed": "slow",
+        "padding_top": 90,
+        "padding_bottom": 90,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
+      }
     }
   },
   "order": [
@@ -419,6 +444,7 @@
     "custom_brand_impact_bar_9bKd9H",
     "custom_shopping_experience_JUai3y",
     "custom_brand_difference_tJhj8c",
-    "custom_cta_banner_reqLLT"
+    "custom_cta_banner_reqLLT",
+    "custom_email_signup_N4386E"
   ]
 }
