@@ -163,6 +163,66 @@
         "overlay_opacity": 40
       }
     },
+    "custom_brand_difference_tJhj8c": {
+      "type": "custom-brand-difference",
+      "blocks": {
+        "difference_ccX8Jg": {
+          "type": "difference",
+          "settings": {
+            "category": "Fabric",
+            "title": "Nothing synthetic. <em>Ever.</em>",
+            "content": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>"
+          }
+        },
+        "difference_LMmpaB": {
+          "type": "difference",
+          "settings": {
+            "category": "Design",
+            "title": "Fresh drops, <em>every single week</em>",
+            "content": "<p>New silhouettes and thoughtful details arrive often, so there is always something fresh to discover.</p>"
+          }
+        },
+        "difference_QAhfgX": {
+          "type": "difference",
+          "settings": {
+            "category": "Sizing",
+            "title": "Fashion that fits <em>every body</em>",
+            "content": "<p>Comfort-led fits and considered proportions make getting dressed feel effortless.</p>"
+          }
+        },
+        "difference_FmLDBQ": {
+          "type": "difference",
+          "settings": {
+            "category": "Origin",
+            "title": "Designed and made <em>in Jaipur</em>",
+            "content": "<p>Each design is shaped by local craft, color, and generations of textile knowledge.</p>"
+          }
+        },
+        "difference_dxthnq": {
+          "type": "difference",
+          "settings": {
+            "category": "Promise",
+            "title": "5-day returns, <em>no questions asked</em>",
+            "content": "<p>Try it at home and return it simply if it is not quite right for you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "difference_ccX8Jg",
+        "difference_LMmpaB",
+        "difference_QAhfgX",
+        "difference_FmLDBQ",
+        "difference_dxthnq"
+      ],
+      "name": "Custom brand difference",
+      "settings": {
+        "eyebrow": "The Olecute difference",
+        "heading": "Why women choose us, <em>and keep coming back</em>",
+        "description": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>",
+        "padding_top": 88,
+        "mobile_padding_top": 56
+      }
+    },
     "custom_brand_impact_bar_9bKd9H": {
       "type": "custom-brand-impact-bar",
       "blocks": {
@@ -277,13 +337,125 @@
         "show_stats": true,
         "show_marquee": true,
         "desktop_columns": 4,
-        "marquee_speed": 34
+        "marquee_speed": 60
       }
     },
-    "custom_shopping_experience_JUai3y": {
+    "custom_testimonials_YHheC4": {
+      "type": "custom-testimonials",
+      "blocks": {
+        "testimonial_CkHF9W": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_eDPiTz": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_hEfz6L": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_hF8UnM": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_zFP7yq": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_CkHF9W",
+        "testimonial_eDPiTz",
+        "testimonial_hEfz6L",
+        "testimonial_hF8UnM",
+        "testimonial_zFP7yq"
+      ],
+      "name": "Custom testimonials",
+      "settings": {
+        "eyebrow": "Real women, real reviews",
+        "heading": "What our customers <em>are saying</em>",
+        "show_rating_summary": true,
+        "rating": "4.9",
+        "rating_text": "",
+        "trust_text": "Trusted by 1 Million+ women across India",
+        "desktop_cards": 4,
+        "desktop_gap": 18,
+        "mobile_cards": 1,
+        "mobile_gap": 14,
+        "autoplay": false,
+        "autoplay_interval": 5000,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 56
+      }
+    },
+    "custom_cta_banner_reqLLT": {
+      "type": "custom-cta-banner",
+      "name": "Custom CTA banner",
+      "settings": {
+        "heading": "Join a million women who've already made the switch",
+        "description": "Pure fabrics. Real fit. Delivered to your door.",
+        "button_label": "Shop new arrivals",
+        "button_link": "shopify://collections/all",
+        "background_color": "#f4b51b",
+        "corner_radius": 12,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "custom_shopping_experience_pWgafb": {
       "type": "custom-shopping-experience",
       "blocks": {
-        "benefit_4EdxNW": {
+        "benefit_3P9qA7": {
           "type": "benefit",
           "settings": {
             "icon": "payment",
@@ -291,7 +463,7 @@
             "description": "Pay when it arrives"
           }
         },
-        "benefit_imdFjN": {
+        "benefit_gXGUiM": {
           "type": "benefit",
           "settings": {
             "icon": "chat",
@@ -299,7 +471,7 @@
             "description": "WhatsApp, always"
           }
         },
-        "benefit_KA8Cz4": {
+        "benefit_BjeCeU": {
           "type": "benefit",
           "settings": {
             "icon": "globe",
@@ -307,7 +479,7 @@
             "description": "No minimum order"
           }
         },
-        "benefit_RJ8Kd9": {
+        "benefit_MBjDRA": {
           "type": "benefit",
           "settings": {
             "icon": "return",
@@ -317,10 +489,10 @@
         }
       },
       "block_order": [
-        "benefit_4EdxNW",
-        "benefit_imdFjN",
-        "benefit_KA8Cz4",
-        "benefit_RJ8Kd9"
+        "benefit_3P9qA7",
+        "benefit_gXGUiM",
+        "benefit_BjeCeU",
+        "benefit_MBjDRA"
       ],
       "name": "Shopping experience",
       "settings": {
@@ -332,82 +504,6 @@
         "padding_bottom": 72,
         "mobile_padding_top": 52,
         "mobile_padding_bottom": 52
-      }
-    },
-    "custom_brand_difference_tJhj8c": {
-      "type": "custom-brand-difference",
-      "blocks": {
-        "difference_ccX8Jg": {
-          "type": "difference",
-          "settings": {
-            "category": "Fabric",
-            "title": "Nothing synthetic. <em>Ever.</em>",
-            "content": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>"
-          }
-        },
-        "difference_LMmpaB": {
-          "type": "difference",
-          "settings": {
-            "category": "Design",
-            "title": "Fresh drops, <em>every single week</em>",
-            "content": "<p>New silhouettes and thoughtful details arrive often, so there is always something fresh to discover.</p>"
-          }
-        },
-        "difference_QAhfgX": {
-          "type": "difference",
-          "settings": {
-            "category": "Sizing",
-            "title": "Fashion that fits <em>every body</em>",
-            "content": "<p>Comfort-led fits and considered proportions make getting dressed feel effortless.</p>"
-          }
-        },
-        "difference_FmLDBQ": {
-          "type": "difference",
-          "settings": {
-            "category": "Origin",
-            "title": "Designed and made <em>in Jaipur</em>",
-            "content": "<p>Each design is shaped by local craft, color, and generations of textile knowledge.</p>"
-          }
-        },
-        "difference_dxthnq": {
-          "type": "difference",
-          "settings": {
-            "category": "Promise",
-            "title": "5-day returns, <em>no questions asked</em>",
-            "content": "<p>Try it at home and return it simply if it is not quite right for you.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "difference_ccX8Jg",
-        "difference_LMmpaB",
-        "difference_QAhfgX",
-        "difference_FmLDBQ",
-        "difference_dxthnq"
-      ],
-      "name": "Custom brand difference",
-      "settings": {
-        "eyebrow": "The Olecute difference",
-        "heading": "Why women choose us, <em>and keep coming back</em>",
-        "description": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>",
-        "padding_top": 88,
-        "mobile_padding_top": 56
-      }
-    },
-    "custom_cta_banner_reqLLT": {
-      "type": "custom-cta-banner",
-      "name": "Custom CTA banner",
-      "settings": {
-        "heading": "Join a million women who've already made the switch",
-        "description": "Pure fabrics. Real fit. Delivered to your door.",
-        "button_label": "Shop new arrivals",
-        "button_link": "shopify://collections/all",
-        "background_color": "#F4B51B",
-        "corner_radius": 12,
-        "padding_top": 48,
-        "padding_bottom": 48,
-        "mobile_padding_top": 32,
-        "mobile_padding_bottom": 32
       }
     },
     "custom_email_signup_N4386E": {
@@ -441,10 +537,11 @@
     "custom_collection_list_peLCgp",
     "custom_featured_collection_MGywBY",
     "custom_video_banner_3wkMiE",
-    "custom_brand_impact_bar_9bKd9H",
-    "custom_shopping_experience_JUai3y",
     "custom_brand_difference_tJhj8c",
+    "custom_brand_impact_bar_9bKd9H",
+    "custom_testimonials_YHheC4",
     "custom_cta_banner_reqLLT",
+    "custom_shopping_experience_pWgafb",
     "custom_email_signup_N4386E"
   ]
 }
