@@ -9,294 +9,416 @@
  */
 {
   "sections": {
-    "slideshow_HHheKB": {
-      "type": "slideshow",
+    "custom_hero_slider_QqDGhw": {
+      "type": "custom-hero-slider",
       "blocks": {
-        "slide_yWmabg": {
-          "type": "_slide",
+        "slide_9cWdfk": {
+          "type": "slide",
           "settings": {
-            "media_type_1": "image",
-            "image_1": "shopify://shop_images/model-in-sunglasses-and-summer-clothes.jpg",
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "background_color": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 48,
-            "padding-inline-end": 48
-          },
-          "blocks": {
-            "button_YJeikN": {
-              "type": "button",
-              "settings": {
-                "label": "Shop now",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "button_YJeikN"
-          ]
+            "link": "",
+            "alt_text": ""
+          }
         },
-        "slide_6MXxQq": {
-          "type": "_slide",
+        "slide_FFFxeb": {
+          "type": "slide",
           "settings": {
-            "media_type_1": "image",
-            "image_1": "shopify://shop_images/minimalist-retail-clothing-display.jpg",
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "background_color": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 48,
-            "padding-inline-end": 48
-          },
-          "blocks": {
-            "button_qecNHD": {
-              "type": "button",
-              "settings": {
-                "label": "Shop now",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "button_qecNHD"
-          ]
+            "link": "",
+            "alt_text": ""
+          }
         }
       },
       "block_order": [
-        "slide_yWmabg",
-        "slide_6MXxQq"
+        "slide_9cWdfk",
+        "slide_FFFxeb"
       ],
-      "name": "t:names.slideshow_full_frame",
+      "name": "Custom hero slider",
       "settings": {
-        "display_mode": "full_frame",
-        "section_width": "full-width",
-        "full_frame_on_mobile": false,
-        "slideshow_gap": 12,
-        "corner_radius": 0,
-        "slide_height": "medium",
-        "content_position": "on-media",
-        "background_color": "",
-        "icons_style": "arrows_large",
-        "icons_shape": "none",
-        "slideshow_controls_style": "dots",
-        "autoplay": false,
-        "autoplay_speed": 4,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "accessibility_label": "Featured promotions",
+        "show_arrows": true,
+        "show_pagination": true,
+        "pagination_type": "progress",
+        "autoplay": true,
+        "autoplay_interval": 5000,
+        "transition_speed": 800,
+        "effect": "slide"
       }
     },
-    "collection_list_E8NMDW": {
-      "type": "collection-list",
+    "custom_collection_list_peLCgp": {
+      "type": "custom-collection-list",
       "blocks": {
-        "group_RxXYpU": {
-          "type": "group",
-          "name": "t:names.header",
+        "collection_xzqfeb": {
+          "type": "collection",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_qNJkBW": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h3>Shop by collection</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_qNJkBW"
-          ]
+            "collection": ""
+          }
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "collection_FAAe8e": {
+          "type": "collection",
           "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "collection_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection_title_aDEkCW": {
-              "type": "collection-title",
-              "name": "TOP'S",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": true,
-                "background_color": "#00000026",
-                "text_color": "{{ settings.color_palette.foreground }}",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_aDEkCW"
-          ]
+            "collection": ""
+          }
+        },
+        "collection_jjUtfV": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "collection_KzE4rr": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "collection_LTeQiL": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
         }
       },
       "block_order": [
-        "group_RxXYpU"
+        "collection_xzqfeb",
+        "collection_FAAe8e",
+        "collection_jjUtfV",
+        "collection_KzE4rr",
+        "collection_LTeQiL"
       ],
-      "name": "t:names.collections_editorial",
+      "name": "Custom collection list",
       "settings": {
-        "collection_list": [],
-        "layout_type": "editorial",
-        "carousel_on_mobile": false,
-        "columns": 3,
+        "heading": "Shop by categories",
+        "desktop_columns": 5,
+        "mobile_cards_per_view": "one_peek",
+        "card_gap": 18,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "custom_featured_collection_MGywBY": {
+      "type": "custom-featured-collection",
+      "name": "Custom featured",
+      "settings": {
+        "collection": "",
+        "eyebrow": "Just dropped",
+        "heading": "Fresh off the runway.",
+        "description": "<p>New designs every week — pure cotton, made in Jaipur.</p>",
+        "show_cta": true,
+        "cta_label": "Shop new arrivals",
+        "cta_url": "",
+        "products_to_show": 6,
+        "desktop_columns": 6,
+        "product_gap": 18,
+        "show_rating": true,
+        "animate_wave": false,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48
+      }
+    },
+    "custom_video_banner_3wkMiE": {
+      "type": "custom-video-banner",
+      "blocks": {
+        "eyebrow_3dzbtP": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "New collection — just dropped"
+          }
+        },
+        "heading_8pyHHm": {
+          "type": "heading",
+          "settings": {
+            "text": "Wear what <em>feels like you.</em>"
+          }
+        },
+        "description_RNByE9": {
+          "type": "description",
+          "settings": {
+            "text": "<p>New designs every week — pure cotton, made in Jaipur.</p>"
+          }
+        },
+        "button_WcPnQD": {
+          "type": "button",
+          "settings": {
+            "label": "Explore new arrivals",
+            "url": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_3dzbtP",
+        "heading_8pyHHm",
+        "description_RNByE9",
+        "button_WcPnQD"
+      ],
+      "name": "Custom video banner",
+      "settings": {
+        "accessibility_label": "Featured campaign",
+        "desktop_height": 620,
+        "mobile_height": 560,
+        "desktop_position": "bottom-left",
+        "mobile_position": "bottom-left",
+        "content_width": 560,
+        "overlay_opacity": 40
+      }
+    },
+    "custom_brand_impact_bar_9bKd9H": {
+      "type": "custom-brand-impact-bar",
+      "blocks": {
+        "impact_ehKGya": {
+          "type": "impact",
+          "settings": {
+            "value": "1M+",
+            "label": "Women wearing\nOlecute worldwide"
+          }
+        },
+        "impact_8KHfPH": {
+          "type": "impact",
+          "settings": {
+            "value": "500+",
+            "label": "New designs\nevery year"
+          }
+        },
+        "impact_KgjxH7": {
+          "type": "impact",
+          "settings": {
+            "value": "100%",
+            "label": "Natural fabrics,\nalways"
+          }
+        },
+        "impact_iNwtL8": {
+          "type": "impact",
+          "settings": {
+            "value": "Since 2021",
+            "label": "Born and made\nin Jaipur"
+          }
+        },
+        "marquee_item_wnqgba": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Available everywhere"
+          }
+        },
+        "marquee_item_HqXkJT": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "New drops"
+          }
+        },
+        "marquee_item_gqLW7X": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Every single week"
+          }
+        },
+        "marquee_item_VGdFqt": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Olecute"
+          }
+        },
+        "marquee_item_TbnAX3": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Free worldwide shipping"
+          }
+        },
+        "marquee_item_bg64eg": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "1 million+ happy customers"
+          }
+        },
+        "marquee_item_8VfwMi": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Pure cotton"
+          }
+        },
+        "marquee_item_7ikae9": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Natural fabrics only"
+          }
+        },
+        "marquee_item_kFhdRz": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Designed and made in India"
+          }
+        },
+        "marquee_item_PCqTxM": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "5-day returns"
+          }
+        }
+      },
+      "block_order": [
+        "impact_ehKGya",
+        "impact_8KHfPH",
+        "impact_KgjxH7",
+        "impact_iNwtL8",
+        "marquee_item_wnqgba",
+        "marquee_item_HqXkJT",
+        "marquee_item_gqLW7X",
+        "marquee_item_VGdFqt",
+        "marquee_item_TbnAX3",
+        "marquee_item_bg64eg",
+        "marquee_item_8VfwMi",
+        "marquee_item_7ikae9",
+        "marquee_item_kFhdRz",
+        "marquee_item_PCqTxM"
+      ],
+      "name": "Custom brand impact",
+      "settings": {
+        "accessibility_label": "Our brand impact",
+        "show_stats": true,
+        "show_marquee": true,
+        "desktop_columns": 4,
+        "marquee_speed": 34
+      }
+    },
+    "custom_shopping_experience_JUai3y": {
+      "type": "custom-shopping-experience",
+      "blocks": {
+        "benefit_4EdxNW": {
+          "type": "benefit",
+          "settings": {
+            "icon": "payment",
+            "title": "Cash on Delivery",
+            "description": "Pay when it arrives"
+          }
+        },
+        "benefit_imdFjN": {
+          "type": "benefit",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Human Support",
+            "description": "WhatsApp, always"
+          }
+        },
+        "benefit_KA8Cz4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "globe",
+            "title": "Free Worldwide Shipping",
+            "description": "No minimum order"
+          }
+        },
+        "benefit_RJ8Kd9": {
+          "type": "benefit",
+          "settings": {
+            "icon": "return",
+            "title": "5-Day Easy Returns",
+            "description": "No questions asked"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_4EdxNW",
+        "benefit_imdFjN",
+        "benefit_KA8Cz4",
+        "benefit_RJ8Kd9"
+      ],
+      "name": "Shopping experience",
+      "settings": {
+        "heading": "You are shopping <em>for an experience</em>",
+        "desktop_columns": 4,
         "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "bento_gap": 8,
-        "rows_gap": 8,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 64,
-        "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "heading_gap": 52,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 52,
+        "mobile_padding_bottom": 52
+      }
+    },
+    "custom_brand_difference_tJhj8c": {
+      "type": "custom-brand-difference",
+      "blocks": {
+        "difference_ccX8Jg": {
+          "type": "difference",
+          "settings": {
+            "category": "Fabric",
+            "title": "Nothing synthetic. <em>Ever.</em>",
+            "content": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>"
+          }
+        },
+        "difference_LMmpaB": {
+          "type": "difference",
+          "settings": {
+            "category": "Design",
+            "title": "Fresh drops, <em>every single week</em>",
+            "content": "<p>New silhouettes and thoughtful details arrive often, so there is always something fresh to discover.</p>"
+          }
+        },
+        "difference_QAhfgX": {
+          "type": "difference",
+          "settings": {
+            "category": "Sizing",
+            "title": "Fashion that fits <em>every body</em>",
+            "content": "<p>Comfort-led fits and considered proportions make getting dressed feel effortless.</p>"
+          }
+        },
+        "difference_FmLDBQ": {
+          "type": "difference",
+          "settings": {
+            "category": "Origin",
+            "title": "Designed and made <em>in Jaipur</em>",
+            "content": "<p>Each design is shaped by local craft, color, and generations of textile knowledge.</p>"
+          }
+        },
+        "difference_dxthnq": {
+          "type": "difference",
+          "settings": {
+            "category": "Promise",
+            "title": "5-day returns, <em>no questions asked</em>",
+            "content": "<p>Try it at home and return it simply if it is not quite right for you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "difference_ccX8Jg",
+        "difference_LMmpaB",
+        "difference_QAhfgX",
+        "difference_FmLDBQ",
+        "difference_dxthnq"
+      ],
+      "name": "Custom brand difference",
+      "settings": {
+        "eyebrow": "The Olecute difference",
+        "heading": "Why women choose us, <em>and keep coming back</em>",
+        "description": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>",
+        "padding_top": 88,
+        "mobile_padding_top": 56
+      }
+    },
+    "custom_cta_banner_reqLLT": {
+      "type": "custom-cta-banner",
+      "name": "Custom CTA banner",
+      "settings": {
+        "heading": "Join a million women who've already made the switch",
+        "description": "Pure fabrics. Real fit. Delivered to your door.",
+        "button_label": "Shop new arrivals",
+        "button_link": "shopify://collections/all",
+        "background_color": "#F4B51B",
+        "corner_radius": 12,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32
       }
     }
   },
   "order": [
-    "slideshow_HHheKB",
-    "collection_list_E8NMDW"
+    "custom_hero_slider_QqDGhw",
+    "custom_collection_list_peLCgp",
+    "custom_featured_collection_MGywBY",
+    "custom_video_banner_3wkMiE",
+    "custom_brand_impact_bar_9bKd9H",
+    "custom_shopping_experience_JUai3y",
+    "custom_brand_difference_tJhj8c",
+    "custom_cta_banner_reqLLT"
   ]
 }
