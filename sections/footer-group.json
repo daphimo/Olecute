@@ -86,7 +86,7 @@
         "show_wave": true,
         "wave_height": 85,
         "mobile_wave_height": 48,
-        "animate_wave": false,
+        "animate_wave": true,
         "copyright_text": "All rights reserved.",
         "legal_menu": "",
         "instagram_url": "",

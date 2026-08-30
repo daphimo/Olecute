@@ -523,7 +523,7 @@
         "show_bottom_wave": true,
         "desktop_wave_height": 85,
         "mobile_wave_height": 48,
-        "animate_waves": false,
+        "animate_waves": true,
         "animation_speed": "slow",
         "padding_top": 90,
         "padding_bottom": 90,
