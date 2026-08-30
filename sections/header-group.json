@@ -1,0 +1,204 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header_announcements_9jGBFp": {
+      "type": "header-announcements",
+      "blocks": {
+        "announcement_WtbK8V": {
+          "type": "_announcement",
+          "name": "t:names.announcement",
+          "settings": {
+            "text": "10% DISCOUNT ON ALL PREPAID ORDER!                    ADDITIONAL Rs.50 : CUTE50 ON CHEAKOUT",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none",
+            "text_color": ""
+          },
+          "blocks": {}
+        },
+        "announcement_BxgCk9": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none",
+            "text_color": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_WtbK8V",
+        "announcement_BxgCk9"
+      ],
+      "name": "t:names.announcement_bar",
+      "settings": {
+        "speed": 5,
+        "section_width": "page-width",
+        "background_color": "{{ settings.color_palette.background }}",
+        "divider_width": 1,
+        "divider_color": "{{ settings.color_palette.color2 }}",
+        "padding-block-start": 15,
+        "padding-block-end": 15
+      }
+    },
+    "header_section": {
+      "type": "header",
+      "blocks": {
+        "header-logo": {
+          "type": "_header-logo",
+          "static": true,
+          "settings": {
+            "hide_logo_on_home_page": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0
+          },
+          "blocks": {}
+        },
+        "header-menu": {
+          "type": "_header-menu",
+          "static": true,
+          "settings": {
+            "menu": "main-menu",
+            "background_color": "{{ settings.color_palette.background }}",
+            "text_color": "",
+            "type_font_primary_size": "0.875rem",
+            "menu_font_style": "inverse",
+            "type_font_primary_link": "body",
+            "type_case_primary_link": "none",
+            "menu_style": "featured_products",
+            "featured_products_aspect_ratio": "4 / 5",
+            "featured_collections_aspect_ratio": "16 / 9",
+            "image_border_radius": 0,
+            "navigation_bar": false,
+            "background_color_navigation_bar": "{{ settings.color_palette.background }}",
+            "text_color_navigation_bar": "",
+            "drawer_accordion": false,
+            "drawer_accordion_expand_first": false,
+            "drawer_dividers": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "logo_position": "left",
+        "menu_position": "left",
+        "menu_row": "top",
+        "customer_account_menu": "customer-account-main-menu",
+        "show_search": true,
+        "search_position": "right",
+        "search_row": "top",
+        "show_country": true,
+        "country_selector_style": true,
+        "show_language": true,
+        "localization_font": "heading",
+        "localization_font_size": "0.875rem",
+        "localization_position": "right",
+        "localization_row": "top",
+        "section_width": "page-width",
+        "section_height": "standard",
+        "enable_sticky_header": "always",
+        "divider_width": 0,
+        "divider_size": "page-width",
+        "divider_color": "",
+        "border_width": 0,
+        "bottom_border_color": "",
+        "actions_display_style": "icon",
+        "actions_font_size": "0.875rem",
+        "actions_font": "body",
+        "actions_text_case": "none",
+        "background_color_top": "{{ settings.color_palette.background }}",
+        "text_color_top": "",
+        "background_color_bottom": "",
+        "text_color_bottom": "",
+        "bubble_style": "default",
+        "bubble_background_color": "",
+        "bubble_text_color": "",
+        "enable_transparent_header_home": true,
+        "home_inverse_logo": true,
+        "text_color_transparent_home": "",
+        "enable_transparent_header_product": true,
+        "product_inverse_logo": false,
+        "text_color_transparent_product": "",
+        "enable_transparent_header_collection": true,
+        "collection_inverse_logo": false,
+        "text_color_transparent_collection": ""
+      }
+    },
+    "17869756819a57090f": {
+      "type": "_blocks",
+      "blocks": {
+        "forms_inline_VG3t6V": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_VG3t6V"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    }
+  },
+  "order": [
+    "header_announcements_9jGBFp",
+    "header_section",
+    "17869756819a57090f"
+  ]
+}
