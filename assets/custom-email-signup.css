@@ -1,4 +1,5 @@
 .custom-email-signup {
+  margin-block: var(--email-signup-margin-top, 0) var(--email-signup-margin-bottom, 0);
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -180,19 +181,6 @@
   color: color-mix(in srgb, var(--brand-primary-dark) 68%, transparent);
   font-size: .75rem;
   line-height: 1.5;
-}
-
-.custom-email-signup--animated .custom-email-signup__wave--top .custom-email-signup__wave-shape {
-  animation: custom-email-signup-wave var(--email-signup-wave-duration, 28s) ease-in-out infinite alternate;
-}
-
-.custom-email-signup--animated .custom-email-signup__wave--bottom .custom-email-signup__wave-shape {
-  animation: custom-email-signup-wave var(--email-signup-wave-duration, 28s) ease-in-out infinite alternate-reverse;
-}
-
-@keyframes custom-email-signup-wave {
-  from { transform: translateX(-1.5%) scaleX(1.03); }
-  to { transform: translateX(1.5%) scaleX(1.01); }
 }
 
 @media (max-width: 749px) {

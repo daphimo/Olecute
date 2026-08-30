@@ -1,0 +1,336 @@
+{% liquid
+  assign normalized_number = section.settings.whatsapp_number | remove: ' ' | remove: '+' | remove: '-' | remove: '(' | remove: ')' | remove: '.'
+
+  capture whatsapp_message
+    if product
+      echo section.settings.product_message
+      echo ': '
+      echo product.title
+      if section.settings.include_product_url
+        echo ' — '
+        echo canonical_url
+      endif
+    else
+      echo section.settings.default_message
+    endif
+  endcapture
+
+  assign encoded_message = whatsapp_message | strip | url_encode
+
+  case section.settings.shadow_intensity
+    when 'light'
+      assign shadow_strength = '10%'
+    when 'strong'
+      assign shadow_strength = '22%'
+    else
+      assign shadow_strength = '16%'
+  endcase
+%}
+
+{% if section.settings.enable_widget and normalized_number != blank %}
+  <custom-whatsapp-widget
+    class="custom-whatsapp-widget"
+    data-section-id="{{ section.id }}"
+    data-open-automatically="{{ section.settings.open_automatically }}"
+    data-whatsapp-number="{{ section.settings.whatsapp_number | escape }}"
+    data-whatsapp-message="{{ whatsapp_message | strip | escape }}"
+    style="
+      --custom-whatsapp-size: {{ section.settings.button_size }}px;
+      --custom-whatsapp-icon-size: {{ section.settings.icon_size }}px;
+      --custom-whatsapp-popup-width: {{ section.settings.popup_width }}px;
+      --custom-whatsapp-popup-radius: {{ section.settings.popup_radius }}px;
+      --custom-whatsapp-popup-gap: {{ section.settings.popup_gap }}px;
+      --custom-whatsapp-cta-radius: {{ section.settings.cta_radius }}px;
+      --custom-whatsapp-desktop-bottom: {{ section.settings.desktop_bottom }}px;
+      --custom-whatsapp-desktop-right: {{ section.settings.desktop_right }}px;
+      --custom-whatsapp-mobile-bottom: {{ section.settings.mobile_bottom }}px;
+      --custom-whatsapp-mobile-right: {{ section.settings.mobile_right }}px;
+      --custom-whatsapp-pulse-duration: {{ section.settings.pulse_duration }}s;
+      --custom-whatsapp-popup-duration: {{ section.settings.popup_duration }}ms;
+      --custom-whatsapp-shadow-strength: {{ shadow_strength }};
+      --custom-whatsapp-status-color: {{ section.settings.status_dot_color }};
+    "
+    {{ section.shopify_attributes }}
+  >
+    <div
+      id="CustomWhatsAppPopup-{{ section.id }}"
+      class="custom-whatsapp-widget__popup"
+      role="dialog"
+      aria-label="WhatsApp contact"
+      aria-hidden="true"
+      inert
+    >
+      {% if section.settings.enable_status and section.settings.status_text != blank %}
+        <p class="custom-whatsapp-widget__status">
+          {% if section.settings.show_status_dot %}<span class="custom-whatsapp-widget__status-dot" aria-hidden="true"></span>{% endif %}
+          <span>{{ section.settings.status_text | escape }}</span>
+        </p>
+      {% endif %}
+
+      {% if section.settings.popup_message != blank %}
+        <div class="custom-whatsapp-widget__message">{{ section.settings.popup_message | escape | newline_to_br }}</div>
+      {% endif %}
+
+      <a
+        class="custom-whatsapp-widget__cta"
+        href="https://wa.me/{{ normalized_number | escape }}?text={{ encoded_message }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12.04 2.25a9.55 9.55 0 0 0-8.2 14.44L2.5 21.75l5.18-1.36a9.56 9.56 0 1 0 4.36-18.14Zm0 17.48a7.9 7.9 0 0 1-4.03-1.1l-.29-.18-3.07.81.82-2.99-.2-.3a7.92 7.92 0 1 1 6.77 3.76Zm4.34-5.94c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.54.12-.16.24-.61.77-.75.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.91-1.18a7.17 7.17 0 0 1-1.32-1.64c-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.58.18 1.1.16 1.51.1.46-.07 1.4-.58 1.6-1.13.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+        </svg>
+        <span>{{ section.settings.button_label | escape }}</span>
+      </a>
+    </div>
+
+    <button
+      class="custom-whatsapp-widget__toggle{% unless section.settings.enable_pulse %} custom-whatsapp-widget__toggle--no-pulse{% endunless %}"
+      type="button"
+      aria-label="Open WhatsApp chat"
+      aria-expanded="false"
+      aria-controls="CustomWhatsAppPopup-{{ section.id }}"
+    >
+      <span class="custom-whatsapp-widget__toggle-icon custom-whatsapp-widget__toggle-icon--whatsapp">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12.04 2.25a9.55 9.55 0 0 0-8.2 14.44L2.5 21.75l5.18-1.36a9.56 9.56 0 1 0 4.36-18.14Zm0 17.48a7.9 7.9 0 0 1-4.03-1.1l-.29-.18-3.07.81.82-2.99-.2-.3a7.92 7.92 0 1 1 6.77 3.76Zm4.34-5.94c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.54.12-.16.24-.61.77-.75.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.91-1.18a7.17 7.17 0 0 1-1.32-1.64c-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.58.18 1.1.16 1.51.1.46-.07 1.4-.58 1.6-1.13.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+        </svg>
+      </span>
+      <span class="custom-whatsapp-widget__toggle-icon custom-whatsapp-widget__toggle-icon--close">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <path d="m7 7 10 10M17 7 7 17"/>
+        </svg>
+      </span>
+    </button>
+  </custom-whatsapp-widget>
+
+  <script>
+    (() => {
+      if (customElements.get('custom-whatsapp-widget')) return;
+
+      class CustomWhatsAppWidget extends HTMLElement {
+        connectedCallback() {
+          if (this.isReady) return;
+          this.isReady = true;
+          this.toggle = this.querySelector('.custom-whatsapp-widget__toggle');
+          this.popup = this.querySelector('.custom-whatsapp-widget__popup');
+          this.cta = this.querySelector('.custom-whatsapp-widget__cta');
+          const phone = (this.dataset.whatsappNumber || '').replace(/\D/g, '');
+          if (this.cta && phone) {
+            this.cta.href = `https://wa.me/${phone}?text=${encodeURIComponent(this.dataset.whatsappMessage || '')}`;
+          }
+          this.handleToggle = () => this.setOpen(!this.classList.contains('is-open'));
+          this.handleKeydown = (event) => {
+            if (event.key === 'Escape' && this.classList.contains('is-open')) {
+              this.setOpen(false);
+              this.toggle.focus();
+            }
+          };
+          this.toggle?.addEventListener('click', this.handleToggle);
+          this.addEventListener('keydown', this.handleKeydown);
+
+          const storageKey = `custom-whatsapp-opened-${this.dataset.sectionId}`;
+          if (this.dataset.openAutomatically === 'true' && sessionStorage.getItem(storageKey) !== 'true') {
+            requestAnimationFrame(() => this.setOpen(true));
+            sessionStorage.setItem(storageKey, 'true');
+          }
+        }
+
+        disconnectedCallback() {
+          this.toggle?.removeEventListener('click', this.handleToggle);
+          this.removeEventListener('keydown', this.handleKeydown);
+          this.isReady = false;
+        }
+
+        setOpen(open) {
+          this.classList.toggle('is-open', open);
+          this.toggle?.setAttribute('aria-expanded', String(open));
+          this.toggle?.setAttribute('aria-label', open ? 'Close WhatsApp chat' : 'Open WhatsApp chat');
+          this.popup?.setAttribute('aria-hidden', String(!open));
+          this.popup?.toggleAttribute('inert', !open);
+        }
+      }
+
+      customElements.define('custom-whatsapp-widget', CustomWhatsAppWidget);
+    })();
+  </script>
+{% endif %}
+
+{% stylesheet %}
+    .custom-whatsapp-widget {
+      --custom-whatsapp-green: #25d366;
+      position: fixed;
+      z-index: var(--layer-sticky, 10);
+      right: var(--custom-whatsapp-desktop-right);
+      bottom: var(--custom-whatsapp-desktop-bottom);
+      display: block;
+      font-family: var(--font-body--family);
+    }
+
+    .custom-whatsapp-widget__toggle {
+      position: relative;
+      display: grid;
+      width: max(44px, var(--custom-whatsapp-size));
+      height: max(44px, var(--custom-whatsapp-size));
+      padding: 0;
+      place-items: center;
+      border: 5px solid var(--brand-background);
+      border-radius: 50%;
+      color: var(--brand-white);
+      background: var(--custom-whatsapp-green);
+      box-shadow: 0 0 0 1px var(--brand-border), 0 10px 28px color-mix(in srgb, var(--brand-primary-dark) 18%, transparent);
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .custom-whatsapp-widget__toggle::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: -6px;
+      border: 1px solid color-mix(in srgb, var(--brand-accent-yellow) 55%, transparent);
+      border-radius: 50%;
+      opacity: .42;
+      animation: custom-whatsapp-pulse var(--custom-whatsapp-pulse-duration) ease-out infinite;
+      pointer-events: none;
+    }
+
+    .custom-whatsapp-widget__toggle--no-pulse::after,
+    .custom-whatsapp-widget.is-open .custom-whatsapp-widget__toggle::after { animation: none; opacity: 0; }
+    .custom-whatsapp-widget.is-open .custom-whatsapp-widget__toggle { background: var(--brand-primary-dark); }
+
+    .custom-whatsapp-widget__toggle-icon {
+      position: absolute;
+      display: grid;
+      width: var(--custom-whatsapp-icon-size);
+      height: var(--custom-whatsapp-icon-size);
+      place-items: center;
+      transition: opacity 240ms ease, transform 240ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .custom-whatsapp-widget__toggle-icon svg { display: block; width: 100%; height: 100%; }
+    .custom-whatsapp-widget__toggle-icon--whatsapp svg { fill: currentcolor; }
+    .custom-whatsapp-widget__toggle-icon--close { opacity: 0; transform: rotate(-70deg) scale(.65); }
+    .custom-whatsapp-widget__toggle-icon--close svg { fill: none; stroke: currentcolor; stroke-linecap: round; stroke-width: 1.7; }
+    .custom-whatsapp-widget.is-open .custom-whatsapp-widget__toggle-icon--whatsapp { opacity: 0; transform: rotate(55deg) scale(.65); }
+    .custom-whatsapp-widget.is-open .custom-whatsapp-widget__toggle-icon--close { opacity: 1; transform: rotate(0) scale(1); }
+
+    .custom-whatsapp-widget__popup {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + var(--custom-whatsapp-popup-gap));
+      width: min(var(--custom-whatsapp-popup-width), calc(100vw - 32px));
+      padding: 17px;
+      visibility: hidden;
+      border: 1px solid var(--brand-border);
+      border-radius: var(--custom-whatsapp-popup-radius);
+      opacity: 0;
+      color: var(--brand-text);
+      background: var(--brand-background);
+      box-shadow: 0 16px 42px color-mix(in srgb, var(--brand-primary-dark) var(--custom-whatsapp-shadow-strength), transparent);
+      transform: translateY(10px) scale(.96);
+      transform-origin: bottom right;
+      transition: opacity var(--custom-whatsapp-popup-duration) ease, transform var(--custom-whatsapp-popup-duration) cubic-bezier(.22, 1, .36, 1), visibility var(--custom-whatsapp-popup-duration);
+    }
+
+    .custom-whatsapp-widget.is-open .custom-whatsapp-widget__popup { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
+
+    .custom-whatsapp-widget__status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0 0 8px;
+      color: var(--brand-accent-yellow);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .custom-whatsapp-widget__status-dot { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: var(--custom-whatsapp-status-color); }
+    .custom-whatsapp-widget__message { margin-bottom: 14px; color: var(--brand-primary-dark); font-family: var(--font-heading--family); font-size: 1rem; font-style: italic; line-height: 1.35; }
+    .custom-whatsapp-widget__cta { display: flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; padding: 9px 13px; border-radius: var(--custom-whatsapp-cta-radius); color: var(--brand-white); background: var(--custom-whatsapp-green); font-size: .68rem; font-weight: 700; letter-spacing: .12em; line-height: 1.2; text-align: center; text-decoration: none; text-transform: uppercase; transition: filter 180ms ease, transform 180ms ease; }
+    .custom-whatsapp-widget__cta svg { width: 17px; height: 17px; flex: 0 0 17px; fill: currentcolor; }
+    .custom-whatsapp-widget__cta:hover { filter: brightness(.92); transform: translateY(-1px); }
+    .custom-whatsapp-widget__cta:active { transform: translateY(0); }
+    .custom-whatsapp-widget :is(.custom-whatsapp-widget__toggle, .custom-whatsapp-widget__cta):focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 3px; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .custom-whatsapp-widget__toggle:hover { transform: scale(1.03); box-shadow: 0 0 0 1px var(--brand-border), 0 13px 32px color-mix(in srgb, var(--brand-primary-dark) 22%, transparent); }
+    }
+
+    @media (max-width: 749px) {
+      .custom-whatsapp-widget {
+        right: var(--custom-whatsapp-mobile-right);
+        bottom: calc(var(--custom-whatsapp-mobile-bottom) + env(safe-area-inset-bottom, 0px));
+      }
+      .custom-whatsapp-widget__popup { width: min(var(--custom-whatsapp-popup-width), calc(100vw - (var(--custom-whatsapp-mobile-right) * 2))); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .custom-whatsapp-widget__toggle::after { animation: none; opacity: 0; }
+      .custom-whatsapp-widget__toggle,
+      .custom-whatsapp-widget__toggle-icon,
+      .custom-whatsapp-widget__popup,
+      .custom-whatsapp-widget__cta { transition-duration: .01ms; }
+      .custom-whatsapp-widget__popup { transform: none; }
+    }
+
+    @keyframes custom-whatsapp-pulse {
+      0% { opacity: .42; transform: scale(.95); }
+      55% { opacity: .18; transform: scale(1.16); }
+      100% { opacity: 0; transform: scale(1.36); }
+    }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Custom WhatsApp widget",
+  "tag": "section",
+  "class": "custom-whatsapp-widget-section",
+  "settings": [
+    { "type": "header", "content": "General" },
+    { "type": "checkbox", "id": "enable_widget", "label": "Enable widget", "default": true },
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp phone number", "info": "Include the country code. Formatting characters are removed automatically.", "default": "919876543210" },
+    { "type": "checkbox", "id": "open_automatically", "label": "Open widget automatically", "default": false },
+
+    { "type": "header", "content": "Status" },
+    { "type": "checkbox", "id": "enable_status", "label": "Show status", "default": true },
+    { "type": "text", "id": "status_text", "label": "Status text", "default": "CURRENTLY OFFLINE", "visible_if": "{{ section.settings.enable_status }}" },
+    { "type": "checkbox", "id": "show_status_dot", "label": "Show status dot", "default": true, "visible_if": "{{ section.settings.enable_status }}" },
+    { "type": "color", "id": "status_dot_color", "label": "Status dot color", "default": "#25D366", "visible_if": "{{ section.settings.enable_status and section.settings.show_status_dot }}" },
+
+    { "type": "header", "content": "Messages" },
+    { "type": "textarea", "id": "popup_message", "label": "Popup message", "default": "Leave a message — we'll reply by 10 AM." },
+    { "type": "textarea", "id": "default_message", "label": "Default WhatsApp message", "default": "Hello, I have a query." },
+    { "type": "textarea", "id": "product_message", "label": "Product page message", "default": "I have a query on this product" },
+    { "type": "checkbox", "id": "include_product_url", "label": "Include product URL in message", "default": true },
+
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "button_label", "label": "WhatsApp button label", "default": "CHAT ON WHATSAPP" },
+    { "type": "range", "id": "button_size", "label": "Floating button size", "min": 48, "max": 76, "step": 2, "unit": "px", "default": 58 },
+    { "type": "range", "id": "icon_size", "label": "Floating icon size", "min": 20, "max": 38, "step": 2, "unit": "px", "default": 28 },
+    { "type": "range", "id": "cta_radius", "label": "CTA corner radius", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 4 },
+
+    { "type": "header", "content": "Popup" },
+    { "type": "range", "id": "popup_width", "label": "Popup width", "min": 215, "max": 300, "step": 5, "unit": "px", "default": 250 },
+    { "type": "range", "id": "popup_radius", "label": "Popup corner radius", "min": 4, "max": 24, "step": 2, "unit": "px", "default": 14 },
+    { "type": "range", "id": "popup_gap", "label": "Popup spacing from button", "min": 8, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "select", "id": "shadow_intensity", "label": "Shadow intensity", "options": [{ "value": "light", "label": "Light" }, { "value": "medium", "label": "Medium" }, { "value": "strong", "label": "Strong" }], "default": "medium" },
+
+    { "type": "header", "content": "Position" },
+    { "type": "range", "id": "desktop_bottom", "label": "Desktop bottom spacing", "min": 12, "max": 160, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "desktop_right", "label": "Desktop right spacing", "min": 12, "max": 120, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "mobile_bottom", "label": "Mobile bottom spacing", "min": 12, "max": 180, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "mobile_right", "label": "Mobile right spacing", "min": 12, "max": 48, "step": 2, "unit": "px", "default": 18 },
+
+    { "type": "header", "content": "Animation" },
+    { "type": "checkbox", "id": "enable_pulse", "label": "Enable pulse animation", "default": true },
+    { "type": "range", "id": "pulse_duration", "label": "Pulse duration", "min": 2, "max": 6, "step": 0.5, "unit": "s", "default": 3 },
+    { "type": "range", "id": "popup_duration", "label": "Popup animation duration", "min": 150, "max": 500, "step": 25, "unit": "ms", "default": 300 }
+  ],
+  "presets": [{ "name": "Custom WhatsApp widget" }]
+}
+{% endschema %}

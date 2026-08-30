@@ -1,4 +1,4 @@
-.custom-brand-difference { display: block; overflow: hidden; color: var(--brand-text); background: var(--brand-background); }
+.custom-brand-difference { display: block; overflow: hidden; margin-block: var(--custom-difference-margin-top, 0) var(--custom-difference-margin-bottom, 0); color: var(--brand-text); background: var(--brand-background); }
 .custom-brand-difference__intro { width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); margin-inline: auto; padding-block: var(--custom-difference-padding-top) clamp(48px, 7vw, 96px); }
 .custom-brand-difference__eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 clamp(24px, 4vw, 50px); color: var(--brand-primary); font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
 .custom-brand-difference__eyebrow::before { content: ''; width: 32px; height: 1px; background: currentcolor; }
@@ -19,7 +19,7 @@
 .custom-brand-difference__panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 340ms cubic-bezier(.22,1,.36,1), opacity 260ms ease; }
 .custom-brand-difference__item.is-active .custom-brand-difference__panel { grid-template-rows: 1fr; opacity: 1; }
 .custom-brand-difference__panel-overflow { min-height: 0; overflow: hidden; }
-.custom-brand-difference__panel-inner { display: grid; grid-template-columns: clamp(90px, 13vw, 210px) minmax(260px, .9fr) minmax(320px, 1.1fr); width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); min-height: 250px; align-items: stretch; gap: clamp(16px, 3vw, 48px); margin-inline: auto; }
+.custom-brand-difference__panel-inner { display: grid; grid-template-columns: clamp(90px, 13vw, 210px) minmax(260px, .9fr) minmax(320px, 1.1fr); width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); align-items: stretch; gap: clamp(16px, 3vw, 48px); margin-inline: auto; }
 .custom-brand-difference__copy { grid-column: 2; align-self: start; max-width: 52ch; padding: 4px 0 48px; color: var(--brand-text-secondary); line-height: 1.65; }
 .custom-brand-difference__copy > * { margin: 0; }
 .custom-brand-difference__media { position: relative; grid-column: 3; min-width: 0; overflow: hidden; opacity: 0; transform: translateX(14px); transition: opacity 320ms ease 60ms, transform 400ms cubic-bezier(.22,1,.36,1) 60ms; }

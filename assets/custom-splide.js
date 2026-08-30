@@ -21,6 +21,15 @@
         ? '<span class="custom-splide__dot"></span><svg class="custom-splide__ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>'
         : '<span class="custom-splide__bar"><span></span></span>';
     });
+    updateTestimonialsProgress(splide, element);
+  }
+
+  function updateTestimonialsProgress(splide, element) {
+    if (!element.classList.contains('custom-testimonials')) return;
+    const items = splide.Components.Pagination?.items || [];
+    const activeIndex = items.findIndex(({ button }) => button.classList.contains('is-active'));
+    const progress = items.length ? ((Math.max(activeIndex, 0) + 1) / items.length) * 100 : 0;
+    element.style.setProperty('--custom-testimonials-progress', `${progress}%`);
   }
 
   function restartProgress(element, autoplay) {
@@ -37,7 +46,10 @@
       const options = optionsFor(element);
       const splide = new window.Splide(element, options);
       splide.on('pagination:mounted pagination:updated', () => decoratePagination(splide, element));
-      splide.on('mounted moved', () => restartProgress(element, Boolean(options.autoplay)));
+      splide.on('mounted moved', () => {
+        restartProgress(element, Boolean(options.autoplay));
+        updateTestimonialsProgress(splide, element);
+      });
       splide.on('autoplay:play', () => {
         element.classList.remove('custom-splide--paused');
         if (!element.querySelector('.custom-splide__progressing')) restartProgress(element, true);

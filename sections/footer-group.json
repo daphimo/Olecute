@@ -11,189 +11,96 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "footer_m9NzUG": {
-      "type": "footer",
+    "custom_footer_ckVqaR": {
+      "type": "custom-footer",
       "blocks": {
-        "group_H6VpwJ": {
-          "type": "group",
+        "menu_column_cickBV": {
+          "type": "menu_column",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 6,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_LWt8Pz": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Join our email list</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "text_f9CFLH": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_LWt8Pz",
-            "text_f9CFLH"
-          ]
+            "heading": "SHOP",
+            "menu": "",
+            "show_contact": false,
+            "whatsapp_label": "WHATSAPP",
+            "whatsapp_number": "",
+            "email_label": "EMAIL",
+            "email": "",
+            "store_hours_label": "STORE HOURS",
+            "store_hours": ""
+          }
         },
-        "email_signup_crihX7": {
-          "type": "email-signup",
+        "menu_column_wDktVV": {
+          "type": "menu_column",
           "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "heading_preset": "h3",
-            "border_style": "all",
-            "input_style": "custom",
-            "border_width": 1,
-            "border_radius": 100,
-            "input_background_color": "{{ settings.color_palette.background }}",
-            "input_text_color": "{{ settings.color_palette.color1 }}",
-            "input_border_color": "{{ settings.color_palette.color2 }}",
-            "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
-            "label": "Sign up",
-            "integrated_button": true,
-            "button_type_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "INFORMATION",
+            "menu": "",
+            "show_contact": false,
+            "whatsapp_label": "WHATSAPP",
+            "whatsapp_number": "",
+            "email_label": "EMAIL",
+            "email": "",
+            "store_hours_label": "STORE HOURS",
+            "store_hours": ""
+          }
+        },
+        "menu_column_wbbbgz": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "POLICIES",
+            "menu": "",
+            "show_contact": false,
+            "whatsapp_label": "WHATSAPP",
+            "whatsapp_number": "",
+            "email_label": "EMAIL",
+            "email": "",
+            "store_hours_label": "STORE HOURS",
+            "store_hours": ""
+          }
+        },
+        "menu_column_WndLaW": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "CUSTOMER CARE",
+            "menu": "",
+            "show_contact": true,
+            "whatsapp_label": "WHATSAPP",
+            "whatsapp_number": "",
+            "email_label": "EMAIL",
+            "email": "",
+            "store_hours_label": "STORE HOURS",
+            "store_hours": ""
+          }
         }
       },
       "block_order": [
-        "group_H6VpwJ",
-        "email_signup_crihX7"
+        "menu_column_cickBV",
+        "menu_column_wDktVV",
+        "menu_column_wbbbgz",
+        "menu_column_WndLaW"
       ],
-      "name": "t:names.footer",
+      "name": "Custom footer",
       "settings": {
-        "section_width": "page-width",
-        "gap": 20,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 30,
-        "padding-block-end": 30
-      }
-    },
-    "footer_utilities_jLGE8U": {
-      "type": "footer-utilities",
-      "blocks": {
-        "footer_copyright_jweRK8": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_VCdnpa": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "social_links_Ew63Kq": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com/",
-            "instagram_url": "https://www.instagram.com/",
-            "youtube_url": "https://www.youtube.com/",
-            "tiktok_url": "https://www.tiktok.com/",
-            "twitter_url": "https://x.com/"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "footer_copyright_jweRK8",
-        "footer_policy_list_VCdnpa",
-        "social_links_Ew63Kq"
-      ],
-      "name": "t:names.utilities",
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "divider_color": "{{ settings.color_palette.color2 }}",
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 20,
-        "padding-block-end": 48
+        "background_color": "#f8edf2",
+        "logo_width": 180,
+        "brand_description": "<p>Thoughtfully made pieces designed to feel as beautiful as they look — inside and out.</p>",
+        "secondary_tagline": "<p>Indian soul.<br/>Modern spirit.</p>",
+        "show_wave": true,
+        "wave_height": 85,
+        "mobile_wave_height": 48,
+        "animate_wave": true,
+        "copyright_text": "All rights reserved.",
+        "legal_menu": "",
+        "instagram_url": "",
+        "facebook_url": "",
+        "pinterest_url": "",
+        "youtube_url": "",
+        "padding_top": 70,
+        "padding_bottom": 48,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 40
       }
     }
   },
   "order": [
-    "footer_m9NzUG",
-    "footer_utilities_jLGE8U"
+    "custom_footer_ckVqaR"
   ]
 }

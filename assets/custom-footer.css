@@ -1,7 +1,6 @@
 .custom-footer { display:block; width:100%; overflow:hidden; color:var(--brand-text); }
-.custom-footer__wave { width:100%; height:var(--custom-footer-wave-height,85px); overflow:hidden; color:var(--custom-footer-bg,var(--brand-background-secondary)); line-height:0; pointer-events:none; }
-.custom-footer__wave svg { display:block; width:106%; height:100%; margin-left:-3%; overflow:visible; fill:currentColor; }
-.custom-footer__wave-shape { transform-origin:center; }
+.custom-footer__wave { width:100%; height:var(--custom-footer-wave-height,85px); overflow:hidden; color:var(--brand-white,#fff); line-height:0; pointer-events:none; }
+.custom-footer__wave svg { display:block; width:100%; height:100%; fill:currentColor; }
 .custom-footer__body { background:var(--custom-footer-bg,var(--brand-background-secondary)); }
 .custom-footer__inner { width:min(calc(100% - clamp(32px,7vw,112px)),var(--page-width,1600px)); margin-inline:auto; padding-block:var(--custom-footer-padding-top,70px) var(--custom-footer-padding-bottom,48px); }
 .custom-footer__intro { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr); align-items:end; gap:clamp(40px,8vw,140px); padding-bottom:clamp(42px,6vw,72px); border-bottom:1px solid color-mix(in srgb,var(--brand-primary-dark) 14%,transparent); }
@@ -40,12 +39,9 @@
 .custom-footer__legal { justify-self:end; }
 .custom-footer__legal ul { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px 18px; margin:0; padding:0; list-style:none; }
 .custom-footer__legal a { font-size:.72rem; }
-.custom-footer--wave-animated .custom-footer__wave-shape { animation:custom-footer-wave 28s ease-in-out infinite alternate; }
-@keyframes custom-footer-wave { from { transform:translateX(-1.5%) scaleX(1.03); } to { transform:translateX(1.5%) scaleX(1.01); } }
 
 @media (max-width:749px) {
   .custom-footer__wave { height:var(--custom-footer-wave-height-mobile,48px); }
-  .custom-footer__wave svg { width:122%; margin-left:-11%; }
   .custom-footer__inner { width:calc(100% - 32px); padding-block:var(--custom-footer-padding-top-mobile,56px) var(--custom-footer-padding-bottom-mobile,40px); }
   .custom-footer__intro { display:block; padding-bottom:38px; text-align:center; }
   .custom-footer__brand { margin-inline:auto; }
@@ -77,6 +73,5 @@
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .custom-footer__wave-shape { animation:none!important; }
   .custom-footer__accordion-line--vertical,.custom-footer__menu-content,.custom-footer__links a,.custom-footer__contact a,.custom-footer__legal a,.custom-footer__social a { transition:none; }
 }

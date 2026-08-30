@@ -1,6 +1,7 @@
 .custom-brand-impact {
   --custom-impact-columns: 4;
   --custom-impact-marquee-duration: 34s;
+  margin-block: var(--custom-impact-margin-top, 0) var(--custom-impact-margin-bottom, 0);
   overflow: hidden;
   color: var(--brand-primary-dark);
   background: var(--brand-background-secondary);

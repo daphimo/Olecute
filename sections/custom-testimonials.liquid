@@ -44,6 +44,8 @@
     --custom-testimonials-padding-bottom: {{ section.settings.padding_bottom }}px;
     --custom-testimonials-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
     --custom-testimonials-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    --custom-testimonials-margin-top: {{ section.settings.margin_top }}px;
+    --custom-testimonials-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
   aria-label="Customer testimonials"
 >
@@ -144,7 +146,7 @@
     { "type": "text", "id": "trust_text", "label": "Trust text", "default": "Trusted by 1 Million+ women across India" },
     { "type": "range", "id": "desktop_cards", "label": "Desktop cards per view", "min": 2, "max": 5, "step": 1, "default": 4 },
     { "type": "range", "id": "desktop_gap", "label": "Desktop gap", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 18 },
-    { "type": "range", "id": "mobile_cards", "label": "Mobile cards per view", "min": 1, "max": 2, "step": 1, "default": 1 },
+    { "type": "range", "id": "mobile_cards", "label": "Mobile cards per view", "min": 1, "max": 3, "step": 1, "default": 1 },
     { "type": "range", "id": "mobile_gap", "label": "Mobile gap", "min": 8, "max": 28, "step": 2, "unit": "px", "default": 14 },
     { "type": "checkbox", "id": "autoplay", "label": "Enable autoplay", "default": false },
     { "type": "range", "id": "autoplay_interval", "label": "Autoplay interval", "min": 3000, "max": 9000, "step": 500, "unit": "ms", "default": 5000, "visible_if": "{{ section.settings.autoplay }}" },
@@ -153,7 +155,10 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 80 },
     { "type": "header", "content": "Mobile spacing" },
     { "type": "range", "id": "mobile_padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 },
-    { "type": "range", "id": "mobile_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [{ "name": "Custom testimonials", "blocks": [{ "type": "testimonial" },{ "type": "testimonial" },{ "type": "testimonial" },{ "type": "testimonial" },{ "type": "testimonial" }] }]
 }

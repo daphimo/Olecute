@@ -6,6 +6,8 @@
   style="
     --custom-difference-padding-top: {{ section.settings.padding_top }}px;
     --custom-difference-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+    --custom-difference-margin-top: {{ section.settings.margin_top }}px;
+    --custom-difference-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
 >
   <section class="custom-brand-difference__intro" aria-labelledby="DifferenceHeading-{{ section.id }}">
@@ -90,7 +92,10 @@
     { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Why women choose us, <em>and keep coming back</em>" },
     { "type": "richtext", "id": "description", "label": "Description", "default": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>" },
     { "type": "range", "id": "padding_top", "label": "Desktop padding top", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 88 },
-    { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     {

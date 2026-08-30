@@ -1,4 +1,4 @@
-.custom-featured-collection { --custom-featured-columns: 6; --custom-featured-gap: 18px; position: relative; overflow: hidden; color: var(--brand-text); background: var(--brand-background); }
+.custom-featured-collection { --custom-featured-columns: 6; --custom-featured-gap: 18px; position: relative; overflow: hidden; margin-block: var(--custom-featured-margin-top, 0) var(--custom-featured-margin-bottom, 0); color: var(--brand-text); background: var(--brand-background); }
 .custom-featured-collection__panel { padding-block: var(--custom-featured-padding-top) calc(var(--custom-featured-padding-bottom) + 20px); background: var(--brand-background-secondary); }
 .custom-featured-collection__inner { width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); margin-inline: auto; }
 .custom-featured-collection__header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 32px; margin-bottom: clamp(32px, 5vw, 64px); }
@@ -30,10 +30,8 @@
 .custom-product-card:is(:hover,:focus-within) .custom-product-card__quick-add { opacity: 1; transform: translateY(0); }
 .custom-product-card:hover .custom-product-card__image--secondary { opacity: 1; }
 .custom-product-card:hover .custom-product-card__image--primary:has(+ .custom-product-card__image--secondary) { opacity: 0; }
-.custom-featured-collection__wave { display: block; width: 200%; height: clamp(24px,4vw,54px); margin-top: -1px; color: var(--brand-background-secondary); }
+.custom-featured-collection__wave { display: block; width: 100%; height: clamp(24px,4vw,54px); margin-top: -1px; color: var(--brand-background-secondary); }
 .custom-featured-collection__wave path { fill: currentcolor; }
-.custom-featured-collection--wave-animated .custom-featured-collection__wave { animation: custom-featured-wave 12s linear infinite; }
-@keyframes custom-featured-wave { to { transform: translateX(-50%); } }
 .custom-featured-collection :is(a,button):focus-visible { outline: 2px solid var(--brand-accent-pink); outline-offset: 3px; }
 
 .quick-add-modal.custom-overlay-cursor { cursor: auto; }

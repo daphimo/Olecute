@@ -5,6 +5,8 @@
   style="
     --custom-impact-columns: {{ section.settings.desktop_columns }};
     --custom-impact-marquee-duration: {{ section.settings.marquee_speed }}s;
+    --custom-impact-margin-top: {{ section.settings.margin_top }}px;
+    --custom-impact-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
   aria-label="{{ section.settings.accessibility_label | escape }}"
 >
@@ -72,7 +74,10 @@
     { "type": "checkbox", "id": "show_stats", "label": "Show impact statistics", "default": true },
     { "type": "checkbox", "id": "show_marquee", "label": "Show marquee", "default": true },
     { "type": "range", "id": "desktop_columns", "label": "Desktop columns", "min": 2, "max": 4, "step": 1, "default": 4 },
-    { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "info": "Lower values move faster.", "min": 15, "max": 60, "step": 1, "unit": "s", "default": 34 }
+    { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "info": "Lower values move faster.", "min": 15, "max": 60, "step": 1, "unit": "s", "default": 34 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     {

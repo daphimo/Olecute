@@ -25,6 +25,7 @@
 .custom-splide .splide__arrow:focus-visible,
 .custom-splide .splide__pagination__page:focus-visible { outline: 2px solid var(--brand-accent-yellow); outline-offset: 3px; }
 .custom-splide .splide__arrow svg { width: 18px; height: 18px; fill: none; stroke: currentcolor; stroke-width: 1.7; }
+.custom-splide .splide__arrow--prev svg { transform: none; }
 
 .custom-splide .splide__pagination {
   right: clamp(16px, 5vw, 72px);

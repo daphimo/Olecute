@@ -21,6 +21,8 @@
     --custom-collection-mobile-width: {{ mobile_card_width }};
     --custom-collection-padding-top: {{ section.settings.padding_top }}px;
     --custom-collection-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --custom-collection-margin-top: {{ section.settings.margin_top }}px;
+    --custom-collection-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
 >
   <div class="custom-collection-list__inner">
@@ -106,7 +108,10 @@
     },
     { "type": "range", "id": "card_gap", "label": "Card gap", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 18 },
     { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 },
-    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 }
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     {

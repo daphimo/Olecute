@@ -9,6 +9,8 @@
     --custom-cta-section-padding-bottom: {{ section.settings.padding_bottom }}px;
     --custom-cta-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
     --custom-cta-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    --custom-cta-margin-top: {{ section.settings.margin_top }}px;
+    --custom-cta-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
   {% if section.settings.heading != blank %}
     aria-labelledby="CtaBannerHeading-{{ section.id }}"
@@ -51,7 +53,10 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
     { "type": "header", "content": "Mobile spacing" },
     { "type": "range", "id": "mobile_padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 },
-    { "type": "range", "id": "mobile_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 }
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     {

@@ -14,7 +14,7 @@
 %}
 
 <custom-footer
-  class="custom-footer{% if section.settings.animate_wave %} custom-footer--wave-animated{% endif %}"
+  class="custom-footer"
   style="
     --custom-footer-bg: {{ section.settings.background_color }};
     --custom-footer-wave-height: {{ section.settings.wave_height }}px;
@@ -29,10 +29,8 @@
 >
   {% if section.settings.show_wave %}
     <div class="custom-footer__wave" aria-hidden="true">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
-        <g class="custom-footer__wave-shape">
-          <path d="M-60 120V78C98 95 210 22 398 40c184 18 263 76 457 55 181-20 304-77 645-45v70H-60Z"/>
-        </g>
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" focusable="false">
+        <path d="M0 0H1440V57C1380 43 1330 43 1270 58C1210 73 1160 77 1095 61C1030 45 985 42 925 56C865 70 810 79 745 64C680 49 635 43 575 56C515 69 460 78 395 64C330 50 285 45 225 58C165 71 100 75 0 55V0Z" transform="translate(0 80) scale(1 -1)"/>
       </svg>
     </div>
   {% endif %}
@@ -190,7 +188,6 @@
     { "type": "checkbox", "id": "show_wave", "label": "Show top wave", "default": true },
     { "type": "range", "id": "wave_height", "label": "Desktop wave height", "min": 40, "max": 140, "step": 5, "unit": "px", "default": 85 },
     { "type": "range", "id": "mobile_wave_height", "label": "Mobile wave height", "min": 24, "max": 90, "step": 3, "unit": "px", "default": 48 },
-    { "type": "checkbox", "id": "animate_wave", "label": "Animate wave", "default": false },
     { "type": "header", "content": "Bottom" },
     { "type": "text", "id": "copyright_text", "label": "Copyright text", "default": "All rights reserved." },
     { "type": "link_list", "id": "legal_menu", "label": "Footer legal menu" },

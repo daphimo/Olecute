@@ -1,18 +1,7 @@
 {{ 'custom-email-signup.css' | asset_url | stylesheet_tag }}
 
-{% liquid
-  case section.settings.animation_speed
-    when 'medium'
-      assign wave_duration = '18s'
-    when 'fast'
-      assign wave_duration = '12s'
-    else
-      assign wave_duration = '28s'
-  endcase
-%}
-
 <section
-  class="custom-email-signup{% if section.settings.animate_waves %} custom-email-signup--animated{% endif %}"
+  class="custom-email-signup"
   style="
     --email-signup-bg: {{ section.settings.background_color }};
     --email-signup-content-width: {{ section.settings.content_width }}px;
@@ -22,7 +11,8 @@
     --email-signup-padding-bottom: {{ section.settings.padding_bottom }}px;
     --email-signup-padding-top-mobile: {{ section.settings.mobile_padding_top }}px;
     --email-signup-padding-bottom-mobile: {{ section.settings.mobile_padding_bottom }}px;
-    --email-signup-wave-duration: {{ wave_duration }};
+    --email-signup-margin-top: {{ section.settings.margin_top }}px;
+    --email-signup-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
   {% if section.settings.heading != blank %}aria-labelledby="CustomEmailSignupHeading-{{ section.id }}"{% else %}aria-label="Newsletter signup"{% endif %}
 >
@@ -127,24 +117,14 @@
     { "type": "checkbox", "id": "show_bottom_wave", "label": "Show bottom wave", "default": true },
     { "type": "range", "id": "desktop_wave_height", "label": "Desktop wave height", "min": 40, "max": 140, "step": 5, "unit": "px", "default": 85 },
     { "type": "range", "id": "mobile_wave_height", "label": "Mobile wave height", "min": 24, "max": 90, "step": 3, "unit": "px", "default": 48 },
-    { "type": "checkbox", "id": "animate_waves", "label": "Animate waves", "default": false },
-    {
-      "type": "select",
-      "id": "animation_speed",
-      "label": "Animation speed",
-      "options": [
-        { "value": "slow", "label": "Slow" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "fast", "label": "Fast" }
-      ],
-      "default": "slow",
-      "visible_if": "{{ section.settings.animate_waves }}"
-    },
     { "type": "header", "content": "Spacing" },
     { "type": "range", "id": "padding_top", "label": "Desktop padding top", "min": 40, "max": 160, "step": 5, "unit": "px", "default": 90 },
     { "type": "range", "id": "padding_bottom", "label": "Desktop padding bottom", "min": 40, "max": 160, "step": 5, "unit": "px", "default": 90 },
     { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 32, "max": 100, "step": 4, "unit": "px", "default": 60 },
-    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile padding bottom", "min": 32, "max": 100, "step": 4, "unit": "px", "default": 60 }
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile padding bottom", "min": 32, "max": 100, "step": 4, "unit": "px", "default": 60 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     { "name": "Custom email signup" }

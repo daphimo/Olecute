@@ -12,6 +12,8 @@
     --custom-video-banner-mobile-height: {{ section.settings.mobile_height }}px;
     --custom-video-banner-overlay: {{ section.settings.overlay_opacity }}%;
     --custom-video-banner-content-width: {{ section.settings.content_width }}px;
+    --custom-video-banner-margin-top: {{ section.settings.margin_top }}px;
+    --custom-video-banner-margin-bottom: {{ section.settings.margin_bottom }}px;
   "
   aria-label="{{ section.settings.accessibility_label | escape }}"
 >
@@ -92,7 +94,10 @@
       ]
     },
     { "type": "range", "id": "content_width", "label": "Content maximum width", "min": 280, "max": 800, "step": 20, "unit": "px", "default": 560 },
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 40 }
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 40 },
+    { "type": "header", "content": "Section margins" },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
   ],
   "presets": [
     {

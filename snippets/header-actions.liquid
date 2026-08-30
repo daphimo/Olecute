@@ -7,6 +7,7 @@
   @param {block} [block] - The block object, used for Shopify editor attributes.
   @param {string} [display_style] - Controls display mode for header actions: 'icon' or 'text'.
   @param {string} [customer_account_menu] - The menu handle passed to the shopify-account component.
+  @param {boolean} [custom_header_icons] - Uses the custom profile and cart artwork while preserving theme actions.
 
   @example
   {% render 'header-actions', section: section %}
@@ -31,7 +32,11 @@
       class="svg-wrapper {% if display_style != 'icon' %}desktop:hidden{% endif %}"
       aria-hidden="true"
     >
-      {{ 'icon-cart.svg' | inline_asset_content }}
+      {% if custom_header_icons %}
+        {{ 'custom-icon-cart.svg' | inline_asset_content }}
+      {% else %}
+        {{ 'icon-cart.svg' | inline_asset_content }}
+      {% endif %}
     </span>
 
     {% render 'cart-bubble', limit: 100 %}
@@ -39,6 +44,9 @@
 {% endcapture %}
 
 {% capture account_icon %}
+  {% if custom_header_icons %}
+    {{ 'custom-icon-profile.svg' | inline_asset_content }}
+  {% else %}
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="15"
@@ -55,6 +63,7 @@
       d="M10.375 3.813a3.063 3.063 0 1 1-6.125 0 3.063 3.063 0 0 1 6.125 0ZM7.313 9.5c-3.667 0-6.24 2.691-6.563 6.125h13.125C13.552 12.191 10.979 9.5 7.312 9.5Z"
     />
   </svg>
+  {% endif %}
 {% endcapture %}
 
 <header-actions

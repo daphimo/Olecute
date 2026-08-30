@@ -9,294 +9,685 @@
  */
 {
   "sections": {
-    "slideshow_HHheKB": {
-      "type": "slideshow",
+    "custom_hero_slider_QqDGhw": {
+      "type": "custom-hero-slider",
       "blocks": {
-        "slide_yWmabg": {
-          "type": "_slide",
+        "slide_9cWdfk": {
+          "type": "slide",
           "settings": {
-            "media_type_1": "image",
-            "image_1": "shopify://shop_images/model-in-sunglasses-and-summer-clothes.jpg",
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "background_color": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 48,
-            "padding-inline-end": 48
-          },
-          "blocks": {
-            "button_YJeikN": {
-              "type": "button",
-              "settings": {
-                "label": "Shop now",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "button_YJeikN"
-          ]
+            "link": "",
+            "alt_text": ""
+          }
         },
-        "slide_6MXxQq": {
-          "type": "_slide",
+        "slide_FFFxeb": {
+          "type": "slide",
           "settings": {
-            "media_type_1": "image",
-            "image_1": "shopify://shop_images/minimalist-retail-clothing-display.jpg",
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "background_color": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 48,
-            "padding-inline-end": 48
-          },
-          "blocks": {
-            "button_qecNHD": {
-              "type": "button",
-              "settings": {
-                "label": "Shop now",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "button_qecNHD"
-          ]
+            "link": "",
+            "alt_text": ""
+          }
         }
       },
       "block_order": [
-        "slide_yWmabg",
-        "slide_6MXxQq"
+        "slide_9cWdfk",
+        "slide_FFFxeb"
       ],
-      "name": "t:names.slideshow_full_frame",
+      "name": "Custom hero slider",
       "settings": {
-        "display_mode": "full_frame",
-        "section_width": "full-width",
-        "full_frame_on_mobile": false,
-        "slideshow_gap": 12,
-        "corner_radius": 0,
-        "slide_height": "medium",
-        "content_position": "on-media",
-        "background_color": "",
-        "icons_style": "arrows_large",
-        "icons_shape": "none",
-        "slideshow_controls_style": "dots",
-        "autoplay": false,
-        "autoplay_speed": 4,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "accessibility_label": "Featured promotions",
+        "show_arrows": true,
+        "show_pagination": true,
+        "pagination_type": "progress",
+        "autoplay": true,
+        "autoplay_interval": 5000,
+        "transition_speed": 800,
+        "effect": "slide"
       }
     },
-    "collection_list_E8NMDW": {
-      "type": "collection-list",
+    "custom_collection_list_peLCgp": {
+      "type": "custom-collection-list",
       "blocks": {
-        "group_RxXYpU": {
-          "type": "group",
-          "name": "t:names.header",
+        "collection_xzqfeb": {
+          "type": "collection",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
+            "collection": ""
+          }
+        },
+        "collection_FAAe8e": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "collection_jjUtfV": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "collection_KzE4rr": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "collection_LTeQiL": {
+          "type": "collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_xzqfeb",
+        "collection_FAAe8e",
+        "collection_jjUtfV",
+        "collection_KzE4rr",
+        "collection_LTeQiL"
+      ],
+      "name": "Custom collection list",
+      "settings": {
+        "heading": "Shop by categories",
+        "desktop_columns": 5,
+        "mobile_cards_per_view": "one_peek",
+        "card_gap": 18,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "custom_featured_collection_MGywBY": {
+      "type": "custom-featured-collection",
+      "name": "Custom featured",
+      "settings": {
+        "collection": "",
+        "eyebrow": "Just dropped",
+        "heading": "Fresh off the runway.",
+        "description": "<p>New designs every week — pure cotton, made in Jaipur.</p>",
+        "show_cta": true,
+        "cta_label": "Shop new arrivals",
+        "cta_url": "",
+        "products_to_show": 6,
+        "desktop_columns": 6,
+        "product_gap": 18,
+        "show_rating": true,
+        "animate_wave": true,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48
+      }
+    },
+    "custom_video_banner_3wkMiE": {
+      "type": "custom-video-banner",
+      "blocks": {
+        "eyebrow_3dzbtP": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "New collection — just dropped"
+          }
+        },
+        "heading_8pyHHm": {
+          "type": "heading",
+          "settings": {
+            "text": "Wear what <em>feels like you.</em>"
+          }
+        },
+        "description_RNByE9": {
+          "type": "description",
+          "settings": {
+            "text": "<p>New designs every week — pure cotton, made in Jaipur.</p>"
+          }
+        },
+        "button_WcPnQD": {
+          "type": "button",
+          "settings": {
+            "label": "Explore new arrivals",
+            "url": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_3dzbtP",
+        "heading_8pyHHm",
+        "description_RNByE9",
+        "button_WcPnQD"
+      ],
+      "name": "Custom video banner",
+      "settings": {
+        "accessibility_label": "Featured campaign",
+        "desktop_height": 620,
+        "mobile_height": 560,
+        "desktop_position": "bottom-left",
+        "mobile_position": "bottom-left",
+        "content_width": 560,
+        "overlay_opacity": 40
+      }
+    },
+    "custom_brand_difference_tJhj8c": {
+      "type": "custom-brand-difference",
+      "blocks": {
+        "difference_ccX8Jg": {
+          "type": "difference",
+          "settings": {
+            "category": "Fabric",
+            "title": "Nothing synthetic. <em>Ever.</em>",
+            "content": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>"
+          }
+        },
+        "difference_LMmpaB": {
+          "type": "difference",
+          "settings": {
+            "category": "Design",
+            "title": "Fresh drops, <em>every single week</em>",
+            "content": "<p>New silhouettes and thoughtful details arrive often, so there is always something fresh to discover.</p>"
+          }
+        },
+        "difference_QAhfgX": {
+          "type": "difference",
+          "settings": {
+            "category": "Sizing",
+            "title": "Fashion that fits <em>every body</em>",
+            "content": "<p>Comfort-led fits and considered proportions make getting dressed feel effortless.</p>"
+          }
+        },
+        "difference_FmLDBQ": {
+          "type": "difference",
+          "settings": {
+            "category": "Origin",
+            "title": "Designed and made <em>in Jaipur</em>",
+            "content": "<p>Each design is shaped by local craft, color, and generations of textile knowledge.</p>"
+          }
+        },
+        "difference_dxthnq": {
+          "type": "difference",
+          "settings": {
+            "category": "Promise",
+            "title": "5-day returns, <em>no questions asked</em>",
+            "content": "<p>Try it at home and return it simply if it is not quite right for you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "difference_ccX8Jg",
+        "difference_LMmpaB",
+        "difference_QAhfgX",
+        "difference_FmLDBQ",
+        "difference_dxthnq"
+      ],
+      "name": "Custom brand difference",
+      "settings": {
+        "eyebrow": "The Olecute difference",
+        "heading": "Why women choose us, <em>and keep coming back</em>",
+        "description": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>",
+        "padding_top": 88,
+        "mobile_padding_top": 56
+      }
+    },
+    "custom_brand_impact_bar_9bKd9H": {
+      "type": "custom-brand-impact-bar",
+      "blocks": {
+        "impact_ehKGya": {
+          "type": "impact",
+          "settings": {
+            "value": "1M+",
+            "label": "Women wearing\nOlecute worldwide"
+          }
+        },
+        "impact_8KHfPH": {
+          "type": "impact",
+          "settings": {
+            "value": "500+",
+            "label": "New designs\nevery year"
+          }
+        },
+        "impact_KgjxH7": {
+          "type": "impact",
+          "settings": {
+            "value": "100%",
+            "label": "Natural fabrics,\nalways"
+          }
+        },
+        "impact_iNwtL8": {
+          "type": "impact",
+          "settings": {
+            "value": "Since 2021",
+            "label": "Born and made\nin Jaipur"
+          }
+        },
+        "marquee_item_wnqgba": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Available everywhere"
+          }
+        },
+        "marquee_item_HqXkJT": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "New drops"
+          }
+        },
+        "marquee_item_gqLW7X": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Every single week"
+          }
+        },
+        "marquee_item_VGdFqt": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Olecute"
+          }
+        },
+        "marquee_item_TbnAX3": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Free worldwide shipping"
+          }
+        },
+        "marquee_item_bg64eg": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "1 million+ happy customers"
+          }
+        },
+        "marquee_item_8VfwMi": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Pure cotton"
+          }
+        },
+        "marquee_item_7ikae9": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Natural fabrics only"
+          }
+        },
+        "marquee_item_kFhdRz": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Designed and made in India"
+          }
+        },
+        "marquee_item_PCqTxM": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "5-day returns"
+          }
+        }
+      },
+      "block_order": [
+        "impact_ehKGya",
+        "impact_8KHfPH",
+        "impact_KgjxH7",
+        "impact_iNwtL8",
+        "marquee_item_wnqgba",
+        "marquee_item_HqXkJT",
+        "marquee_item_gqLW7X",
+        "marquee_item_VGdFqt",
+        "marquee_item_TbnAX3",
+        "marquee_item_bg64eg",
+        "marquee_item_8VfwMi",
+        "marquee_item_7ikae9",
+        "marquee_item_kFhdRz",
+        "marquee_item_PCqTxM"
+      ],
+      "name": "Custom brand impact",
+      "settings": {
+        "accessibility_label": "Our brand impact",
+        "show_stats": true,
+        "show_marquee": true,
+        "desktop_columns": 4,
+        "marquee_speed": 60
+      }
+    },
+    "custom_testimonials_YHheC4": {
+      "type": "custom-testimonials",
+      "blocks": {
+        "testimonial_CkHF9W": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_eDPiTz": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_hEfz6L": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_hF8UnM": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        },
+        "testimonial_zFP7yq": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "badge": "Co-ord set",
+            "rating": 5,
+            "review": "The quality, fit, and thoughtful details exceeded my expectations. I absolutely loved it.",
+            "customer_name": "Customer name",
+            "initials": "",
+            "verified_text": "Verified purchase",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_CkHF9W",
+        "testimonial_eDPiTz",
+        "testimonial_hEfz6L",
+        "testimonial_hF8UnM",
+        "testimonial_zFP7yq"
+      ],
+      "name": "Custom testimonials",
+      "settings": {
+        "eyebrow": "Real women, real reviews",
+        "heading": "What our customers <em>are saying</em>",
+        "show_rating_summary": true,
+        "rating": "4.9",
+        "rating_text": "",
+        "trust_text": "Trusted by 1 Million+ women across India",
+        "desktop_cards": 4,
+        "desktop_gap": 18,
+        "mobile_cards": 1,
+        "mobile_gap": 14,
+        "autoplay": false,
+        "autoplay_interval": 5000,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 56
+      }
+    },
+    "custom_cta_banner_reqLLT": {
+      "type": "custom-cta-banner",
+      "name": "Custom CTA banner",
+      "settings": {
+        "heading": "Join a million women who've already made the switch",
+        "description": "Pure fabrics. Real fit. Delivered to your door.",
+        "button_label": "Shop new arrivals",
+        "button_link": "shopify://collections/all",
+        "background_color": "#f4b51b",
+        "corner_radius": 12,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "custom_shopping_experience_pWgafb": {
+      "type": "custom-shopping-experience",
+      "blocks": {
+        "benefit_3P9qA7": {
+          "type": "benefit",
+          "settings": {
+            "icon": "payment",
+            "title": "Cash on Delivery",
+            "description": "Pay when it arrives"
+          }
+        },
+        "benefit_gXGUiM": {
+          "type": "benefit",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Human Support",
+            "description": "WhatsApp, always"
+          }
+        },
+        "benefit_BjeCeU": {
+          "type": "benefit",
+          "settings": {
+            "icon": "globe",
+            "title": "Free Worldwide Shipping",
+            "description": "No minimum order"
+          }
+        },
+        "benefit_MBjDRA": {
+          "type": "benefit",
+          "settings": {
+            "icon": "return",
+            "title": "5-Day Easy Returns",
+            "description": "No questions asked"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_3P9qA7",
+        "benefit_gXGUiM",
+        "benefit_BjeCeU",
+        "benefit_MBjDRA"
+      ],
+      "name": "Shopping experience",
+      "settings": {
+        "heading": "You are shopping <em>for an experience</em>",
+        "desktop_columns": 4,
+        "mobile_columns": "2",
+        "heading_gap": 52,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 52,
+        "mobile_padding_bottom": 52
+      }
+    },
+    "custom_email_signup_N4386E": {
+      "type": "custom-email-signup",
+      "name": "Custom email signup",
+      "settings": {
+        "eyebrow": "STAY IN THE LOOP",
+        "heading": "New drops. Exclusive offers. <em>All yours.</em>",
+        "description": "<p>Join 1M+ women who get early access to new arrivals, seasonal edits & members-only discounts — straight to their inbox.</p>",
+        "email_placeholder": "Your email address",
+        "button_label": "SUBSCRIBE",
+        "reassurance_text": "No spam, ever. Unsubscribe anytime.",
+        "success_message": "You're on the list. Welcome in.",
+        "background_color": "#f4b51b",
+        "content_width": 700,
+        "show_top_wave": true,
+        "show_bottom_wave": true,
+        "desktop_wave_height": 85,
+        "mobile_wave_height": 48,
+        "animate_waves": true,
+        "animation_speed": "slow",
+        "padding_top": 90,
+        "padding_bottom": 90,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
+      }
+    },
+    "section_LpyBLV": {
+      "type": "section",
+      "blocks": {
+        "text_QeH3tF": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>Behind the Label — The Olecute Story</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {
-            "text_qNJkBW": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h3>Shop by collection</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_qNJkBW"
-          ]
+          "blocks": {}
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "text_Et67az": {
+          "type": "text",
+          "name": "t:names.text",
           "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "collection_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0
+            "text": "<h2>Welcome to Olecute</h2><p>Olecute is created for women who believe that clothing should do more than simply look beautiful. It should feel right, move naturally, complement your personality, and become a part of your everyday life.</p><p>We believe fashion does not have to be complicated to be memorable. Sometimes, the most beautiful outfit is the one that allows you to feel completely yourself.</p><p>Olecute brings together contemporary fashion, thoughtful silhouettes, expressive colours, versatile designs, and everyday wearability to create clothing that fits effortlessly into the modern woman's wardrobe.</p><p>From relaxed everyday looks to polished outfits for work, casual gatherings, celebrations, vacations, and special moments, our collections are designed around one simple idea:</p><p><strong>You deserve clothes that look good, feel good, and fit beautifully into your life.</strong></p><h1>Fashion That Feels Like You</h1><p>Every woman has her own rhythm.</p><p>Some mornings begin with a busy workday. Some afternoons are spent meeting friends over coffee. Some evenings turn into spontaneous plans. Some weekends are reserved for family, travel, celebrations, or simply staying home and enjoying your own space.</p><p>Your wardrobe should be able to keep up.</p><p>Olecute is designed for women who want versatility without compromising on style. Our collections bring together silhouettes that can be dressed up or down, colours that can complement different moods, and designs that allow you to create your own interpretation of fashion.</p><p>We don't believe there is one definition of style.</p><p>Your style can be minimal.<br/>Your style can be colourful.<br/>Your style can be elegant.<br/>Your style can be relaxed.<br/>Your style can change every day.</p><p><strong>Olecute is here for all of it.</strong></p><h1>Our Philosophy</h1><h2>Look Beautiful. Feel Comfortable. Be Yourself.</h2><p>At Olecute, we see clothing as an extension of personality.</p><p>The right outfit can change the way you carry yourself. It can make an ordinary day feel special, give you confidence before an important meeting, become part of a memorable celebration, or simply make you feel comfortable while going about your day.</p><p>That is why our approach to fashion focuses on three important elements:</p><h3>Style</h3><p>Contemporary designs that feel current while remaining easy to wear and style.</p><h3>Comfort</h3><p>Thoughtfully selected fabrics, practical silhouettes, and wearable fits designed for everyday movement.</p><h3>Versatility</h3><p>Clothing that can transition between occasions, allowing you to create multiple looks from pieces you already love.</p><p>Because the best wardrobe isn't the one filled with clothes you rarely wear.</p><p>It is the one filled with pieces you keep reaching for.</p><h1>Women's Clothing Designed for Everyday Life</h1><p>Olecute brings together a versatile range of women's clothing created for different moments, moods, and occasions.</p><p>Whether you are building your everyday wardrobe, refreshing your seasonal collection, searching for an outfit for work, planning a vacation, or looking for something special, our collections are designed to give you options.</p><p>Explore silhouettes that can become everyday favourites, statement pieces that bring personality to your wardrobe, and coordinated looks that make getting dressed effortless.</p><h1>Dresses for Women</h1><p>A dress can be many things.</p><p>It can be effortless.<br/>It can be elegant.<br/>It can be playful.<br/>It can be sophisticated.<br/>It can be your go-to outfit when you don't want to think too much about what to wear.</p><p>Our collection of dresses for women is created with versatility in mind. From relaxed everyday silhouettes to styles that can be elevated for dinners, gatherings, celebrations, and special occasions, each design is intended to help you create a complete look with minimal effort.</p><p>Pair your favourite dress with flats for an easy daytime outfit, add accessories and heels for an evening look, or layer it with a jacket or shrug when the weather calls for it.</p><p>A well-designed dress doesn't need complicated styling.</p><p><strong>Sometimes, one beautiful piece is enough.</strong></p><h1>Co-ord Sets for Women</h1><p>Co-ord sets have become a wardrobe favourite for a reason.</p><p>They take the guesswork out of dressing while giving you a polished, put-together appearance.</p><p>Olecute's co-ord-inspired styles are designed for women who want coordinated fashion without spending too much time planning an outfit.</p><p>Wear the set together for a complete look.</p><p>Wear the pieces separately to create multiple outfits.</p><p>Pair the top with denim.<br/>Style the bottom with another blouse.<br/>Add accessories to change the mood.<br/>Layer with a jacket for a more structured appearance.</p><p>One set can become several outfits, making co-ords an incredibly versatile addition to a modern wardrobe.</p><h1>Tops & Tunics</h1><p>The right top can transform an entire wardrobe.</p><p>Tops and tunics are among the most versatile pieces a woman can own because they can be styled in countless ways.</p><p>Pair them with trousers for a polished office look.</p><p>Wear them with jeans for a casual day out.</p><p>Combine them with skirts for a feminine ensemble.</p><p>Layer them over or under other pieces depending on the season.</p><p>Olecute's tops and tunics are designed to give your wardrobe more flexibility while keeping your everyday style fresh.</p><p>From understated designs to expressive prints and contemporary silhouettes, there is room to find pieces that reflect your personality.</p><h1>Bottomwear for Women</h1><p>A great outfit begins with the right foundation.</p><p>Our bottomwear collection is designed to complement your everyday wardrobe and pair effortlessly with different tops, tunics, shirts, kurtis, and coordinated pieces.</p><p>From relaxed silhouettes to more structured options, versatile bottoms allow you to create outfits for work, travel, casual outings, and everyday occasions.</p><p>The goal is simple:</p><p><strong>More combinations. More possibilities. More ways to wear what you love.</strong></p><h1>Everyday Fashion for the Modern Woman</h1><p>Modern women rarely dress for just one kind of occasion.</p><p>A single day can include a meeting, lunch with friends, errands, shopping, travel, and an evening gathering.</p><p>That's why we believe modern clothing should be flexible.</p><p>Olecute collections are designed to move between moments.</p><p>A dress can become an office outfit with the right layering.</p><p>A casual co-ord can become an evening look with accessories.</p><p>A simple top can become part of multiple outfits.</p><p>A versatile bottom can work across seasons.</p><p>This flexibility allows you to build a wardrobe that works harder for you.</p><h1>From Workdays to Weekends</h1><p>Your wardrobe should not stop at one occasion.</p><h2>For Work</h2><p>Choose refined silhouettes, understated tones, comfortable fits, and easy-to-style separates for a polished professional wardrobe.</p><h2>For Brunch</h2><p>Go for relaxed dresses, coordinated sets, playful prints, or effortless tops paired with your favourite bottoms.</p><h2>For Travel</h2><p>Choose versatile pieces that are easy to style, comfortable to wear, and suitable for long days of exploring.</p><h2>For Casual Days</h2><p>Keep it effortless with relaxed silhouettes, everyday dresses, comfortable separates, and easy layering pieces.</p><h2>For Evenings</h2><p>Elevate your look with statement silhouettes, sophisticated colours, accessories, and thoughtful styling.</p><h2>For Celebrations</h2><p>Bring personality into your wardrobe with expressive colours, distinctive designs, elegant silhouettes, and occasion-ready pieces.</p><h1>Colours That Become Part of Your Wardrobe</h1><p>Colour has the power to change the entire personality of an outfit.</p><p>Soft neutrals can create an understated and elegant appearance.</p><p>Deep tones can add sophistication.</p><p>Bright colours can bring energy to your wardrobe.</p><p>Pastels can create a softer, more delicate look.</p><p>Prints can add personality without requiring elaborate styling.</p><p>At Olecute, we believe there is no single colour palette that defines a woman's style.</p><p>Some days call for subtle.<br/>Some days call for bold.</p><p>Your wardrobe should make space for both.</p><h1>Fabrics Chosen for Everyday Wear</h1><p>Clothing begins with fabric.</p><p>The way a garment feels against the skin, moves with the body, falls on the silhouette, and responds to everyday use can make a significant difference to the overall experience.</p><p>That is why fabric remains an important part of the Olecute approach.</p><p>We look for materials and constructions that balance appearance with practicality, creating clothing that feels appropriate for everyday wardrobes while retaining its visual appeal.</p><p>Whether you're getting ready for a busy morning, heading out for lunch, travelling across the city, or spending a relaxed evening with friends, your clothes should work with you.</p><p><strong>Fashion should never feel like a chore.</strong></p><h1>Thoughtful Silhouettes</h1><p>A beautiful print can catch your attention.</p><p>A great silhouette makes you want to wear the garment again.</p><p>At Olecute, we pay attention to the details that influence how a garment looks and feels.</p><p>The neckline.</p><p>The sleeve.</p><p>The length.</p><p>The fall.</p><p>The proportions.</p><p>The placement of prints.</p><p>The balance between structure and ease.</p><p>Small design decisions can make a significant difference.</p><p>Our goal is to create silhouettes that feel contemporary while remaining practical enough to become part of your everyday wardrobe.</p><h1>Size & Fit</h1><p>Every woman deserves to feel confident in the clothes she wears.</p><p>We believe shopping for clothing should be an enjoyable experience rather than a stressful one.</p><p>That means understanding your measurements, referring to the size guide, and choosing a fit that makes you feel comfortable and confident.</p><p>Different silhouettes can naturally fit differently, which is why we encourage customers to check the product-specific size information before placing an order.</p><p>Whether you prefer a relaxed silhouette or a more defined fit, the right size can make all the difference.</p><p><strong>Your comfort comes first.</strong></p><h1>Building a Wardrobe, Not Just Buying Clothes</h1><p>Fast-changing trends can make fashion feel like a race.</p><p>We prefer a different approach.</p><p>Instead of asking:</p><p><strong>\"What is trending right now?\"</strong></p><p>Ask:</p><p><strong>\"Will I want to wear this again?\"</strong></p><p>A strong wardrobe is built around pieces that can work across different occasions and styling combinations.</p><p>That is why versatile dresses, coordinated sets, easy tops, reliable bottoms, and timeless silhouettes can become some of the most valuable pieces in your closet.</p><p>Buy pieces you can imagine wearing.</p><p>Style them differently.</p><p>Make them yours.</p><p>Repeat.</p><h1>How to Style Olecute</h1><h2>Keep It Minimal</h2><p>Choose a clean silhouette, simple footwear, and understated accessories.</p><p>The result is effortless and sophisticated.</p><h2>Make It Statement</h2><p>Choose a distinctive print or colour and keep the rest of the outfit simple.</p><p>Let one piece become the focus.</p><h2>Layer It</h2><p>Add a shrug, jacket, overshirt, scarf, or other layering piece to completely change the look.</p><h2>Accessorise</h2><p>Jewellery, handbags, footwear, sunglasses, and other accessories can transform the same outfit from daytime casual to evening-ready.</p><h2>Mix & Match</h2><p>Don't think of coordinated pieces as something that must always be worn together.</p><p>Experiment.</p><p>Mix colours.<br/>Change the footwear.<br/>Switch the accessories.<br/>Pair the top with another bottom.</p><p>Your wardrobe becomes more versatile when you style pieces beyond their original pairing.</p><h1>Fashion for Every Season</h1><p>A wardrobe should evolve with the year.</p><h2>Summer</h2><p>Lightweight silhouettes, easy dresses, breathable-looking styles, relaxed fits, and bright or soft colours can help create an effortless warm-weather wardrobe.</p><h2>Monsoon</h2><p>Choose practical outfits that are easy to style and comfortable for changing weather conditions.</p><h2>Autumn</h2><p>Experiment with layering, deeper tones, and versatile separates.</p><h2>Winter</h2><p>Create dimension with layers, jackets, sweaters, and warm accessories while maintaining your personal style.</p><p>Every season brings a new opportunity to rediscover the pieces already hanging in your wardrobe.</p><h1>More Than an Outfit</h1><p>Clothing becomes meaningful when it becomes part of a memory.</p><p>The dress you wore on your first day at a new job.</p><p>The outfit you chose for a friend's birthday.</p><p>The co-ord set you wore on vacation.</p><p>The dress you picked for a family celebration.</p><p>The comfortable outfit you wore during a long day of travelling.</p><p>These moments make clothing more than fabric and design.</p><p>They become part of your story.</p><p>Olecute wants to create pieces that can become part of those stories.</p><h1>Why Olecute?</h1><p>There are countless places to discover women's clothing online.</p><p>So why Olecute?</p><p>Because we believe shopping for fashion should be about more than simply following trends.</p><h3>Contemporary Design</h3><p>We create styles that feel modern, expressive, and relevant to today's wardrobe.</p><h3>Everyday Wearability</h3><p>Our approach focuses on clothing that can actually become part of your daily life.</p><h3>Versatile Styling</h3><p>We believe one garment can create multiple looks when styled creatively.</p><h3>Comfort-Led Thinking</h3><p>Beautiful clothing should also feel good to wear.</p><h3>Personality</h3><p>Fashion should give you space to express yourself rather than dictate who you should be.</p><h3>Wardrobe Value</h3><p>We want you to discover pieces that you can wear repeatedly, style differently, and enjoy for more than one occasion.</p><h1>The Olecute Woman</h1><p>She doesn't dress to fit into one category.</p><p>She dresses according to how she feels.</p><p>She can be ambitious in the morning, spontaneous in the afternoon, elegant in the evening, and completely relaxed at home.</p><p>She knows what she likes.</p><p>She experiments.</p><p>She changes.</p><p>She grows.</p><p>And her wardrobe grows with her.</p><p><strong>Olecute is made for her.</strong></p><h1>Your Style, Your Rules</h1><p>There is no right way to wear fashion.</p><p>Wear colour if you love colour.</p><p>Choose neutrals if minimalism feels more like you.</p><p>Wear prints when you want to stand out.</p><p>Keep things simple when you don't.</p><p>Dress up.</p><p>Dress down.</p><p>Layer.</p><p>Mix.</p><p>Repeat.</p><p>Fashion becomes personal when you stop dressing according to rules and start dressing according to yourself.</p><p>At Olecute, we want every woman to feel free to do exactly that.</p><h1>Discover Women's Fashion Online with Olecute</h1><p>Your wardrobe deserves pieces that work with your lifestyle.</p><p>Discover dresses, coordinated looks, tops, tunics, bottomwear, everyday styles, occasion-ready outfits, and more as you explore the world of Olecute.</p><p>Whether you are looking for an effortless everyday dress, a polished outfit for work, a comfortable co-ord set for travel, a stylish look for brunch, or something special for an upcoming celebration, discover pieces designed to fit naturally into your wardrobe.</p><p>Explore colours.</p><p>Discover silhouettes.</p><p>Experiment with styling.</p><p>Find your favourites.</p><p>And most importantly, find clothes that feel like <strong>you</strong>.</p><h1>Frequently Asked Questions</h1><h2>1. What kind of women's clothing does Olecute offer?</h2><p>Olecute offers a versatile range of women's fashion designed for different lifestyles and occasions. The collection can include dresses, co-ord sets, tops, tunics, bottomwear, and other contemporary wardrobe essentials.</p><h2>2. Is Olecute clothing suitable for everyday wear?</h2><p>Yes. Olecute focuses on styles that can be incorporated into everyday wardrobes. Depending on the design, pieces can be styled for work, casual outings, travel, brunches, gatherings, and other occasions.</p><h2>3. How can I choose the right size?</h2><p>Always refer to the size chart provided on the individual product page before purchasing. Compare your measurements with the product's size information to select the most suitable option.</p><h2>4. Can I style the same outfit in different ways?</h2><p>Absolutely. Styling is one of the easiest ways to make your wardrobe more versatile. Try changing footwear, accessories, layering pieces, handbags, or pairing individual pieces with other garments.</p><h2>5. Are co-ord sets versatile?</h2><p>Yes. While co-ord sets are designed to be worn together, the individual pieces can often be styled separately with other items in your wardrobe.</p><h2>6. What should I wear for a casual outing?</h2><p>Depending on your personal style, you can choose an everyday dress, relaxed co-ord set, comfortable top with bottomwear, or another easy-to-style silhouette.</p><h2>7. Can Olecute outfits be worn to work?</h2><p>Many contemporary styles can be adapted for work depending on the design and workplace dress code. Choose polished silhouettes, appropriate lengths, sophisticated colours, and minimal accessories for a professional appearance.</p><h2>8. What should I wear while travelling?</h2><p>Prioritise comfortable silhouettes and versatile pieces that can be styled in multiple ways. Dresses, coordinated sets, relaxed tops, and easy bottomwear can be useful additions to a travel wardrobe.</p><h2>9. How do I make a simple outfit look more stylish?</h2><p>Accessories can make a significant difference. Add jewellery, a handbag, sunglasses, a scarf, or statement footwear. Layering can also completely change the appearance of an outfit.</p><h2>10. How should I care for my Olecute clothing?</h2><p>Always follow the care instructions provided with the individual garment. Different fabrics and constructions may require different washing, drying, ironing, or storage methods.</p><h2>11. Does Olecute follow seasonal fashion trends?</h2><p>Olecute takes inspiration from contemporary fashion while focusing on styles that can remain useful beyond a single trend cycle. The aim is to give women pieces that feel current while still being easy to incorporate into their wardrobes.</p><h2>12. How can I create more outfits with fewer clothes?</h2><p>Start with versatile pieces. Choose garments that can be worn with multiple tops, bottoms, shoes, accessories, and layers. Coordinated sets can also be separated and styled independently to create additional combinations.</p><h2>13. What makes a good everyday wardrobe?</h2><p>A strong everyday wardrobe usually includes versatile dresses, comfortable tops, reliable bottomwear, coordinated outfits, layering pieces, and accessories that can work across different occasions.</p><h2>14. How can I find my personal style?</h2><p>Pay attention to what you repeatedly choose to wear. Notice the colours, silhouettes, fabrics, patterns, and fits that make you feel confident. Your personal style develops naturally through experimentation.</p><h2>15. Why choose Olecute?</h2><p>Olecute is created around the idea that fashion should feel personal, versatile, contemporary, and comfortable. We aim to make discovering and styling women's clothing an enjoyable part of everyday life.</p><h1>Olecute — Made for Your Everyday</h1><p>Fashion changes.</p><p>Trends come and go.</p><p>But the desire to feel confident, comfortable, and beautifully yourself never goes out of style.</p><p>Olecute is a celebration of that feeling.</p><p>A wardrobe built around your life.</p><p>Clothes that move with your moments.</p><p>Styles that allow you to express yourself.</p><p>Pieces you can wear today, style tomorrow, and rediscover again.</p><p>Because ultimately, fashion isn't about wearing what everyone else is wearing.</p><p><strong>It's about finding what feels right for you.</strong></p><p><strong>Welcome to Olecute.</strong></p><p><strong>Wear your way. Live your style.</strong></p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
-          "blocks": {
-            "collection_title_aDEkCW": {
-              "type": "collection-title",
-              "name": "TOP'S",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": true,
-                "background_color": "#00000026",
-                "text_color": "{{ settings.color_palette.foreground }}",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_aDEkCW"
-          ]
+          "blocks": {}
         }
       },
       "block_order": [
-        "group_RxXYpU"
+        "text_QeH3tF",
+        "text_Et67az"
       ],
-      "name": "t:names.collections_editorial",
+      "name": "t:names.rich_text_section",
       "settings": {
-        "collection_list": [],
-        "layout_type": "editorial",
-        "carousel_on_mobile": false,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "bento_gap": 8,
-        "rows_gap": 8,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
         "section_width": "page-width",
-        "gap": 64,
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
         "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "custom_shopping_experience_LjGLbU": {
+      "type": "custom-shopping-experience",
+      "blocks": {
+        "benefit_TpTWHV": {
+          "type": "benefit",
+          "settings": {
+            "icon": "payment",
+            "title": "Cash on Delivery",
+            "description": "Pay when it arrives"
+          }
+        },
+        "benefit_CQKBnn": {
+          "type": "benefit",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Human Support",
+            "description": "WhatsApp, always"
+          }
+        },
+        "benefit_DEzWM6": {
+          "type": "benefit",
+          "settings": {
+            "icon": "globe",
+            "title": "Free Worldwide Shipping",
+            "description": "No minimum order"
+          }
+        },
+        "benefit_LDfn3L": {
+          "type": "benefit",
+          "settings": {
+            "icon": "return",
+            "title": "5-Day Easy Returns",
+            "description": "No questions asked"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_TpTWHV",
+        "benefit_CQKBnn",
+        "benefit_DEzWM6",
+        "benefit_LDfn3L"
+      ],
+      "name": "Shopping experience",
+      "settings": {
+        "heading": "You are shopping <em>for an experience</em>",
+        "desktop_columns": 4,
+        "mobile_columns": "2",
+        "heading_gap": 52,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 52,
+        "mobile_padding_bottom": 52
       }
     }
   },
   "order": [
-    "slideshow_HHheKB",
-    "collection_list_E8NMDW"
+    "custom_hero_slider_QqDGhw",
+    "custom_collection_list_peLCgp",
+    "custom_featured_collection_MGywBY",
+    "custom_video_banner_3wkMiE",
+    "custom_brand_difference_tJhj8c",
+    "custom_brand_impact_bar_9bKd9H",
+    "custom_testimonials_YHheC4",
+    "custom_cta_banner_reqLLT",
+    "custom_shopping_experience_pWgafb",
+    "custom_email_signup_N4386E",
+    "section_LpyBLV",
+    "custom_shopping_experience_LjGLbU"
   ]
 }

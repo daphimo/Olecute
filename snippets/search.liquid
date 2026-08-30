@@ -4,6 +4,7 @@
   @param {string} [style] - The style of the search action.
   @param {string} [class] - Additional classes for the search action.
   @param {string} [display_style] - The display style ('icon' or 'text').
+  @param {boolean} [custom_header_icon] - Uses the custom header search icon while preserving the theme trigger.
 
   @example
   {% render 'search', style: 'default', class: 'custom-class', display_style: 'icon' %}
@@ -24,7 +25,11 @@
       </span>
 
       <span class="svg-wrapper {% if display_style != 'icon' %}desktop:hidden{% endif %}">
-        {{ 'icon-search.svg' | inline_asset_content }}
+        {% if custom_header_icon %}
+          {{ 'custom-icon-search.svg' | inline_asset_content }}
+        {% else %}
+          {{ 'icon-search.svg' | inline_asset_content }}
+        {% endif %}
       </span>
     </button>
   </search-button>

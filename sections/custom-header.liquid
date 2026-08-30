@@ -1,12 +1,24 @@
 {% liquid
   assign menu = section.settings.menu
-  capture search_action
-    render 'search', style: 'modal', display_style: 'icon'
-  endcapture
   capture existing_actions
-    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: 'icon', section: section
+    render 'header-actions', customer_account_menu: section.settings.customer_account_menu, display_style: 'icon', section: section, custom_header_icons: true
   endcapture
 %}
+
+{% capture custom_search_action %}
+  <button
+    class="custom-header__action button-unstyled"
+    type="button"
+    on:click="#search-modal/showDialog"
+    aria-label="{{ 'content.search_input_label' | t }}"
+    aria-haspopup="dialog"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <circle cx="10.75" cy="10.75" r="5.75" stroke="currentColor" stroke-width="1.75"/>
+      <path d="m15 15 4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+    </svg>
+  </button>
+{% endcapture %}
 
 <script src="{{ 'custom-header.js' | asset_url }}" type="module" fetchpriority="low"></script>
 
@@ -21,22 +33,34 @@
     --custom-drawer-width: {{ section.settings.drawer_width }}px;
     --custom-drawer-mobile-height: {{ section.settings.mobile_drawer_height }}vh;
     --custom-drawer-speed: {{ section.settings.animation_speed }}ms;
-    --custom-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --custom-overlay-opacity: {{ section.settings.overlay_opacity }}%;
   "
 >
   <header class="custom-header__bar">
     <div class="custom-header__inner">
       <div class="custom-header__mobile-group custom-header__mobile-group--left">
-        <button class="custom-header__action" type="button" data-menu-open="root" aria-expanded="false" aria-controls="custom-menu-{{ section.id }}">
+        <button
+          class="custom-header__action"
+          type="button"
+          data-menu-open="root"
+          aria-expanded="false"
+          aria-controls="custom-menu-{{ section.id }}"
+        >
           <span class="visually-hidden">Open menu</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <svg class="custom-header__menu-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.5 7.5h15M4.5 12h15M4.5 16.5H15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
         </button>
-        {{ search_action }}
+        {{ custom_search_action }}
       </div>
 
       <a class="custom-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
         {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 600 | image_tag: widths: '120, 180, 240, 360, 480, 600', loading: 'eager', alt: shop.name }}
+          {{
+            settings.logo
+            | image_url: width: 600
+            | image_tag: widths: '120, 180, 240, 360, 480, 600', loading: 'eager', alt: shop.name
+          }}
         {% else %}
           <span>{{ shop.name }}</span>
         {% endif %}
@@ -48,7 +72,17 @@
             {% assign page_id = 'root-' | append: forloop.index %}
             <li>
               {% if link.links != blank %}
-                <button type="button" data-menu-open="{{ page_id }}" aria-expanded="false" aria-controls="custom-menu-{{ section.id }}">{{ link.title | escape }}</button>
+                <button
+                  type="button"
+                  data-menu-open="{{ page_id }}"
+                  aria-expanded="false"
+                  aria-controls="custom-menu-{{ section.id }}"
+                >
+                  <span>{{ link.title | escape }}</span>
+                  <svg class="custom-header__nav-chevron" viewBox="0 0 12 8" aria-hidden="true">
+                    <path d="m1 1 5 5 5-5"/>
+                  </svg>
+                </button>
               {% else %}
                 <a href="{{ link.url }}">{{ link.title | escape }}</a>
               {% endif %}
@@ -58,19 +92,31 @@
       </nav>
 
       <div class="custom-header__actions">
-        <a class="custom-header__action" href="{{ section.settings.shipping_link | default: routes.root_url }}" aria-label="Shipping information">
-          <svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'truck' %}</svg>
+        <a
+          class="custom-header__action"
+          href="{{ section.settings.shipping_link | default: routes.root_url }}"
+          aria-label="Shipping information"
+        >
+          {{ 'custom-icon-truck.svg' | inline_asset_content }}
         </a>
-        <span class="custom-header__desktop-search">{{ search_action }}</span>
+        <span class="custom-header__desktop-search">{{ custom_search_action }}</span>
         {{ existing_actions }}
       </div>
     </div>
   </header>
 
-  <button class="custom-menu-drawer__overlay custom-overlay-cursor" type="button" data-menu-close data-menu-overlay aria-label="Close menu"></button>
+  <button
+    class="custom-menu-drawer__overlay custom-overlay-cursor"
+    type="button"
+    data-menu-close
+    data-menu-overlay
+    aria-label="Close menu"
+  ></button>
   <aside id="custom-menu-{{ section.id }}" class="custom-menu-drawer" data-menu-drawer aria-hidden="true">
     <button class="custom-menu-drawer__close" type="button" data-menu-close aria-label="Close menu">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18"/>
+      </svg>
     </button>
     <div class="custom-menu-drawer__pages">
       <section class="custom-menu-drawer__page is-active" data-menu-page="root" data-menu-depth="0" aria-hidden="false">
@@ -82,7 +128,11 @@
               {% if link.links != blank %}
                 <button class="custom-menu-drawer__link" type="button" data-menu-target="{{ page_id }}">
                   <span>{{ link.title | escape }}</span>
-                  <span class="custom-menu-drawer__chevron"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>
+                  <span class="custom-menu-drawer__chevron">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                  </span>
                 </button>
               {% else %}
                 <a class="custom-menu-drawer__link" href="{{ link.url }}">{{ link.title | escape }}</a>
@@ -98,72 +148,418 @@
     <footer class="custom-menu-drawer__footer">
       <div class="custom-menu-drawer__socials">{% content_for 'blocks' %}</div>
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}">{% if customer %}Account{% else %}Log in{% endif %}</a>
+        <a href="{{ routes.account_url }}">
+          {%- if customer %}Account{% else %}Log in{% endif -%}
+        </a>
       {% endif %}
     </footer>
   </aside>
 </custom-header>
 
 {% stylesheet %}
-  .custom-header { display: block; position: relative; z-index: 30; color: var(--brand-text); font-family: var(--font-body--family); }
-  .custom-header__bar { height: var(--custom-header-height); background: var(--brand-accent-yellow); }
-  .custom-header__inner { display: grid; grid-template-columns: minmax(150px,1fr) minmax(0,3fr) minmax(150px,1fr); align-items: center; height: 100%; max-width: 1600px; margin: auto; padding-inline: clamp(16px,3vw,52px); gap: 24px; }
-  .custom-header__logo { display: flex; justify-self: start; width: min(var(--custom-header-logo-width),100%); color: inherit; text-decoration: none; }
-  .custom-header__logo img { display: block; width: 100%; height: auto; object-fit: contain; }
-  .custom-header__nav { justify-self: center; min-width: 0; }
-  .custom-header__nav ul { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: clamp(14px,1.6vw,30px); margin: 0; padding: 0; list-style: none; }
-  .custom-header__nav a, .custom-header__nav button { position: relative; padding: 8px 0; border: 0; color: inherit; background: none; font: inherit; white-space: nowrap; text-decoration: none; cursor: pointer; }
-  .custom-header__nav :is(a,button)::after { content: ''; position: absolute; right: 0; bottom: 3px; left: 0; height: 1px; background: currentcolor; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
-  .custom-header__nav :is(a,button):is(:hover,:focus-visible)::after { transform: scaleX(1); }
-  .custom-header__actions, .custom-header__mobile-group { display: flex; align-items: center; justify-self: end; gap: 4px; }
-  .custom-header__mobile-group { display: none; }
-  .custom-header__action, .custom-header .header-actions__action, .custom-header .search-action button { display: grid; width: 44px; height: 44px; padding: 10px; place-items: center; color: inherit; }
-  .custom-header :is(.custom-header__action,.header-actions__action,.search-action button) svg { width: var(--custom-header-icon-size); height: var(--custom-header-icon-size); fill: none; stroke: currentcolor; stroke-width: 1.7; }
-  .custom-header header-actions { display: flex; }
-  .custom-menu-drawer__overlay { position: fixed; z-index: 31; inset: 0; visibility: hidden; border: 0; opacity: 0; background: rgb(0 0 0 / var(--custom-overlay-opacity)); transition: opacity var(--custom-drawer-speed) ease, visibility var(--custom-drawer-speed); }
-  .custom-overlay-cursor { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='15' fill='white'/%3E%3Cpath d='m11 11 10 10m0-10L11 21' stroke='%2318151c' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer; }
-  .custom-menu-drawer { position: fixed; z-index: 32; top: 0; bottom: 0; left: 0; width: min(var(--custom-drawer-width),88vw); overflow: hidden; color: var(--brand-background); background: var(--brand-primary); transform: translateX(-100%); transition: transform var(--custom-drawer-speed) ease; }
-  .custom-header[menu-open] .custom-menu-drawer { transform: translateX(0); }
-  .custom-header[menu-open] .custom-menu-drawer__overlay { visibility: visible; opacity: 1; }
-  html.custom-menu-is-open { overflow: hidden; scrollbar-gutter: stable; }
-  .custom-menu-drawer__close { position: absolute; z-index: 2; top: 20px; right: 20px; display: grid; width: 44px; height: 44px; padding: 11px; place-items: center; border: 0; border-radius: 50%; color: var(--brand-text); background: var(--brand-white); cursor: pointer; }
-  .custom-menu-drawer__close svg, .custom-menu-drawer__back svg, .custom-menu-drawer__chevron svg { width: 20px; fill: none; stroke: currentcolor; stroke-width: 1.8; }
-  .custom-menu-drawer__pages { position: relative; height: 100%; overflow: hidden; }
-  .custom-menu-drawer__page { position: absolute; inset: 0; overflow-y: auto; padding: 84px clamp(24px,4vw,48px) 32px; opacity: 0; transform: translateX(12%); pointer-events: none; transition: transform var(--custom-drawer-speed) ease, opacity var(--custom-drawer-speed) ease; }
-  .custom-menu-drawer__page.is-active { opacity: 1; transform: translateX(0); pointer-events: auto; }
-  .custom-menu-drawer__title { margin: 0 0 24px; color: inherit; font-size: clamp(24px,3vw,36px); }
-  .custom-menu-drawer__back { display: flex; align-items: center; gap: 8px; margin: -12px 0 18px; padding: 8px 0; border: 0; color: inherit; background: none; font: inherit; cursor: pointer; }
-  .custom-menu-drawer__list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
-  .custom-menu-drawer__link { display: flex; width: 100%; min-height: 48px; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; border: 0; color: inherit; background: none; font: inherit; font-size: 17px; text-align: left; text-decoration: none; cursor: pointer; }
-  .custom-menu-drawer__chevron { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 50%; color: var(--brand-text); background: var(--brand-white); }
-  .custom-menu-drawer__chevron svg { width: 15px; }
-  .custom-menu-drawer__footer { display: none; }
-  .custom-header :is(a,button):focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+  .custom-header {
+    display: block;
+    position: relative;
+    z-index: 30;
+    color: var(--brand-text);
+    font-family: var(--font-body--family);
+  }
+  .custom-header__bar {
+    height: var(--custom-header-height);
+    background: var(--brand-accent-yellow);
+  }
+  .custom-header__inner {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) minmax(0, 3fr) minmax(150px, 1fr);
+    align-items: center;
+    height: 100%;
+    max-width: 1600px;
+    margin: auto;
+    padding-inline: clamp(16px, 3vw, 52px);
+    gap: 24px;
+  }
+  .custom-header__logo {
+    display: flex;
+    justify-self: start;
+    width: min(var(--custom-header-logo-width), 100%);
+    color: inherit;
+    text-decoration: none;
+  }
+  .custom-header__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .custom-header__nav {
+    justify-self: center;
+    min-width: 0;
+  }
+  .custom-header__nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(14px, 1.6vw, 30px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .custom-header__nav a,
+  .custom-header__nav button {
+    position: relative;
+    min-height: 24px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    appearance: none;
+    color: inherit;
+    background: none;
+    font: inherit;
+    line-height: inherit;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .custom-header__nav button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .custom-header__nav-chevron {
+    width: 11px;
+    height: 7px;
+    flex: none;
+    fill: none;
+    stroke: currentcolor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    transition: transform 0.2s ease;
+  }
+  .custom-header__nav button[aria-expanded='true'] .custom-header__nav-chevron {
+    transform: rotate(180deg);
+  }
+  .custom-header__nav :is(a, button)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    height: 1px;
+    background: currentcolor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .custom-header__nav :is(a, button):is(:hover, :focus-visible)::after {
+    transform: scaleX(1);
+  }
+  .custom-header__actions,
+  .custom-header__mobile-group {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 4px;
+  }
+  .custom-header__mobile-group {
+    display: none;
+  }
+  .custom-header__actions > *,
+  .custom-header__actions :is(.account-button, shopify-account, cart-icon, .svg-wrapper) {
+    align-self: center;
+    line-height: 0;
+  }
+  .custom-header__action,
+  .custom-header .header-actions__action,
+  .custom-header .search-action button {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    place-items: center;
+    color: inherit;
+  }
+  .custom-header :is(.custom-header__action, .header-actions__action, .search-action button) svg {
+    display: block;
+    width: var(--custom-header-icon-size);
+    height: var(--custom-header-icon-size);
+    fill: none;
+    color: inherit;
+  }
+  .custom-header header-actions {
+    display: contents;
+  }
+  .custom-header .account-button {
+    display: contents;
+  }
+  .custom-header shopify-account {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    color: inherit;
+  }
+  .custom-header .account-button__icon {
+    display: block;
+    width: var(--custom-header-icon-size);
+    height: var(--custom-header-icon-size);
+    color: inherit;
+  }
+  .custom-header .header-actions__action cart-icon {
+    display: grid;
+    width: var(--custom-header-icon-size);
+    height: var(--custom-header-icon-size);
+    place-items: center;
+    line-height: 0;
+  }
+  .custom-header .header-actions__action cart-icon > .svg-wrapper {
+    display: grid;
+    width: var(--custom-header-icon-size);
+    height: var(--custom-header-icon-size);
+    place-items: center;
+  }
+  .custom-header .header-actions__action cart-icon > .svg-wrapper svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .custom-menu-drawer__overlay {
+    position: fixed;
+    z-index: 31;
+    inset: 0;
+    visibility: hidden;
+    border: 0;
+    opacity: 0;
+    background: color-mix(
+      in srgb,
+      var(--brand-primary-dark) var(--custom-overlay-opacity),
+      transparent
+    );
+    transition: opacity var(--custom-drawer-speed) ease, visibility var(--custom-drawer-speed);
+  }
+  .custom-overlay-cursor { cursor: pointer; }
+  .custom-menu-drawer {
+    position: fixed;
+    z-index: 32;
+    top: 16px;
+    bottom: 16px;
+    left: 16px;
+    width: min(var(--custom-drawer-width), calc(88vw - 16px));
+    overflow: hidden;
+    border-radius: 12px;
+    color: var(--brand-background);
+    background: var(--brand-primary);
+    transform: translateX(calc(-100% - 16px));
+    transition: transform var(--custom-drawer-speed) ease;
+  }
+  .custom-header[menu-open] .custom-menu-drawer {
+    transform: translateX(0);
+  }
+  .custom-header[menu-open] .custom-menu-drawer__overlay {
+    visibility: visible;
+    opacity: 1;
+  }
+  html.custom-menu-is-open {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+  .custom-menu-drawer__close {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    right: 20px;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 11px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: var(--brand-text);
+    background: var(--brand-white);
+    cursor: pointer;
+  }
+  .custom-menu-drawer__close svg,
+  .custom-menu-drawer__back svg,
+  .custom-menu-drawer__chevron svg {
+    width: 20px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.8;
+  }
+  .custom-menu-drawer__pages {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .custom-menu-drawer__page {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    padding: 84px clamp(24px, 4vw, 48px) 32px;
+    opacity: 0;
+    transform: translateX(12%);
+    pointer-events: none;
+    transition: transform var(--custom-drawer-speed) ease, opacity var(--custom-drawer-speed) ease;
+    scrollbar-width: none;
+  }
+  .custom-menu-drawer__page.is-active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .custom-menu-drawer__title {
+    margin: 0 0 24px;
+    color: inherit;
+    font-size: clamp(24px, 3vw, 36px);
+  }
+  .custom-menu-drawer__back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: -12px 0 18px;
+    padding: 8px 0;
+    border: 0;
+    color: inherit;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+  }
+  .custom-menu-drawer__list {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .custom-menu-drawer__link {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border: 0;
+    color: inherit;
+    background: none;
+    font: inherit;
+    font-size: 17px;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .custom-menu-drawer__chevron {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--brand-text);
+    background: var(--brand-white);
+  }
+  .custom-menu-drawer__chevron svg {
+    width: 15px;
+  }
+  .custom-menu-drawer__footer {
+    display: none;
+  }
+  .custom-header :is(a, button):focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 3px;
+  }
 
   @media (max-width: 989px) {
-    .custom-header__bar { height: var(--custom-header-mobile-height); }
-    .custom-header__inner { grid-template-columns: 1fr auto 1fr; padding-inline: 8px; gap: 4px; }
-    .custom-header__nav, .custom-header__desktop-search { display: none; }
-    .custom-header__mobile-group { display: flex; }
-    .custom-header__mobile-group--left { justify-self: start; }
-    .custom-header__logo { grid-column: 2; justify-self: center; width: var(--custom-header-mobile-logo-width); }
-    .custom-header__actions { grid-column: 3; }
-    .custom-header__actions .account-button { display: none; }
-    .custom-menu-drawer { top: auto; width: 100%; height: min(var(--custom-drawer-mobile-height),720px); transform: translateY(100%); overflow: visible; }
-    .custom-header[menu-open] .custom-menu-drawer { transform: translateY(0); }
-    .custom-menu-drawer__close { top: -56px; right: 50%; transform: translateX(50%); }
-    .custom-menu-drawer__pages { height: calc(100% - 64px); }
-    .custom-menu-drawer__page { padding: 32px 24px 20px; }
-    .custom-menu-drawer__footer { position: absolute; right: 0; bottom: 0; left: 0; display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 24px; border-top: 1px solid color-mix(in srgb, var(--brand-background) 25%, transparent); background: var(--brand-primary); }
-    .custom-menu-drawer[data-nested='true'] .custom-menu-drawer__footer { display: none; }
+    .custom-header__bar {
+      height: var(--custom-header-mobile-height);
+    }
+    .custom-header__inner {
+      grid-template-columns: 1fr auto 1fr;
+      padding-inline: 8px;
+      gap: 4px;
+    }
+    .custom-header__nav,
+    .custom-header__desktop-search {
+      display: none;
+    }
+    .custom-header__mobile-group {
+      display: flex;
+    }
+    .custom-header__mobile-group--left {
+      justify-self: start;
+    }
+    .custom-header__logo {
+      grid-column: 2;
+      justify-self: center;
+      width: var(--custom-header-mobile-logo-width);
+    }
+    .custom-header__actions {
+      grid-column: 3;
+    }
+    .custom-header__actions .account-button {
+      display: none;
+    }
+    .custom-menu-drawer {
+      top: auto;
+      right: 12px;
+      bottom: 0;
+      left: 12px;
+      width: auto;
+      height: min(var(--custom-drawer-mobile-height), 720px);
+      border-radius: 12px 12px 0 0;
+      transform: translateY(100%);
+      overflow: visible;
+    }
+    .custom-header[menu-open] .custom-menu-drawer {
+      transform: translateY(0);
+    }
+    .custom-menu-drawer__close {
+      top: -56px;
+      right: 50%;
+      transform: translateX(50%);
+    }
+    .custom-menu-drawer__pages {
+      height: calc(100% - 64px);
+    }
+    .custom-menu-drawer__page {
+      padding: 32px 24px 20px;
+    }
+    .custom-menu-drawer__footer {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      min-height: 64px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 24px;
+      border-top: 1px solid color-mix(in srgb, var(--brand-background) 25%, transparent);
+      background: var(--brand-primary);
+    }
+    .custom-menu-drawer[data-nested='true'] .custom-menu-drawer__footer {
+      display: none;
+    }
   }
 
   @media (max-width: 370px) {
-    .custom-header__action, .custom-header .header-actions__action, .custom-header .search-action button { width: 38px; padding: 8px; }
+    .custom-header__action,
+    .custom-header .header-actions__action,
+    .custom-header .search-action button,
+    .custom-header shopify-account {
+      width: 38px;
+      padding: 8px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .custom-header * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    .custom-header * {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 {% endstylesheet %}
 
@@ -176,15 +572,96 @@
     { "type": "link_list", "id": "menu", "label": "Navigation menu", "default": "main-menu" },
     { "type": "link_list", "id": "customer_account_menu", "label": "Customer account menu" },
     { "type": "url", "id": "shipping_link", "label": "Shipping icon link" },
-    { "type": "range", "id": "logo_width", "label": "Desktop logo width", "min": 80, "max": 260, "step": 5, "unit": "px", "default": 150 },
-    { "type": "range", "id": "mobile_logo_width", "label": "Mobile logo width", "min": 70, "max": 180, "step": 5, "unit": "px", "default": 110 },
-    { "type": "range", "id": "icon_size", "label": "Icon size", "min": 18, "max": 30, "step": 1, "unit": "px", "default": 22 },
-    { "type": "range", "id": "desktop_height", "label": "Desktop header height", "min": 64, "max": 120, "step": 2, "unit": "px", "default": 84 },
-    { "type": "range", "id": "mobile_height", "label": "Mobile header height", "min": 56, "max": 90, "step": 2, "unit": "px", "default": 68 },
-    { "type": "range", "id": "drawer_width", "label": "Desktop drawer width", "min": 300, "max": 560, "step": 10, "unit": "px", "default": 420 },
-    { "type": "range", "id": "mobile_drawer_height", "label": "Mobile drawer height", "min": 55, "max": 85, "step": 1, "unit": "%", "default": 70 },
-    { "type": "range", "id": "animation_speed", "label": "Drawer animation speed", "min": 150, "max": 600, "step": 25, "unit": "ms", "default": 325 },
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 20, "max": 80, "step": 5, "unit": "%", "default": 50 }
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Desktop logo width",
+      "min": 80,
+      "max": 260,
+      "step": 5,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile logo width",
+      "min": 70,
+      "max": 180,
+      "step": 5,
+      "unit": "px",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 18,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop header height",
+      "min": 64,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 84
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile header height",
+      "min": 56,
+      "max": 90,
+      "step": 2,
+      "unit": "px",
+      "default": 68
+    },
+    {
+      "type": "range",
+      "id": "drawer_width",
+      "label": "Desktop drawer width",
+      "min": 300,
+      "max": 560,
+      "step": 10,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "mobile_drawer_height",
+      "label": "Mobile drawer height",
+      "min": 55,
+      "max": 85,
+      "step": 1,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Drawer animation speed",
+      "min": 150,
+      "max": 600,
+      "step": 25,
+      "unit": "ms",
+      "default": 325
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    }
   ],
   "presets": [{ "name": "Custom header" }]
 }

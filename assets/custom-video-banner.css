@@ -3,6 +3,7 @@
   --custom-video-banner-mobile-height: 560px;
   --custom-video-banner-overlay: 38%;
   --custom-video-banner-content-width: 560px;
+  margin-block: var(--custom-video-banner-margin-top, 0) var(--custom-video-banner-margin-bottom, 0);
   position: relative;
   display: flex;
   width: 100%;
