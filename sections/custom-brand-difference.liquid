@@ -1,0 +1,108 @@
+{{ 'custom-brand-difference.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-brand-difference.js' | asset_url }}" type="module" fetchpriority="low"></script>
+
+<custom-brand-difference
+  class="custom-brand-difference"
+  style="
+    --custom-difference-padding-top: {{ section.settings.padding_top }}px;
+    --custom-difference-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+  "
+>
+  <section class="custom-brand-difference__intro" aria-labelledby="DifferenceHeading-{{ section.id }}">
+    {% if section.settings.eyebrow != blank %}
+      <p class="custom-brand-difference__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    <div class="custom-brand-difference__intro-grid">
+      {% if section.settings.heading != blank %}
+        <h2 id="DifferenceHeading-{{ section.id }}" class="custom-brand-difference__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="custom-brand-difference__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="custom-brand-difference__items" data-difference-items>
+    {% for block in section.blocks %}
+      {% assign panel_id = 'DifferencePanel-' | append: section.id | append: '-' | append: block.id %}
+      <article class="custom-brand-difference__item" data-difference-item {{ block.shopify_attributes }}>
+        <button
+          class="custom-brand-difference__trigger"
+          type="button"
+          data-difference-trigger
+          aria-expanded="false"
+          aria-controls="{{ panel_id }}"
+        >
+          <span class="custom-brand-difference__category">{{ block.settings.category | escape }}</span>
+          <span class="custom-brand-difference__title">{{ block.settings.title }}</span>
+          <span class="custom-brand-difference__icon" aria-hidden="true"></span>
+        </button>
+        <div id="{{ panel_id }}" class="custom-brand-difference__panel" data-difference-panel hidden>
+          <div class="custom-brand-difference__panel-overflow">
+            <div class="custom-brand-difference__panel-inner">
+              {% if block.settings.content != blank %}
+                <div class="custom-brand-difference__copy">{{ block.settings.content }}</div>
+              {% endif %}
+              {% if block.settings.image != blank %}
+                <div class="custom-brand-difference__media">
+                  {{ block.settings.image
+                    | image_url: width: 1400
+                    | image_tag:
+                      class: 'custom-brand-difference__image',
+                      widths: '480, 720, 960, 1200, 1400',
+                      sizes: '(max-width: 749px) calc(100vw - 40px), 42vw',
+                      loading: 'lazy',
+                      alt: block.settings.image.alt | default: block.settings.category
+                  }}
+                </div>
+              {% elsif request.design_mode %}
+                <div class="custom-brand-difference__media">
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'custom-brand-difference__placeholder' }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</custom-brand-difference>
+
+{% schema %}
+{
+  "name": "Custom brand difference",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "difference",
+      "name": "Difference item",
+      "settings": [
+        { "type": "text", "id": "category", "label": "Category", "default": "Fabric" },
+        { "type": "inline_richtext", "id": "title", "label": "Title", "default": "Nothing synthetic. <em>Ever.</em>" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Olecute difference" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Why women choose us, <em>and keep coming back</em>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>We're not the biggest fashion brand. We're the one that gets it right—fabric, fit, and the feeling of putting something on and thinking yes, this.</p>" },
+    { "type": "range", "id": "padding_top", "label": "Desktop padding top", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 88 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [
+    {
+      "name": "Custom brand difference",
+      "blocks": [
+        { "type": "difference", "settings": { "category": "Fabric", "title": "Nothing synthetic. <em>Ever.</em>", "content": "<p>Every piece is made in pure cotton or natural fabric—chosen because it breathes, softens with every wash, and feels good on your skin.</p>" } },
+        { "type": "difference", "settings": { "category": "Design", "title": "Fresh drops, <em>every single week</em>", "content": "<p>New silhouettes and thoughtful details arrive often, so there is always something fresh to discover.</p>" } },
+        { "type": "difference", "settings": { "category": "Sizing", "title": "Fashion that fits <em>every body</em>", "content": "<p>Comfort-led fits and considered proportions make getting dressed feel effortless.</p>" } },
+        { "type": "difference", "settings": { "category": "Origin", "title": "Designed and made <em>in Jaipur</em>", "content": "<p>Each design is shaped by local craft, color, and generations of textile knowledge.</p>" } },
+        { "type": "difference", "settings": { "category": "Promise", "title": "5-day returns, <em>no questions asked</em>", "content": "<p>Try it at home and return it simply if it is not quite right for you.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

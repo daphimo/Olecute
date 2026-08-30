@@ -1,0 +1,99 @@
+{{ 'custom-brand-impact-bar.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="custom-brand-impact custom-brand-impact--columns-{{ section.settings.desktop_columns }}"
+  style="
+    --custom-impact-columns: {{ section.settings.desktop_columns }};
+    --custom-impact-marquee-duration: {{ section.settings.marquee_speed }}s;
+  "
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  {% if section.settings.show_stats %}
+    <div class="custom-brand-impact__stats">
+      {% for block in section.blocks %}
+        {% if block.type == 'impact' %}
+          <article class="custom-brand-impact__stat" {{ block.shopify_attributes }}>
+            {% if block.settings.value != blank %}<p class="custom-brand-impact__value">{{ block.settings.value | escape }}</p>{% endif %}
+            {% if block.settings.label != blank %}<p class="custom-brand-impact__label">{{ block.settings.label | newline_to_br }}</p>{% endif %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_marquee %}
+    <div class="custom-brand-impact__marquee" role="region" aria-label="Brand information">
+      <div class="custom-brand-impact__track">
+        {% for group_number in (1..2) %}
+          <div class="custom-brand-impact__group"{% if group_number == 2 %} aria-hidden="true"{% endif %}>
+            {% for set_number in (1..4) %}
+              <div class="custom-brand-impact__set"{% if group_number == 2 or set_number > 1 %} aria-hidden="true"{% endif %}>
+                {% for block in section.blocks %}
+                  {% if block.type == 'marquee_item' and block.settings.text != blank %}
+                    <span class="custom-brand-impact__item"{% if group_number == 1 and set_number == 1 %} {{ block.shopify_attributes }}{% endif %}>
+                      <span>{{ block.settings.text | escape }}</span>
+                      <span class="custom-brand-impact__separator" aria-hidden="true"></span>
+                    </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Custom brand impact",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 24,
+  "blocks": [
+    {
+      "type": "impact",
+      "name": "Impact",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Large value", "default": "1M+" },
+        { "type": "textarea", "id": "label", "label": "Supporting text", "default": "Women wearing\nOlecute worldwide" }
+      ]
+    },
+    {
+      "type": "marquee_item",
+      "name": "Marquee item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Available everywhere" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "Our brand impact" },
+    { "type": "checkbox", "id": "show_stats", "label": "Show impact statistics", "default": true },
+    { "type": "checkbox", "id": "show_marquee", "label": "Show marquee", "default": true },
+    { "type": "range", "id": "desktop_columns", "label": "Desktop columns", "min": 2, "max": 4, "step": 1, "default": 4 },
+    { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "info": "Lower values move faster.", "min": 15, "max": 60, "step": 1, "unit": "s", "default": 34 }
+  ],
+  "presets": [
+    {
+      "name": "Custom brand impact",
+      "blocks": [
+        { "type": "impact", "settings": { "value": "1M+", "label": "Women wearing\nOlecute worldwide" } },
+        { "type": "impact", "settings": { "value": "500+", "label": "New designs\nevery year" } },
+        { "type": "impact", "settings": { "value": "100%", "label": "Natural fabrics,\nalways" } },
+        { "type": "impact", "settings": { "value": "Since 2021", "label": "Born and made\nin Jaipur" } },
+        { "type": "marquee_item", "settings": { "text": "Available everywhere" } },
+        { "type": "marquee_item", "settings": { "text": "New drops" } },
+        { "type": "marquee_item", "settings": { "text": "Every single week" } },
+        { "type": "marquee_item", "settings": { "text": "Olecute" } },
+        { "type": "marquee_item", "settings": { "text": "Free worldwide shipping" } },
+        { "type": "marquee_item", "settings": { "text": "1 million+ happy customers" } },
+        { "type": "marquee_item", "settings": { "text": "Pure cotton" } },
+        { "type": "marquee_item", "settings": { "text": "Natural fabrics only" } },
+        { "type": "marquee_item", "settings": { "text": "Designed and made in India" } },
+        { "type": "marquee_item", "settings": { "text": "5-day returns" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

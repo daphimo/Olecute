@@ -1,0 +1,48 @@
+.custom-brand-difference { display: block; overflow: hidden; color: var(--brand-text); background: var(--brand-background); }
+.custom-brand-difference__intro { width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); margin-inline: auto; padding-block: var(--custom-difference-padding-top) clamp(48px, 7vw, 96px); }
+.custom-brand-difference__eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 clamp(24px, 4vw, 50px); color: var(--brand-primary); font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.custom-brand-difference__eyebrow::before { content: ''; width: 32px; height: 1px; background: currentcolor; }
+.custom-brand-difference__intro-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .7fr); align-items: end; gap: clamp(40px, 8vw, 140px); }
+.custom-brand-difference__heading { max-width: 760px; margin: 0; color: var(--brand-primary-dark); font-family: var(--font-heading--family); font-size: clamp(2.4rem, 5vw, 5.5rem); font-weight: 400; line-height: .98; letter-spacing: -.04em; }
+.custom-brand-difference__description { max-width: 52ch; color: var(--brand-text-secondary); font-size: clamp(.92rem, 1.1vw, 1.06rem); line-height: 1.65; }
+.custom-brand-difference__description > * { margin: 0; }
+.custom-brand-difference__items { border-top: 1px solid var(--brand-border); }
+.custom-brand-difference__item { border-bottom: 1px solid var(--brand-border); background: var(--brand-background); transition: background-color 320ms cubic-bezier(.22,1,.36,1); }
+.custom-brand-difference__item.is-active { background: var(--brand-background-secondary); }
+.custom-brand-difference__trigger { display: grid; grid-template-columns: clamp(90px, 13vw, 210px) minmax(0, 1fr) 44px; width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); min-height: clamp(92px, 10vw, 148px); align-items: center; gap: clamp(16px, 3vw, 48px); margin-inline: auto; padding: 20px 0; border: 0; color: inherit; background: none; text-align: left; cursor: pointer; }
+.custom-brand-difference__category { color: var(--brand-accent-pink); font-size: clamp(.62rem, .72vw, .75rem); font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.custom-brand-difference__title { color: var(--brand-primary-dark); font-family: var(--font-heading--family); font-size: clamp(1.65rem, 3vw, 3.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.025em; }
+.custom-brand-difference__icon { position: relative; width: 34px; height: 34px; justify-self: end; border: 1px solid var(--brand-border); border-radius: 50%; }
+.custom-brand-difference__icon::before, .custom-brand-difference__icon::after { content: ''; position: absolute; top: 50%; left: 50%; width: 12px; height: 1px; background: var(--brand-primary); transform: translate(-50%,-50%); transition: transform 260ms ease; }
+.custom-brand-difference__icon::after { transform: translate(-50%,-50%) rotate(90deg); }
+.custom-brand-difference__item.is-active .custom-brand-difference__icon::after { transform: translate(-50%,-50%) rotate(0); }
+.custom-brand-difference__panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 340ms cubic-bezier(.22,1,.36,1), opacity 260ms ease; }
+.custom-brand-difference__item.is-active .custom-brand-difference__panel { grid-template-rows: 1fr; opacity: 1; }
+.custom-brand-difference__panel-overflow { min-height: 0; overflow: hidden; }
+.custom-brand-difference__panel-inner { display: grid; grid-template-columns: clamp(90px, 13vw, 210px) minmax(260px, .9fr) minmax(320px, 1.1fr); width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px)); min-height: 250px; align-items: stretch; gap: clamp(16px, 3vw, 48px); margin-inline: auto; }
+.custom-brand-difference__copy { grid-column: 2; align-self: start; max-width: 52ch; padding: 4px 0 48px; color: var(--brand-text-secondary); line-height: 1.65; }
+.custom-brand-difference__copy > * { margin: 0; }
+.custom-brand-difference__media { position: relative; grid-column: 3; min-width: 0; overflow: hidden; opacity: 0; transform: translateX(14px); transition: opacity 320ms ease 60ms, transform 400ms cubic-bezier(.22,1,.36,1) 60ms; }
+.custom-brand-difference__item.is-active .custom-brand-difference__media { opacity: 1; transform: translateX(0); }
+.custom-brand-difference__image, .custom-brand-difference__placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
+.custom-brand-difference__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--brand-primary-dark) 82%, transparent) 0%, color-mix(in srgb, var(--brand-primary-dark) 42%, transparent) 38%, transparent 100%); pointer-events: none; }
+.custom-brand-difference__trigger:focus-visible { outline: 2px solid var(--brand-accent-pink); outline-offset: -4px; }
+
+@media (max-width: 749px) {
+  .custom-brand-difference__intro { padding-block: var(--custom-difference-mobile-padding-top) 48px; }
+  .custom-brand-difference__intro-grid { display: block; }
+  .custom-brand-difference__description { margin-top: 24px; }
+  .custom-brand-difference__trigger { grid-template-columns: 1fr 40px; min-height: 0; gap: 10px; padding-block: 24px; }
+  .custom-brand-difference__category { grid-column: 1; margin-bottom: 8px; }
+  .custom-brand-difference__title { grid-column: 1; }
+  .custom-brand-difference__icon { grid-column: 2; grid-row: 1 / span 2; }
+  .custom-brand-difference__panel-inner { display: block; width: min(calc(100% - 40px), var(--page-width, 1600px)); min-height: 0; }
+  .custom-brand-difference__copy { padding: 0 0 24px; }
+  .custom-brand-difference__media { height: min(70vw, 360px); margin-bottom: 28px; transform: translateY(10px); }
+  .custom-brand-difference__item.is-active .custom-brand-difference__media { transform: translateY(0); }
+  .custom-brand-difference__media::after { background: linear-gradient(180deg, color-mix(in srgb, var(--brand-primary-dark) 22%, transparent), transparent 55%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-brand-difference *, .custom-brand-difference *::before, .custom-brand-difference *::after { transition-duration: .01ms !important; }
+}

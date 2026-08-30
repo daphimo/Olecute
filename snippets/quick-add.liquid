@@ -4,10 +4,12 @@
   @param {object} product - The product object
   @param {string} section_id - The section ID
   @param {object} [block] - The block object
+  @param {string} [quick_add_id] - Unique fallback ID when used outside a theme block
 {%- enddoc -%}
 
 {% liquid
-  assign product_form_id = 'QuickAdd-ProductForm-' | append: product.id | append: '-' | append: block.id
+  assign quick_add_unique_id = block.id | default: quick_add_id
+  assign product_form_id = 'QuickAdd-ProductForm-' | append: product.id | append: '-' | append: quick_add_unique_id
   assign add_to_cart_text = 'actions.add' | t
   assign choose_options_text = 'actions.choose' | t
   # Logic to determine which variant to use (matching swatch selection logic from product-card)

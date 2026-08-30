@@ -1,0 +1,43 @@
+{%- liquid
+  assign current_depth = depth | default: 0
+  assign current_path = path | default: 'root'
+-%}
+
+{%- for link in links -%}
+  {%- if link.links != blank -%}
+    {%- assign page_path = current_path | append: '-' | append: forloop.index -%}
+    <section
+      class="custom-menu-drawer__page"
+      data-menu-page="{{ page_path }}"
+      data-menu-parent="{{ current_path }}"
+      data-menu-depth="{{ current_depth | plus: 1 }}"
+      aria-hidden="true"
+    >
+      <button class="custom-menu-drawer__back" type="button" data-menu-back>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        <span>{{ 'actions.back' | t | default: 'Back' }}</span>
+      </button>
+      <h2 class="custom-menu-drawer__title">{{ link.title | escape }}</h2>
+      <ul class="custom-menu-drawer__list" role="list">
+        <li><a class="custom-menu-drawer__link" href="{{ link.url }}">View all</a></li>
+        {%- for child in link.links -%}
+          {%- assign child_path = page_path | append: '-' | append: forloop.index -%}
+          <li>
+            {%- if child.links != blank -%}
+              <button class="custom-menu-drawer__link" type="button" data-menu-target="{{ child_path }}">
+                <span>{{ child.title | escape }}</span>
+                <span class="custom-menu-drawer__chevron">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+                </span>
+              </button>
+            {%- else -%}
+              <a class="custom-menu-drawer__link" href="{{ child.url }}">{{ child.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </section>
+    {%- assign next_depth = current_depth | plus: 1 -%}
+    {%- render 'custom-header-menu-pages', links: link.links, depth: next_depth, path: page_path -%}
+  {%- endif -%}
+{%- endfor -%}

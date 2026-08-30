@@ -1,0 +1,136 @@
+.custom-brand-impact {
+  --custom-impact-columns: 4;
+  --custom-impact-marquee-duration: 34s;
+  overflow: hidden;
+  color: var(--brand-primary-dark);
+  background: var(--brand-background-secondary);
+}
+
+.custom-brand-impact__stats {
+  display: grid;
+  grid-template-columns: repeat(var(--custom-impact-columns), minmax(0, 1fr));
+  width: min(100%, var(--page-width, 1600px));
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 48px);
+}
+
+.custom-brand-impact__stat {
+  min-width: 0;
+  padding: clamp(26px, 4vw, 52px) clamp(18px, 3vw, 46px);
+  border-inline-end: 1px solid color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  transition: background-color 240ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.custom-brand-impact--columns-2 .custom-brand-impact__stat:nth-child(2n),
+.custom-brand-impact--columns-3 .custom-brand-impact__stat:nth-child(3n),
+.custom-brand-impact--columns-4 .custom-brand-impact__stat:nth-child(4n),
+.custom-brand-impact__stat:last-child {
+  border-inline-end: 0;
+}
+
+.custom-brand-impact__value {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--brand-primary);
+  font-family: var(--font-heading--family);
+  font-size: clamp(2rem, 3.4vw, 4.5rem);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.035em;
+}
+
+.custom-brand-impact__label {
+  max-width: 20ch;
+  margin: clamp(10px, 1.4vw, 18px) 0 0;
+  color: var(--brand-text-secondary);
+  font-family: var(--font-body--family);
+  font-size: clamp(.62rem, .75vw, .76rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-brand-impact__stat:hover {
+    background: color-mix(in srgb, var(--brand-white) 22%, transparent);
+  }
+}
+
+.custom-brand-impact__marquee {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--brand-border);
+  color: var(--brand-background);
+  background: var(--brand-primary);
+}
+
+.custom-brand-impact__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: custom-brand-impact-scroll var(--custom-impact-marquee-duration) linear infinite;
+}
+
+.custom-brand-impact__marquee:is(:hover, :focus-within) .custom-brand-impact__track {
+  animation-play-state: paused;
+}
+
+.custom-brand-impact__group {
+  display: flex;
+  min-width: 100vw;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.custom-brand-impact__set {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.custom-brand-impact__item {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 38px);
+  padding-block: 13px;
+  padding-inline-start: clamp(18px, 2.4vw, 38px);
+  font-family: var(--font-body--family);
+  font-size: clamp(.65rem, .75vw, .78rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.custom-brand-impact__separator {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  border-radius: 50%;
+  background: var(--brand-accent-yellow);
+}
+
+@keyframes custom-brand-impact-scroll {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 749px) {
+  .custom-brand-impact__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 0; }
+  .custom-brand-impact__stat { padding: 28px 20px; border-bottom: 1px solid color-mix(in srgb, var(--brand-primary) 14%, transparent); }
+  .custom-brand-impact__stat:nth-child(2n) { border-inline-end: 0; }
+  .custom-brand-impact__stat:last-child,
+  .custom-brand-impact__stat:nth-child(odd):nth-last-child(2) { border-bottom: 0; }
+  .custom-brand-impact__value { font-size: clamp(1.75rem, 9vw, 2.8rem); }
+  .custom-brand-impact__label { font-size: .6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-brand-impact__track { width: 100%; animation: none; }
+  .custom-brand-impact__group { min-width: 100%; flex-wrap: wrap; justify-content: center; }
+  .custom-brand-impact__group[aria-hidden='true'],
+  .custom-brand-impact__set[aria-hidden='true'] { display: none; }
+}

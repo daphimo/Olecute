@@ -1,0 +1,261 @@
+.custom-email-signup {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  color: var(--brand-primary-dark);
+}
+
+.custom-email-signup__panel {
+  position: relative;
+  z-index: 1;
+  background: var(--email-signup-bg, var(--brand-accent-yellow));
+}
+
+.custom-email-signup__content {
+  width: min(calc(100% - clamp(32px, 8vw, 120px)), var(--email-signup-content-width, 700px));
+  margin-inline: auto;
+  padding-block: var(--email-signup-padding-top, 90px) var(--email-signup-padding-bottom, 90px);
+  text-align: center;
+}
+
+.custom-email-signup__wave {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: var(--email-signup-wave-height, 85px);
+  overflow: hidden;
+  color: var(--email-signup-bg, var(--brand-accent-yellow));
+  line-height: 0;
+  pointer-events: none;
+}
+
+.custom-email-signup__wave svg {
+  display: block;
+  width: 106%;
+  height: 100%;
+  margin-left: -3%;
+  overflow: visible;
+  fill: currentColor;
+}
+
+.custom-email-signup__wave-shape {
+  transform-origin: center;
+}
+
+.custom-email-signup__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin: 0 0 25px;
+  color: var(--brand-primary);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.custom-email-signup__eyebrow::before,
+.custom-email-signup__eyebrow::after {
+  width: 30px;
+  height: 1px;
+  flex: 0 0 auto;
+  background: currentColor;
+  content: '';
+}
+
+.custom-email-signup__heading {
+  margin: 0;
+  color: var(--brand-primary-dark);
+  font-family: var(--font-heading--family);
+  font-size: clamp(2.7rem, 5.6vw, 5.8rem);
+  font-weight: 400;
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.custom-email-signup__heading :is(em, strong) {
+  color: var(--brand-accent-pink);
+  font-weight: 400;
+}
+
+.custom-email-signup__description {
+  max-width: 600px;
+  margin: clamp(24px, 3vw, 36px) auto 0;
+  color: color-mix(in srgb, var(--brand-primary-dark) 76%, transparent);
+  font-size: clamp(.95rem, 1.3vw, 1.08rem);
+  line-height: 1.65;
+}
+
+.custom-email-signup__description > * {
+  margin-block: 0;
+}
+
+.custom-email-signup__form {
+  max-width: 620px;
+  margin: clamp(28px, 4vw, 42px) auto 0;
+}
+
+.custom-email-signup__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 62px;
+  padding: 5px;
+  border: 1px solid color-mix(in srgb, var(--brand-primary-dark) 14%, transparent);
+  border-radius: 5px;
+  background: var(--brand-white);
+}
+
+.custom-email-signup__input {
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  color: var(--brand-text);
+  background: transparent;
+  font: inherit;
+}
+
+.custom-email-signup__input::placeholder {
+  color: var(--brand-text-secondary);
+  opacity: .8;
+}
+
+.custom-email-signup__fields:focus-within {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+}
+
+.custom-email-signup__button {
+  min-height: 50px;
+  padding: 0 clamp(20px, 3vw, 34px);
+  border: 1px solid var(--brand-primary);
+  border-radius: 3px;
+  color: var(--brand-white);
+  background: var(--brand-primary);
+  font: inherit;
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.custom-email-signup__button:hover {
+  background: var(--brand-primary-dark);
+  transform: translateY(-1px);
+}
+
+.custom-email-signup__button:focus-visible {
+  outline: 2px solid var(--brand-white);
+  outline-offset: -4px;
+}
+
+.custom-email-signup__message {
+  margin: 14px 0 0;
+  font-size: .88rem;
+  line-height: 1.45;
+}
+
+.custom-email-signup__message--error {
+  color: var(--brand-primary-dark);
+}
+
+.custom-email-signup__message--error ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.custom-email-signup__message--success {
+  color: var(--brand-primary-dark);
+  font-weight: 700;
+}
+
+.custom-email-signup__reassurance {
+  margin: 16px 0 0;
+  color: color-mix(in srgb, var(--brand-primary-dark) 68%, transparent);
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+.custom-email-signup--animated .custom-email-signup__wave--top .custom-email-signup__wave-shape {
+  animation: custom-email-signup-wave var(--email-signup-wave-duration, 28s) ease-in-out infinite alternate;
+}
+
+.custom-email-signup--animated .custom-email-signup__wave--bottom .custom-email-signup__wave-shape {
+  animation: custom-email-signup-wave var(--email-signup-wave-duration, 28s) ease-in-out infinite alternate-reverse;
+}
+
+@keyframes custom-email-signup-wave {
+  from { transform: translateX(-1.5%) scaleX(1.03); }
+  to { transform: translateX(1.5%) scaleX(1.01); }
+}
+
+@media (max-width: 749px) {
+  .custom-email-signup__wave {
+    height: var(--email-signup-wave-height-mobile, 48px);
+  }
+
+  .custom-email-signup__wave svg {
+    width: 122%;
+    margin-left: -11%;
+  }
+
+  .custom-email-signup__content {
+    width: min(calc(100% - 32px), var(--email-signup-content-width, 700px));
+    padding-block: var(--email-signup-padding-top-mobile, 60px) var(--email-signup-padding-bottom-mobile, 60px);
+  }
+
+  .custom-email-signup__eyebrow {
+    gap: 9px;
+    margin-bottom: 20px;
+    font-size: .66rem;
+  }
+
+  .custom-email-signup__eyebrow::before,
+  .custom-email-signup__eyebrow::after {
+    width: 20px;
+  }
+
+  .custom-email-signup__heading {
+    font-size: clamp(2.35rem, 12vw, 3.8rem);
+  }
+
+  .custom-email-signup__description {
+    margin-top: 22px;
+    font-size: .92rem;
+  }
+
+  .custom-email-signup__form {
+    margin-top: 28px;
+  }
+
+  .custom-email-signup__fields {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .custom-email-signup__input,
+  .custom-email-signup__button {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .custom-email-signup__input {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-email-signup__wave-shape {
+    animation: none !important;
+  }
+
+  .custom-email-signup__button {
+    transition: none;
+  }
+}

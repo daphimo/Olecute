@@ -1,0 +1,62 @@
+{% liquid
+  assign primary_image = product.featured_media.preview_image
+  assign secondary_image = product.media[1].preview_image
+  assign variant = product.selected_or_first_available_variant
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign rating_max = product.metafields.reviews.rating.value.scale_max | default: 5
+  assign card_id = section_id | append: '-' | append: product.id
+%}
+
+<product-card class="custom-product-card" data-product-id="{{ product.id }}">
+  <div class="custom-product-card__media">
+    <div class="custom-product-card__desktop-gallery">
+      <a href="{{ product.url }}" ref="productCardLink" aria-label="{{ product.title | escape }}">
+        {% if primary_image != blank %}
+          {{ primary_image | image_url: width: 900 | image_tag: class: 'custom-product-card__image custom-product-card__image--primary', widths: '240, 360, 480, 600, 750, 900', sizes: '(max-width: 749px) 72vw, 20vw', loading: image_loading, alt: primary_image.alt | default: product.title }}
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'custom-product-card__placeholder' }}
+        {% endif %}
+        {% if secondary_image != blank %}
+          {{ secondary_image | image_url: width: 900 | image_tag: class: 'custom-product-card__image custom-product-card__image--secondary', widths: '360, 480, 600, 750, 900', sizes: '20vw', loading: 'lazy', alt: secondary_image.alt | default: product.title }}
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="custom-product-card__mobile-gallery">
+      {% for media in product.media %}
+        {% if media.media_type == 'image' %}
+          <a class="custom-product-card__mobile-slide" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+            {% assign mobile_loading = 'lazy' %}
+            {% if forloop.first %}{% assign mobile_loading = image_loading %}{% endif %}
+            {{ media.preview_image | image_url: width: 750 | image_tag: class: 'custom-product-card__image', widths: '240, 360, 480, 600, 750', sizes: '72vw', loading: mobile_loading, alt: media.alt | default: product.title }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if show_rating and rating != blank %}
+      <span class="custom-product-card__rating" aria-label="Rated {{ rating }} out of {{ rating_max }}">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 2.3 4.8 5.2.7-3.8 3.7.9 5.3-4.6-2.5-4.6 2.5.9-5.3-3.8-3.7 5.2-.7Z"/></svg>
+        {{ rating }}
+      </span>
+    {% endif %}
+
+    {% if product.available %}
+      <div class="custom-product-card__quick-add" id="QuickAdd-{{ card_id }}">
+        {% render 'quick-add', product: product, section_id: section_id, quick_add_id: card_id %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="custom-product-card__details">
+    <a class="custom-product-card__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+    <div class="custom-product-card__price">
+      {% if variant.compare_at_price > variant.price %}
+        <span class="visually-hidden">Regular price</span>
+        <s>{{ variant.compare_at_price | money }}</s>
+        <span class="visually-hidden">Sale price</span>
+      {% endif %}
+      <span>{{ variant.price | money }}</span>
+    </div>
+  </div>
+</product-card>

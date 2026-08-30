@@ -1,0 +1,153 @@
+{{ 'custom-email-signup.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  case section.settings.animation_speed
+    when 'medium'
+      assign wave_duration = '18s'
+    when 'fast'
+      assign wave_duration = '12s'
+    else
+      assign wave_duration = '28s'
+  endcase
+%}
+
+<section
+  class="custom-email-signup{% if section.settings.animate_waves %} custom-email-signup--animated{% endif %}"
+  style="
+    --email-signup-bg: {{ section.settings.background_color }};
+    --email-signup-content-width: {{ section.settings.content_width }}px;
+    --email-signup-wave-height: {{ section.settings.desktop_wave_height }}px;
+    --email-signup-wave-height-mobile: {{ section.settings.mobile_wave_height }}px;
+    --email-signup-padding-top: {{ section.settings.padding_top }}px;
+    --email-signup-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --email-signup-padding-top-mobile: {{ section.settings.mobile_padding_top }}px;
+    --email-signup-padding-bottom-mobile: {{ section.settings.mobile_padding_bottom }}px;
+    --email-signup-wave-duration: {{ wave_duration }};
+  "
+  {% if section.settings.heading != blank %}aria-labelledby="CustomEmailSignupHeading-{{ section.id }}"{% else %}aria-label="Newsletter signup"{% endif %}
+>
+  {% if section.settings.show_top_wave %}
+    <div class="custom-email-signup__wave custom-email-signup__wave--top" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+        <g class="custom-email-signup__wave-shape">
+          <path d="M-50 120V73C123 84 220 27 396 39c181 13 254 73 448 60 184-12 295-83 646-55v76H-50Z"/>
+        </g>
+      </svg>
+    </div>
+  {% endif %}
+
+  <div class="custom-email-signup__panel">
+    <div class="custom-email-signup__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="custom-email-signup__eyebrow"><span>{{ section.settings.eyebrow | escape }}</span></p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="custom-email-signup__heading" id="CustomEmailSignupHeading-{{ section.id }}">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="custom-email-signup__description rte">{{ section.settings.description }}</div>
+      {% endif %}
+
+      {% form 'customer', class: 'custom-email-signup__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        <div class="custom-email-signup__fields">
+          <label class="visually-hidden" for="CustomEmailSignup-{{ section.id }}">Email address</label>
+          <input
+            class="custom-email-signup__input"
+            id="CustomEmailSignup-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email | escape }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="{{ section.settings.email_placeholder | escape }}"
+            required
+            aria-required="true"
+            {% if form.errors %}aria-invalid="true" aria-describedby="CustomEmailSignupError-{{ section.id }}"{% endif %}
+          >
+          <button class="custom-email-signup__button" type="submit" name="commit">
+            {{ section.settings.button_label | escape }}
+          </button>
+        </div>
+
+        {% if form.errors %}
+          <div class="custom-email-signup__message custom-email-signup__message--error" id="CustomEmailSignupError-{{ section.id }}" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {% elsif form.posted_successfully? %}
+          <p class="custom-email-signup__message custom-email-signup__message--success" role="status" tabindex="-1">
+            {{ section.settings.success_message | escape }}
+          </p>
+        {% endif %}
+      {% endform %}
+
+      {% if section.settings.reassurance_text != blank %}
+        <p class="custom-email-signup__reassurance">{{ section.settings.reassurance_text | escape }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if section.settings.show_bottom_wave %}
+    <div class="custom-email-signup__wave custom-email-signup__wave--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+        <g class="custom-email-signup__wave-shape">
+          <path d="M-50 0h1540v51c-187-18-304 47-510 49-190 2-294-58-474-51C302 57 193 108-50 81V0Z"/>
+        </g>
+      </svg>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Custom email signup",
+  "tag": "section",
+  "class": "custom-email-signup-section",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "STAY IN THE LOOP" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "New drops. Exclusive offers. <em>All yours.</em>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Join 1M+ women who get early access to new arrivals, seasonal edits & members-only discounts — straight to their inbox.</p>" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "SUBSCRIBE" },
+    { "type": "text", "id": "reassurance_text", "label": "Reassurance text", "default": "No spam, ever. Unsubscribe anytime." },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "You're on the list. Welcome in." },
+    { "type": "header", "content": "Appearance" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#f4b51b" },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 700 },
+    { "type": "header", "content": "Waves" },
+    { "type": "checkbox", "id": "show_top_wave", "label": "Show top wave", "default": true },
+    { "type": "checkbox", "id": "show_bottom_wave", "label": "Show bottom wave", "default": true },
+    { "type": "range", "id": "desktop_wave_height", "label": "Desktop wave height", "min": 40, "max": 140, "step": 5, "unit": "px", "default": 85 },
+    { "type": "range", "id": "mobile_wave_height", "label": "Mobile wave height", "min": 24, "max": 90, "step": 3, "unit": "px", "default": 48 },
+    { "type": "checkbox", "id": "animate_waves", "label": "Animate waves", "default": false },
+    {
+      "type": "select",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "options": [
+        { "value": "slow", "label": "Slow" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "fast", "label": "Fast" }
+      ],
+      "default": "slow",
+      "visible_if": "{{ section.settings.animate_waves }}"
+    },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop padding top", "min": 40, "max": 160, "step": 5, "unit": "px", "default": 90 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop padding bottom", "min": 40, "max": 160, "step": 5, "unit": "px", "default": 90 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 32, "max": 100, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile padding bottom", "min": 32, "max": 100, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "presets": [
+    { "name": "Custom email signup" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,219 @@
+<script
+  src="{{ 'marquee.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<marquee-component
+  class="header-marquee"
+  style="
+    --header-marquee-background: {{ section.settings.background_color }};
+    --header-marquee-text: {{ section.settings.text_color }};
+    --header-marquee-font-size: {{ section.settings.text_size }}px;
+    --header-marquee-gap: {{ section.settings.item_spacing }}px;
+    --header-marquee-dot-size: {{ section.settings.dot_size }}px;
+    --header-marquee-padding-block: {{ section.settings.padding_vertical }}px;
+  "
+  data-speed-factor="{{ section.settings.speed }}"
+  data-movement-direction="normal"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="header-marquee__track" ref="wrapper">
+    <div class="header-marquee__content" ref="content">
+      <div class="header-marquee__group" ref="marqueeItems[]">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <div class="header-marquee__item" {{ block.shopify_attributes }}>
+              <span class="header-marquee__text">{{ block.settings.text | escape }}</span>
+              <span class="header-marquee__dot" aria-hidden="true"></span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</marquee-component>
+
+{% stylesheet %}
+  .header-marquee {
+    width: 100%;
+    overflow: hidden;
+    padding-block: var(--header-marquee-padding-block);
+    color: var(--header-marquee-text);
+    background-color: var(--header-marquee-background);
+  }
+
+  .header-marquee__track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .header-marquee__content {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .header-marquee__group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .header-marquee__item {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--header-marquee-gap);
+    padding-inline-start: var(--header-marquee-gap);
+    font-size: var(--header-marquee-font-size);
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .header-marquee__text {
+    color: inherit;
+  }
+
+  .header-marquee__dot {
+    width: var(--header-marquee-dot-size);
+    height: var(--header-marquee-dot-size);
+    flex: 0 0 var(--header-marquee-dot-size);
+    border-radius: 50%;
+    background-color: currentcolor;
+  }
+
+  @keyframes header-marquee-scroll {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .header-marquee:not([data-disabled]) .header-marquee__track {
+      animation: header-marquee-scroll var(--marquee-speed) linear infinite;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Announcement marquee",
+  "tag": "section",
+  "class": "header-marquee-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping on qualifying orders"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Store announcements"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#32166F"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FCF9F4"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Space around dots",
+      "min": 8,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "dot_size",
+      "label": "Dot size",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Movement speed",
+      "info": "Lower values move faster.",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement marquee",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "10% off all prepaid orders"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Use CUTE50 at checkout for an additional Rs.50 off"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Welcome to Olecute"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

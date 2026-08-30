@@ -1,0 +1,106 @@
+.custom-cta-banner {
+  padding-block: var(--custom-cta-section-padding-top) var(--custom-cta-section-padding-bottom);
+  background: var(--brand-background);
+}
+
+.custom-cta-banner__inner {
+  display: flex;
+  width: min(calc(100% - clamp(32px, 6vw, 96px)), var(--page-width, 1600px));
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 6vw, 90px);
+  margin-inline: auto;
+  padding: clamp(34px, 5vw, 68px) clamp(28px, 6vw, 88px);
+  border-radius: var(--custom-cta-radius);
+  color: var(--brand-primary-dark);
+  background: var(--custom-cta-background);
+}
+
+.custom-cta-banner__content {
+  min-width: 0;
+}
+
+.custom-cta-banner__heading {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-heading--family);
+  font-size: clamp(1.75rem, 3vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.custom-cta-banner__description {
+  margin: 10px 0 0;
+  color: color-mix(in srgb, var(--brand-primary-dark) 76%, transparent);
+  font-family: var(--font-body--family);
+  font-size: clamp(.86rem, 1vw, 1rem);
+  line-height: 1.5;
+}
+
+.custom-cta-banner__button {
+  display: inline-flex;
+  min-height: 46px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  color: var(--brand-primary-dark);
+  background: var(--brand-white);
+  font-family: var(--font-body--family);
+  font-size: .74rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 240ms cubic-bezier(.22, 1, .36, 1), background-color 240ms ease;
+}
+
+.custom-cta-banner__button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-cta-banner__button:hover {
+    transform: translateY(-2px);
+    background: var(--brand-background);
+  }
+}
+
+.custom-cta-banner__button:focus-visible {
+  outline: 3px solid var(--brand-primary-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 749px) {
+  .custom-cta-banner {
+    padding-block: var(--custom-cta-mobile-padding-top) var(--custom-cta-mobile-padding-bottom);
+  }
+
+  .custom-cta-banner__inner {
+    width: calc(100% - 32px);
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 26px;
+    padding: 34px 24px;
+  }
+
+  .custom-cta-banner__heading {
+    font-size: clamp(1.7rem, 8vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cta-banner__button {
+    transition: none;
+  }
+}

@@ -1,0 +1,109 @@
+.custom-shopping-experience {
+  --custom-shopping-columns: 4;
+  --custom-shopping-mobile-columns: 2;
+  padding-block: var(--custom-shopping-padding-top) var(--custom-shopping-padding-bottom);
+  overflow: hidden;
+  color: var(--brand-text);
+  background: var(--brand-background);
+}
+
+.custom-shopping-experience__heading {
+  width: min(calc(100% - 40px), 900px);
+  margin: 0 auto var(--custom-shopping-heading-gap);
+  color: var(--brand-primary-dark);
+  font-family: var(--font-heading--family);
+  font-size: clamp(2rem, 4vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+  text-align: center;
+}
+
+.custom-shopping-experience__heading :is(em, strong) {
+  color: var(--brand-accent-pink);
+  font-weight: 400;
+}
+
+.custom-shopping-experience__benefits {
+  display: grid;
+  grid-template-columns: repeat(var(--custom-shopping-columns), minmax(0, 1fr));
+  width: min(100%, var(--page-width, 1600px));
+  margin-inline: auto;
+  padding: 0;
+  border-block: 1px solid var(--brand-border);
+  list-style: none;
+}
+
+.custom-shopping-experience__benefit {
+  display: flex;
+  min-width: 0;
+  min-height: clamp(150px, 14vw, 210px);
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 24px);
+  padding: clamp(24px, 3vw, 44px);
+  border-inline-end: 1px solid var(--brand-border);
+  background: transparent;
+  transition: background-color 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.custom-shopping-experience--columns-2 .custom-shopping-experience__benefit:nth-child(2n),
+.custom-shopping-experience--columns-3 .custom-shopping-experience__benefit:nth-child(3n),
+.custom-shopping-experience--columns-4 .custom-shopping-experience__benefit:nth-child(4n),
+.custom-shopping-experience--columns-5 .custom-shopping-experience__benefit:nth-child(5n),
+.custom-shopping-experience--columns-6 .custom-shopping-experience__benefit:nth-child(6n),
+.custom-shopping-experience__benefit:last-child {
+  border-inline-end: 0;
+}
+
+.custom-shopping-experience__icon {
+  display: grid;
+  width: clamp(46px, 4vw, 58px);
+  height: clamp(46px, 4vw, 58px);
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--brand-accent-pink);
+  border-radius: 50%;
+  color: var(--brand-accent-pink);
+  background: transparent;
+  transition: color 260ms cubic-bezier(.22, 1, .36, 1), background-color 260ms cubic-bezier(.22, 1, .36, 1), border-color 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.custom-shopping-experience__icon svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.55;
+}
+
+.custom-shopping-experience__content { min-width: 0; }
+.custom-shopping-experience__title { margin: 0; color: var(--brand-primary-dark); font-family: var(--font-body--family); font-size: clamp(.88rem, 1.05vw, 1rem); font-weight: 650; line-height: 1.3; }
+.custom-shopping-experience__description { margin: 5px 0 0; color: var(--brand-text-secondary); font-size: clamp(.72rem, .85vw, .86rem); line-height: 1.45; }
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-shopping-experience__benefit:hover { background: color-mix(in srgb, var(--brand-background-secondary) 58%, transparent); }
+  .custom-shopping-experience__benefit:hover .custom-shopping-experience__icon { border-color: var(--brand-accent-yellow); color: var(--brand-primary-dark); background: var(--brand-accent-yellow); }
+}
+
+@media (max-width: 749px) {
+  .custom-shopping-experience { padding-block: var(--custom-shopping-mobile-padding-top) var(--custom-shopping-mobile-padding-bottom); }
+  .custom-shopping-experience__heading { margin-bottom: min(var(--custom-shopping-heading-gap), 44px); font-size: clamp(1.9rem, 10vw, 3rem); }
+  .custom-shopping-experience__benefits { grid-template-columns: repeat(var(--custom-shopping-mobile-columns), minmax(0, 1fr)); }
+  .custom-shopping-experience__benefit { min-height: 150px; gap: 12px; padding: 22px 16px; border-bottom: 1px solid var(--brand-border); }
+  .custom-shopping-experience--mobile-columns-1 .custom-shopping-experience__benefit { border-inline-end: 0; }
+  .custom-shopping-experience--mobile-columns-2 .custom-shopping-experience__benefit:nth-child(2n) { border-inline-end: 0; }
+  .custom-shopping-experience__benefit:last-child,
+  .custom-shopping-experience--mobile-columns-2 .custom-shopping-experience__benefit:nth-child(odd):nth-last-child(2) { border-bottom: 0; }
+  .custom-shopping-experience__icon { width: 44px; height: 44px; }
+  .custom-shopping-experience__icon svg { width: 20px; height: 20px; }
+}
+
+@media (max-width: 359px) {
+  .custom-shopping-experience__benefit { align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-shopping-experience * { transition-duration: .01ms !important; }
+}

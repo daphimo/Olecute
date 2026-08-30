@@ -1,0 +1,103 @@
+{{ 'custom-shopping-experience.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="custom-shopping-experience custom-shopping-experience--columns-{{ section.settings.desktop_columns }} custom-shopping-experience--mobile-columns-{{ section.settings.mobile_columns }}"
+  style="
+    --custom-shopping-columns: {{ section.settings.desktop_columns }};
+    --custom-shopping-mobile-columns: {{ section.settings.mobile_columns }};
+    --custom-shopping-padding-top: {{ section.settings.padding_top }}px;
+    --custom-shopping-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --custom-shopping-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+    --custom-shopping-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    --custom-shopping-heading-gap: {{ section.settings.heading_gap }}px;
+  "
+  aria-labelledby="ShoppingExperienceHeading-{{ section.id }}"
+>
+  {% if section.settings.heading != blank %}
+    <h2 id="ShoppingExperienceHeading-{{ section.id }}" class="custom-shopping-experience__heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <ul class="custom-shopping-experience__benefits" role="list">
+      {% for block in section.blocks %}
+        <li class="custom-shopping-experience__benefit" {{ block.shopify_attributes }}>
+          <span class="custom-shopping-experience__icon" aria-hidden="true">
+            {% case block.settings.icon %}
+              {% when 'payment' %}
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 15h4"/></svg>
+              {% when 'chat' %}
+                <svg viewBox="0 0 24 24"><path d="M20 15a3 3 0 0 1-3 3H9l-5 3v-6a3 3 0 0 1-1-2V7a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+              {% when 'globe' %}
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+              {% when 'return' %}
+                <svg viewBox="0 0 24 24"><path d="m8 7-4 4 4 4M4 11h10a6 6 0 0 1 6 6v1"/></svg>
+              {% when 'truck' %}
+                <svg viewBox="0 0 24 24"><path d="M3 5h11v12H3zM14 9h4l3 4v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              {% when 'shield' %}
+                <svg viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+            {% endcase %}
+          </span>
+          <div class="custom-shopping-experience__content">
+            {% if block.settings.title != blank %}<h3 class="custom-shopping-experience__title">{{ block.settings.title | escape }}</h3>{% endif %}
+            {% if block.settings.description != blank %}<p class="custom-shopping-experience__description">{{ block.settings.description | escape }}</p>{% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Shopping experience",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "payment",
+          "options": [
+            { "value": "payment", "label": "Payment card" },
+            { "value": "chat", "label": "Chat" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "return", "label": "Return" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "shield", "label": "Shield" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Cash on delivery" },
+        { "type": "text", "id": "description", "label": "Supporting text", "default": "Pay when it arrives" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "You are shopping <em>for an experience</em>" },
+    { "type": "range", "id": "desktop_columns", "label": "Desktop columns", "min": 2, "max": 6, "step": 1, "default": 4 },
+    {
+      "type": "select", "id": "mobile_columns", "label": "Mobile columns", "default": "2",
+      "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }]
+    },
+    { "type": "range", "id": "heading_gap", "label": "Heading to benefits spacing", "min": 20, "max": 100, "step": 4, "unit": "px", "default": 52 },
+    { "type": "header", "content": "Desktop spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 140, "step": 4, "unit": "px", "default": 72 },
+    { "type": "header", "content": "Mobile spacing" },
+    { "type": "range", "id": "mobile_padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 52 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 52 }
+  ],
+  "presets": [
+    {
+      "name": "Shopping experience",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "payment", "title": "Cash on Delivery", "description": "Pay when it arrives" } },
+        { "type": "benefit", "settings": { "icon": "chat", "title": "Real Human Support", "description": "WhatsApp, always" } },
+        { "type": "benefit", "settings": { "icon": "globe", "title": "Free Worldwide Shipping", "description": "No minimum order" } },
+        { "type": "benefit", "settings": { "icon": "return", "title": "5-Day Easy Returns", "description": "No questions asked" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,193 @@
+{% liquid
+  assign has_multiple_slides = false
+  if section.blocks.size > 1
+    assign has_multiple_slides = true
+  endif
+
+  assign arrows = false
+  if section.settings.show_arrows and has_multiple_slides
+    assign arrows = true
+  endif
+
+  assign pagination = false
+  if section.settings.show_pagination and has_multiple_slides
+    assign pagination = true
+  endif
+
+  assign slider_type = 'slide'
+  assign rewind = false
+  assign autoplay = false
+  if section.settings.autoplay and has_multiple_slides
+    assign autoplay = true
+  endif
+  if section.settings.effect == 'fade' and has_multiple_slides
+    assign slider_type = 'fade'
+    assign rewind = true
+  elsif has_multiple_slides
+    assign slider_type = 'loop'
+  endif
+%}
+
+<section class="custom-hero-slider" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div
+    class="splide custom-splide custom-hero-slider__splide"
+    data-custom-splide
+    data-pagination-type="{{ section.settings.pagination_type }}"
+    data-splide-options='{
+      "type": {{ slider_type | json }},
+      "rewind": {{ rewind | json }},
+      "autoplay": {{ autoplay | json }},
+      "interval": {{ section.settings.autoplay_interval | json }},
+      "speed": {{ section.settings.transition_speed | json }},
+      "arrows": {{ arrows | json }},
+      "pagination": {{ pagination | json }},
+      "pauseOnHover": true,
+      "pauseOnFocus": true,
+      "resetProgress": true,
+      "drag": true,
+      "keyboard": "global"
+    }'
+    style="--custom-splide-interval: {{ section.settings.autoplay_interval }}ms;"
+  >
+    <div class="splide__track">
+      <ul class="splide__list" role="list">
+        {% for block in section.blocks %}
+          {% liquid
+            assign desktop_image = block.settings.desktop_image
+            assign mobile_image = block.settings.mobile_image | default: desktop_image
+            assign image_alt = block.settings.alt_text
+            if image_alt == blank
+              assign image_alt = desktop_image.alt | default: mobile_image.alt
+            endif
+            if forloop.first
+              assign image_loading = 'eager'
+              assign image_fetchpriority = 'high'
+            else
+              assign image_loading = 'lazy'
+              assign image_fetchpriority = 'auto'
+            endif
+          %}
+          <li class="splide__slide custom-hero-slider__slide" {{ block.shopify_attributes }}>
+            {% capture slide_media %}
+              {% if desktop_image != blank %}
+                <picture class="custom-hero-slider__picture">
+                  {% if mobile_image != blank %}
+                    <source
+                      media="(max-width: 749px)"
+                      srcset="
+                        {{ mobile_image | image_url: width: 375 }} 375w,
+                        {{ mobile_image | image_url: width: 550 }} 550w,
+                        {{ mobile_image | image_url: width: 750 }} 750w,
+                        {{ mobile_image | image_url: width: 1000 }} 1000w
+                      "
+                      sizes="100vw"
+                      width="{{ mobile_image.width }}"
+                      height="{{ mobile_image.height }}"
+                    >
+                  {% endif %}
+                  {{ desktop_image
+                    | image_url: width: 2400
+                    | image_tag:
+                      class: 'custom-hero-slider__image',
+                      widths: '750, 1000, 1200, 1500, 1800, 2000, 2400',
+                      sizes: '100vw',
+                      loading: image_loading,
+                      fetchpriority: image_fetchpriority,
+                      alt: image_alt
+                  }}
+                </picture>
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'custom-hero-slider__placeholder' }}
+              {% endif %}
+            {% endcapture %}
+
+            {% if block.settings.link != blank %}
+              <a class="custom-hero-slider__link" href="{{ block.settings.link }}">{{ slide_media }}</a>
+            {% else %}
+              {{ slide_media }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% if arrows %}
+      <div class="splide__arrows custom-splide__arrows">
+        <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom hero slider",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "alt_text", "label": "Alt text", "info": "Leave blank to use the image alt text." }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "Featured promotions" },
+    { "type": "checkbox", "id": "show_arrows", "label": "Show arrows", "default": true },
+    { "type": "checkbox", "id": "show_pagination", "label": "Show pagination", "default": true },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination type",
+      "options": [
+        { "value": "progress", "label": "Progress bars" },
+        { "value": "circle", "label": "Circle dots" }
+      ],
+      "default": "progress",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    { "type": "checkbox", "id": "autoplay", "label": "Enable autoplay", "default": true },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "label": "Autoplay interval",
+      "min": 3000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000,
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    { "type": "range", "id": "transition_speed", "label": "Transition speed", "min": 200, "max": 1500, "step": 100, "unit": "ms", "default": 800 },
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Effect",
+      "options": [
+        { "value": "slide", "label": "Slide" },
+        { "value": "fade", "label": "Fade" }
+      ],
+      "default": "slide"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom hero slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}

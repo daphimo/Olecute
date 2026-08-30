@@ -1,0 +1,106 @@
+{{ 'custom-video-banner.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign banner_video = section.settings.video
+  assign poster = section.settings.poster | default: banner_video.preview_image
+%}
+
+<section
+  class="custom-video-banner"
+  style="
+    --custom-video-banner-height: {{ section.settings.desktop_height }}px;
+    --custom-video-banner-mobile-height: {{ section.settings.mobile_height }}px;
+    --custom-video-banner-overlay: {{ section.settings.overlay_opacity }}%;
+    --custom-video-banner-content-width: {{ section.settings.content_width }}px;
+  "
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="custom-video-banner__media" aria-hidden="true">
+    {% if poster != blank %}
+      {{ poster | image_url: width: 2400 | image_tag: class: 'custom-video-banner__poster', widths: '750, 1000, 1200, 1500, 1800, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '' }}
+    {% endif %}
+    {% if banner_video != blank %}
+      {{ banner_video | video_tag: class: 'custom-video-banner__video', image_size: '2400x', autoplay: true, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata' }}
+    {% elsif poster == blank %}
+      {{ 'hero-apparel-3' | placeholder_svg_tag: 'custom-video-banner__placeholder' }}
+    {% endif %}
+  </div>
+
+  <div class="custom-video-banner__content custom-video-banner__content--{{ section.settings.desktop_position }} custom-video-banner__content--mobile-{{ section.settings.mobile_position }}">
+    <div class="custom-video-banner__stack">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'eyebrow' %}
+            {% if block.settings.text != blank %}<p class="custom-video-banner__block custom-video-banner__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>{% endif %}
+          {% when 'heading' %}
+            {% if block.settings.text != blank %}<h2 class="custom-video-banner__block custom-video-banner__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>{% endif %}
+          {% when 'description' %}
+            {% if block.settings.text != blank %}<div class="custom-video-banner__block custom-video-banner__description" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>{% endif %}
+          {% when 'button' %}
+            {% if block.settings.label != blank and block.settings.url != blank %}
+              <a class="custom-video-banner__block custom-video-banner__button" href="{{ block.settings.url }}"{% if block.settings.new_tab %} target="_blank" rel="noopener noreferrer"{% endif %} {{ block.shopify_attributes }}>
+                {{ block.settings.label | escape }}
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+              </a>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom video banner",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 8,
+  "blocks": [
+    { "type": "eyebrow", "name": "Eyebrow", "limit": 1, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "New collection — just dropped" }] },
+    { "type": "heading", "name": "Heading", "limit": 1, "settings": [{ "type": "inline_richtext", "id": "text", "label": "Heading", "default": "Wear what <em>feels like you.</em>" }] },
+    { "type": "description", "name": "Description", "limit": 1, "settings": [{ "type": "richtext", "id": "text", "label": "Text", "default": "<p>New designs every week — pure cotton, made in Jaipur.</p>" }] },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Explore new arrivals" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "checkbox", "id": "new_tab", "label": "Open in a new tab", "default": false }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "Featured campaign" },
+    { "type": "video", "id": "video", "label": "Video" },
+    { "type": "image_picker", "id": "poster", "label": "Poster image", "info": "Defaults to the video's preview image." },
+    { "type": "range", "id": "desktop_height", "label": "Desktop height", "min": 400, "max": 900, "step": 20, "unit": "px", "default": 620 },
+    { "type": "range", "id": "mobile_height", "label": "Mobile height", "min": 380, "max": 800, "step": 20, "unit": "px", "default": 560 },
+    {
+      "type": "select", "id": "desktop_position", "label": "Desktop content position", "default": "bottom-left",
+      "options": [
+        { "value": "top-left", "label": "Top left" }, { "value": "top-center", "label": "Top center" }, { "value": "top-right", "label": "Top right" },
+        { "value": "center-left", "label": "Center left" }, { "value": "center", "label": "Center" }, { "value": "center-right", "label": "Center right" },
+        { "value": "bottom-left", "label": "Bottom left" }, { "value": "bottom-center", "label": "Bottom center" }, { "value": "bottom-right", "label": "Bottom right" }
+      ]
+    },
+    {
+      "type": "select", "id": "mobile_position", "label": "Mobile content position", "default": "bottom-left",
+      "options": [
+        { "value": "top-left", "label": "Top left" }, { "value": "top-center", "label": "Top center" }, { "value": "top-right", "label": "Top right" },
+        { "value": "center-left", "label": "Center left" }, { "value": "center", "label": "Center" }, { "value": "center-right", "label": "Center right" },
+        { "value": "bottom-left", "label": "Bottom left" }, { "value": "bottom-center", "label": "Bottom center" }, { "value": "bottom-right", "label": "Bottom right" }
+      ]
+    },
+    { "type": "range", "id": "content_width", "label": "Content maximum width", "min": 280, "max": 800, "step": 20, "unit": "px", "default": 560 },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 40 }
+  ],
+  "presets": [
+    {
+      "name": "Custom video banner",
+      "blocks": [
+        { "type": "eyebrow" }, { "type": "heading" }, { "type": "description" }, { "type": "button" }
+      ]
+    }
+  ]
+}
+{% endschema %}

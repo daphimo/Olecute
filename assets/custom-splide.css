@@ -1,0 +1,94 @@
+.custom-splide {
+  --custom-splide-interval: 5000ms;
+  position: relative;
+  visibility: visible;
+}
+
+.custom-splide .splide__track,
+.custom-splide .splide__list,
+.custom-splide .splide__slide {
+  height: auto;
+}
+
+.custom-splide .splide__arrow {
+  width: clamp(40px, 4vw, 48px);
+  height: clamp(40px, 4vw, 48px);
+  opacity: 1;
+  color: var(--brand-primary-dark);
+  background: color-mix(in srgb, var(--brand-white) 88%, transparent);
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.custom-splide .splide__arrow--prev { left: clamp(12px, 3vw, 48px); }
+.custom-splide .splide__arrow--next { right: clamp(12px, 3vw, 48px); }
+.custom-splide .splide__arrow:hover { color: var(--brand-primary); background: var(--brand-white); }
+.custom-splide .splide__arrow:focus-visible,
+.custom-splide .splide__pagination__page:focus-visible { outline: 2px solid var(--brand-accent-yellow); outline-offset: 3px; }
+.custom-splide .splide__arrow svg { width: 18px; height: 18px; fill: none; stroke: currentcolor; stroke-width: 1.7; }
+
+.custom-splide .splide__pagination {
+  right: clamp(16px, 5vw, 72px);
+  bottom: clamp(14px, 3vw, 36px);
+  left: clamp(16px, 5vw, 72px);
+  gap: 10px;
+  padding: 0;
+  pointer-events: none;
+}
+
+.custom-splide .splide__pagination li { display: flex; pointer-events: auto; }
+.custom-splide .splide__pagination__page { position: relative; display: grid; width: auto; height: auto; margin: 0; padding: 0; place-items: center; border: 0; border-radius: 0; opacity: 1; background: transparent; transform: none; }
+.custom-splide .custom-splide__bar { display: block; width: clamp(38px, 6vw, 84px); height: 3px; overflow: hidden; background: color-mix(in srgb, var(--brand-white) 45%, transparent); }
+.custom-splide .custom-splide__bar > span { display: block; width: 100%; height: 100%; background: var(--brand-accent-yellow); transform: scaleX(0); transform-origin: left; }
+.custom-splide .splide__pagination__page.is-active:not(.custom-splide__progressing) .custom-splide__bar > span { transform: scaleX(1); }
+.custom-splide .splide__pagination__page.custom-splide__progressing .custom-splide__bar > span { animation: custom-splide-bar var(--custom-splide-interval) linear both; }
+
+.custom-splide .custom-splide__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-white); }
+.custom-splide .custom-splide__ring { position: absolute; width: 24px; height: 24px; overflow: visible; transform: rotate(-90deg); fill: none; stroke: var(--brand-accent-yellow); stroke-width: 1.5; }
+.custom-splide .custom-splide__ring circle { stroke-dasharray: 62.84; stroke-dashoffset: 62.84; }
+.custom-splide .splide__pagination__page.is-active:not(.custom-splide__progressing) .custom-splide__ring circle { stroke-dashoffset: 0; }
+.custom-splide .splide__pagination__page.custom-splide__progressing .custom-splide__ring circle { animation: custom-splide-ring var(--custom-splide-interval) linear both; }
+.custom-splide[data-pagination-type='circle'] .splide__pagination { gap: 18px; }
+.custom-splide.custom-splide--paused .custom-splide__progressing :is(.custom-splide__bar > span, .custom-splide__ring circle) { animation-play-state: paused; }
+
+@keyframes custom-splide-bar { to { transform: scaleX(1); } }
+@keyframes custom-splide-ring { to { stroke-dashoffset: 0; } }
+
+.custom-hero-slider,
+.custom-hero-slider__splide,
+.custom-hero-slider__slide,
+.custom-hero-slider__link,
+.custom-hero-slider__picture {
+  display: block;
+  width: 100%;
+}
+
+.custom-hero-slider {
+  overflow: hidden;
+  background: var(--brand-background-secondary);
+}
+
+.custom-hero-slider__image,
+.custom-hero-slider__placeholder {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.custom-hero-slider__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.custom-hero-slider__placeholder {
+  min-height: min(55vw, 720px);
+  background: var(--brand-background-secondary);
+}
+
+@media (max-width: 749px) {
+  .custom-splide .splide__arrow { width: 40px; height: 40px; }
+  .custom-splide .custom-splide__bar { width: clamp(30px, 12vw, 56px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-splide *, .custom-splide *::before, .custom-splide *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
