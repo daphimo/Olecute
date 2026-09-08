@@ -41,22 +41,27 @@ export function supportsViewTransitions() {
 }
 
 /**
- * Detect Facebook / Instagram in-app browsers (Meta WebView).
+ * Detect in-app WebViews known to mishandle cross-document view transitions.
  *
- * Reports of Meta's in-app browsers (Facebook, Instagram) that fail to paint during
- * cross-document (MPA) View Transitions implementation that can freeze or
- * white-screen the storefront on navigation. June 2026 testing.
- * Remove check if every resolved.
+ * Reports of in-app browsers WebViews failing to paint during cross-document (MPA) View
+ * Transitions that can freeze or white-screen the storefront on navigation.
+ * June 2026 testing.  The common factor is the Android System WebView (Chromium WebView),
+ * whose UA carries the `; wv)` token inside the platform parenthetical.
+ * Remove check if ever resolved.
  *
  * Note: the IIFE in view-transitions.js has an inline copy of this logic (it
  * runs before modules load) — keep the two in sync.
  * @param {string} [userAgent=navigator.userAgent] - User-agent string to test.
  *   Defaults to the live `navigator.userAgent`; pass an explicit value to keep
  *   the function pure and testable without overriding the browser UA.
- * @returns {boolean} True if running inside a Facebook/Instagram in-app browser.
+ * @returns {boolean} True if running inside an unsupported in-app WebView.
  */
-export function isMetaInAppBrowser(userAgent = navigator.userAgent) {
-  return /\b(FBAN|FBAV|FB_IAB|FBIOS|Instagram)\b/i.test(userAgent || '');
+export function shouldDisableCrossDocumentViewTransitions(userAgent = navigator.userAgent) {
+  const ua = userAgent || '';
+  const androidWebView = /\bAndroid\b/i.test(ua) && /;\s?wv\)/i.test(ua);
+  const knownInAppBrowser =
+    /\b(FBAN|FBAV|FB_IAB|FBIOS|Instagram|musical_ly|Bytedance|BytedanceWebview|trill|TikTok)(?:\b|_)/i.test(ua);
+  return androidWebView || knownInAppBrowser;
 }
 
 /**
@@ -112,7 +117,12 @@ const viewTransitionTypes = {
  */
 export function startViewTransition(callback, types) {
   // Check if the API is supported and transitions are desired
-  if (!supportsViewTransitions() || isLowPowerDevice() || prefersReducedMotion() || isMetaInAppBrowser()) {
+  if (
+    !supportsViewTransitions() ||
+    isLowPowerDevice() ||
+    prefersReducedMotion() ||
+    shouldDisableCrossDocumentViewTransitions()
+  ) {
     return Promise.resolve(callback());
   }
 
@@ -798,14 +808,14 @@ export function calculateHeaderGroupHeight(
   if (!headerGroup) return 0;
 
   let totalHeight = 0;
-  const children = headerGroup.children;
-  for (let i = 0; i < children.length; i++) {
-    const element = children[i];
-    if (element === header || !(element instanceof HTMLElement)) continue;
-    totalHeight += element.offsetHeight;
+  for (const element of headerGroup.children) {
+    if (element instanceof HTMLElement) totalHeight += element.offsetHeight;
   }
 
-  // If the header is transparent and has a sibling section, add the height of the header to the total height
+  // A transparent header is absolutely positioned, so the loop above counts its section
+  // wrapper as 0px. When a section follows it in the group, header.liquid pushes that
+  // section down by the header's height using a margin, which offsetHeight also
+  // excludes — so the header's height has to be added back manually.
   if (header instanceof HTMLElement && header.hasAttribute('transparent') && header.parentElement?.nextElementSibling) {
     return totalHeight + header.offsetHeight;
   }
@@ -820,13 +830,13 @@ export function calculateHeaderGroupHeight(
 function updateTransparentHeaderOffset() {
   const header = document.querySelector('#header-component');
   const headerGroup = document.querySelector('#header-group');
-  const hasHeaderSection = headerGroup?.querySelector('.header-section');
-  if (!hasHeaderSection || !header?.hasAttribute('transparent')) {
+  const headerSection = headerGroup?.querySelector('.header-section');
+  if (!headerSection || !header?.hasAttribute('transparent')) {
     document.body.style.setProperty('--transparent-header-offset-boolean', '0');
     return;
   }
 
-  const hasImmediateSection = hasHeaderSection.nextElementSibling?.classList.contains('shopify-section');
+  const hasImmediateSection = headerSection.nextElementSibling?.classList.contains('shopify-section');
 
   const shouldApplyOffset = !hasImmediateSection ? '1' : '0';
   document.body.style.setProperty('--transparent-header-offset-boolean', shouldApplyOffset);
@@ -851,7 +861,9 @@ function updateHeaderHeights() {
 
   if (headerTopRow) {
     window.requestAnimationFrame(function () {
-      header.style.setProperty('--top-row-height', `${headerTopRow.offsetHeight}px`);
+      // Must stay fractional: the underlays use this as a gradient stop, and a rounded value
+      // can land above the row's real bottom edge, painting a hairline under the header.
+      header.style.setProperty('--top-row-height', `${headerTopRow.getBoundingClientRect().height}px`);
     });
   }
 }

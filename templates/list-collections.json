@@ -56,7 +56,7 @@
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h2",
-                "font": "var(--font-primary--family)",
+                "font": "var(--font-body--family)",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -141,7 +141,7 @@
       "block_order": [
         "group_4FtiAg"
       ],
-      "name": "Collection list",
+      "name": "t:names.collection_list",
       "settings": {
         "layout_type": "grid",
         "carousel_on_mobile": false,
