@@ -1,0 +1,4 @@
+<dialog id="{{ drawer }}-{{ section.id }}" class="olecute-header__drawer olecute-header__drawer--{{ drawer }}" aria-label="{{ label }}" data-header-dialog>
+  <button class="olecute-header__drawer-close" type="button" data-header-close aria-label="Close {{ label | downcase }}" autofocus><span aria-hidden="true">{{ 'icon-close.svg' | inline_asset_content }}</span></button>
+  <div class="olecute-header__drawer-content" data-drawer-content>{% comment %}Intentionally empty; future content mounts here.{% endcomment %}</div>
+</dialog>

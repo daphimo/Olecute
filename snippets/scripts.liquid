@@ -34,10 +34,17 @@
       "@theme/sticky-add-to-cart": "{{ 'sticky-add-to-cart.js' | asset_url }}",
       "@theme/fly-to-cart": "{{ 'fly-to-cart.js' | asset_url }}",
       "@theme/scroll-container": "{{ 'scroll-container.js' | asset_url }}",
+      "@theme/smooth-scroll": "{{ 'smooth-scroll.js' | asset_url }}",
+      "@theme/lenis": "{{ 'lenis-v1.3.25.js' | asset_url }}",
+      "@theme/splide": "{{ 'splide.min.js' | asset_url }}",
+      "@theme/theme-slider": "{{ 'theme-slider.js' | asset_url }}",
       "@theme/theme-drawer": "{{ 'theme-drawer.js' | asset_url }}"
     }
   }
 </script>
+
+<script src="{{ 'smooth-scroll.js' | asset_url }}" type="module"></script>
+<script src="{{ 'theme-slider.js' | asset_url }}" type="module"></script>
 
 {%- comment -%}
   Registers Horizon's cart-drawer behaviour against the standard-actions

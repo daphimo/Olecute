@@ -1,0 +1,20 @@
+{% liquid
+  assign desktop_image = block.settings.image | default: block.settings.mobile_image
+  assign mobile_image = block.settings.mobile_image
+  assign loading = 'lazy'
+  assign priority = 'low'
+  if first
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+%}
+{% if desktop_image != blank %}
+  <picture class="olecute-hero__picture" style="--hero-desktop-focus: {{ desktop_image.presentation.focal_point | default: '50% 50%' }}; --hero-mobile-focus: {{ mobile_image.presentation.focal_point | default: desktop_image.presentation.focal_point | default: '50% 50%' }};">
+    {% if mobile_image != blank %}
+      <source media="(max-width: 749px)" sizes="100vw" srcset="{{ mobile_image | image_url: width: 375 }} 375w, {{ mobile_image | image_url: width: 550 }} 550w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w">
+    {% endif %}
+    {{ desktop_image | image_url: width: 2560 | image_tag: widths: '375, 550, 750, 1100, 1500, 1800, 2200, 2560', sizes: '100vw', loading: loading, fetchpriority: priority, decoding: 'async', class: 'olecute-hero__image' }}
+  </picture>
+{% else %}
+  {{ 'hero-apparel-1' | placeholder_svg_tag: 'olecute-hero__placeholder' }}
+{% endif %}

@@ -1,0 +1,8 @@
+/* Lenis uses real scroll positions. The theme continues to own sizing and scroll locks. */
+.olecute-smooth-scroll { scroll-behavior: auto !important; }
+html, .page-wrapper { scroll-padding-top: var(--olecute-anchor-offset, 72px); }
+[data-native-scroll], [data-lenis-prevent], [data-lenis-prevent-wheel],
+[data-lenis-prevent-touch], [data-lenis-prevent-vertical], [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+@media (prefers-reduced-motion: reduce) {
+  html, .page-wrapper { scroll-behavior: auto !important; }
+}

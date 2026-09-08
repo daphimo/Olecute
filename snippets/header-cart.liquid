@@ -1,0 +1,6 @@
+<a class="olecute-header__cart{% if mobile %} olecute-header__cart--mobile{% endif %}" href="{{ routes.cart_url }}" data-cart-link {% if settings.cart_type == 'drawer' and template.name != 'cart' %}data-cart-drawer aria-haspopup="dialog" aria-controls="cart-drawer"{% endif %} aria-label="{{ 'accessibility.cart' | t }}">
+  {% if mobile %}
+    <svg width="17" height="19" viewBox="0 0 18 21" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><rect x="1" y="5" width="16" height="15" rx="2.5"/><path d="M5 6V5a4 4 0 0 1 8 0v1"/></svg>
+  {% else %}<span>{{ 'content.cart_title' | t }}</span>{% endif %}
+  <span class="olecute-header__cart-count" data-cart-count aria-live="polite" aria-atomic="true">{{ cart.item_count }}</span>
+</a>

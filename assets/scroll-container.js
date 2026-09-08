@@ -31,6 +31,11 @@ function getScrollTop() {
  * @param {ScrollToOptions} options - The scroll options (top, left, behavior)
  */
 function scrollTo(options) {
+  const smooth = window.OlecuteSmoothScroll;
+  if (smooth?.active && !smooth.stopped && options.top !== undefined && options.left === undefined) {
+    smooth.scrollTo(options.top, { immediate: options.behavior !== 'smooth' });
+    return;
+  }
   getScrollContainer().scrollTo(options);
 }
 

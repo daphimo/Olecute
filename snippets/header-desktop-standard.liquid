@@ -1,0 +1,8 @@
+<div class="olecute-header__desktop olecute-header__standard">
+  <div class="olecute-header__left">{% render 'header-menu-trigger', section: section, drawer: 'desktop-menu' %}{% render 'header-logo', section: section, context: 'standard' %}</div>
+  <div class="olecute-header__center">
+    <div class="olecute-header__standard-nav" data-standard-nav>{% render 'header-block-items', section: section %}</div>
+    <div class="olecute-header__standard-quote" data-standard-quote>{% render 'header-quote', section: section %}</div>
+  </div>
+  {% render 'header-desktop-icons', section: section %}
+</div>

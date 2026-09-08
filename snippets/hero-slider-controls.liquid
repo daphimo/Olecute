@@ -1,0 +1,13 @@
+{% if section.settings.show_navigation %}
+  <div class="splide__arrows olecute-hero__arrows">
+    <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous slide">{{ 'icon-chevron-right.svg' | inline_asset_content }}</button>
+    <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next slide">{{ 'icon-chevron-right.svg' | inline_asset_content }}</button>
+  </div>
+{% endif %}
+{% if section.settings.show_pagination %}<ul class="splide__pagination olecute-hero__pagination"></ul>{% endif %}
+{% if section.settings.autoplay %}
+  <button class="splide__toggle olecute-hero__toggle" type="button" aria-label="Pause slideshow">
+    <span class="splide__toggle__play">{{ 'icon-play.svg' | inline_asset_content }}</span>
+    <span class="splide__toggle__pause">{{ 'icon-pause.svg' | inline_asset_content }}</span>
+  </button>
+{% endif %}

@@ -1,0 +1,7 @@
+<a class="olecute-header__circle olecute-header__special" href="{{ section.settings.special_link | default: routes.all_products_collection_url }}" aria-label="{{ section.settings.special_label | escape }}">
+  <svg class="olecute-header__spinner" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <defs><linearGradient id="olecute-ring-{{ section.id }}" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop class="olecute-header__stop-primary" offset="0%"/><stop class="olecute-header__stop-pink" offset="55%"/><stop class="olecute-header__stop-yellow" offset="100%"/></linearGradient></defs>
+    <circle cx="100" cy="100" r="96" stroke="url(#olecute-ring-{{ section.id }})" stroke-width="8"/>
+  </svg>
+  <span aria-hidden="true">✳</span>
+</a>

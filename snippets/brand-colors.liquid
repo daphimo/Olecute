@@ -1,0 +1,15 @@
+{% comment %}Scoped by default to avoid replacing Horizon's existing color tokens. Pass scope to reuse elsewhere.{% endcomment %}
+<style>
+  {{ scope | default: '.olecute-header, .olecute-header__drawer' }} {
+    --color-primary: #32166F;
+    --color-primary-dark: #21103F;
+    --color-accent-pink: #D91472;
+    --color-accent-yellow: #F4B51B;
+    --color-background: #FCF9F4;
+    --color-background-secondary: #F8EDF2;
+    --color-text: #18151C;
+    --color-text-secondary: #675E6D;
+    --color-border: #E7E0E5;
+    --color-white: #FFFFFF;
+  }
+</style>

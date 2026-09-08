@@ -1,0 +1,10 @@
+<nav class="olecute-header__nav" aria-label="Featured collections">
+  {% for block in section.blocks %}
+    {% if block.type == 'nav_item' and block.settings.label != blank %}
+      <a class="olecute-header__pill" {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% else %}aria-disabled="true"{% endif %} {{ block.shopify_attributes }}>
+        {{- block.settings.label | escape -}}
+        {% if block.settings.show_indicator %}<span class="olecute-header__indicator" aria-hidden="true"></span>{% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+</nav>
