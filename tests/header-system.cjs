@@ -75,10 +75,24 @@ async function fixture(home) {
     assert.deepEqual(await page.locator('[data-cart-count]').allTextContents(),['7','7']);
     await page.goto(url+'/internal');await settle();
     assert.equal((await vars())['nav-opacity'],1);await scroll(140);assert.equal((await vars())['quote-opacity'],1);
-    for(const width of [320,390,749,750,990,1360]) {
+    for(const width of [320,390,430,749,750,990,1360]) {
       await page.setViewportSize({width,height:900});await settle();await scroll(0);
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No horizontal viewport overflow at '+width);
       if(width<750) {
+        assert.equal(await page.getByRole('button',{name:'Open menu',exact:true}).count(),1,'One accessible menu trigger');
+        const actions=page.locator('.olecute-header__mobile-left > button, .olecute-header__mobile-icons > a');
+        for(const action of await actions.all()) {
+          const style=await action.evaluate(el=>{const s=getComputedStyle(el);return {width:s.width,height:s.height,radius:s.borderRadius,background:s.backgroundColor};});
+          assert.deepEqual(style,{width:'44px',height:'44px',radius:'50%',background:'rgb(255, 255, 255)'});
+        }
+        for(const y of [0,60,120,260]) {
+          await scroll(y);
+          assert(await page.locator('[data-mobile-quote]').evaluate(el=>!el.inert && getComputedStyle(el).opacity==='1' && getComputedStyle(el).transform==='none'),'Quote stays visible throughout scroll');
+        }
+        const cart=page.locator('.olecute-header__cart-icon');
+        const box=await cart.boundingBox(),count=await cart.locator('[data-cart-count]').boundingBox();
+        assert(Math.abs(count.x+count.width/2-(box.x+box.width/2))<1,'Count horizontally centered in bag');
+        assert(Math.abs(count.y+count.height/2-(box.y+12.5))<1,'Count centered below bag handle');
         const brand=await page.locator('.olecute-header__mobile-brand').boundingBox();
         assert(Math.abs(brand.x+brand.width/2-width/2)<1,'Mobile logo centered');
         await scroll(260);
@@ -107,6 +121,6 @@ async function fixture(home) {
     const output=process.env.HEADER_SCREENSHOTS;
     if(output){fs.mkdirSync(output,{recursive:true});for(const y of [0,200,400,690]){await scroll(y);await page.screenshot({path:path.join(output,`home-${y}.png`)});}await page.setViewportSize({width:390,height:844});await scroll(0);await page.screenshot({path:path.join(output,'mobile.png')});}
     assert.deepEqual(errors,[],'No browser exceptions');
-    console.log('PASS: Liquid rendering, continuous timeline, internal transition, 6 viewport sizes, drawers, focus, scroll restoration, cart updates and reduced motion.');
+    console.log('PASS: Liquid rendering, continuous timeline, internal transition, 7 viewport sizes, mobile quote/buttons/count, drawers, focus, scroll restoration, cart updates and reduced motion.');
   } finally {await browser.close();server.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

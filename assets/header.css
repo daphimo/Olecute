@@ -65,17 +65,21 @@
   .olecute-header__desktop { display: none; }
   .olecute-header::before { opacity: 1; }
   .olecute-header__mobile { position: relative; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 8px; }
-  .olecute-header__mobile-left, .olecute-header__mobile-icons { display: flex; align-items: center; }
-  .olecute-header__mobile .olecute-header__circle, .olecute-header__cart--mobile, .olecute-header__mobile .olecute-header__menu { width: 44px; height: 44px; padding: 13px; background: transparent; color: var(--color-primary) !important; }
-  .olecute-header__mobile .olecute-header__circle svg { width: 17px; height: 17px; }
+  .olecute-header__mobile-left, .olecute-header__mobile-icons { display: flex; align-items: center; gap: 4px; }
+  .olecute-header__mobile .olecute-header__circle, .olecute-header__cart--mobile, .olecute-header__mobile .olecute-header__menu { box-sizing: border-box; display: flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 0; gap: 0; border-radius: 50%; background: var(--color-white); color: var(--color-primary) !important; }
+  .olecute-header__mobile .olecute-header__circle svg, .olecute-header__mobile .olecute-header__menu svg { display: block; flex: 0 0 auto; width: 18px; height: 18px; }
+  /* The bookmark fills only half its viewBox width; give it comparable visual weight. */
+  .olecute-header__mobile a.olecute-header__circle svg { width: 24px; height: 24px; }
   .olecute-header__mobile .olecute-header__menu-label { display: none; }
-  .olecute-header__mobile-brand { position: absolute; left: 50%; width: calc(100% - 192px); text-align: center; transform: translate(-50%, var(--mobile-y, 0px)) scale(var(--mobile-scale, 1)); }
+  .olecute-header__mobile-brand { position: absolute; left: 50%; width: calc(100% - 208px); text-align: center; transform: translate(-50%, var(--mobile-y, 0px)) scale(var(--mobile-scale, 1)); }
   .olecute-header__logo--mobile { font-size: clamp(19px, 5.8vw, 28px); margin-inline: auto; }
-  .olecute-header__mobile-quote { margin-top: 5px; opacity: var(--mobile-quote, 1); transform: translateY(var(--mobile-quote-y, 0px)); }
+  .olecute-header__mobile-quote { margin-top: 5px; opacity: 1; transform: none; }
   .olecute-header__mobile .olecute-header__quote { font-size: clamp(5px, 1.45vw, 9px); white-space: nowrap; }
   .olecute-header__cart--mobile { position: relative; border-radius: 50%; }
-  .olecute-header__cart--mobile svg { flex-shrink: 0; }
-  .olecute-header__cart--mobile .olecute-header__cart-count { position: absolute; right: 0; top: 3px; min-width: 13px; font-size: 9px; text-align: center; }
+  .olecute-header__cart-icon { position: relative; display: block; flex: 0 0 18px; width: 18px; height: 21px; }
+  .olecute-header__cart--mobile svg { display: block; width: 18px; height: 21px; }
+  /* Bag body spans y=5..20: center the number at y=12.5, below the handle. */
+  .olecute-header__cart--mobile .olecute-header__cart-count { position: absolute; left: 50%; top: 59.524%; transform: translate(-50%, -50%); min-width: 0; padding: 0; background: transparent; font-size: 8px; line-height: 1; letter-spacing: -.5px; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   .olecute-header__spinner { animation: none !important; }

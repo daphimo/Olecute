@@ -112,8 +112,7 @@ class OlecuteHeader extends HTMLElement {
     this.style.transform = `translateY(${Math.max(0, this.offset - scroll)}px)`;
     if (this.mobile.matches) {
       const p = this.reduced.matches ? 0 : phase(y / 120, 0, 1);
-      this.set({ surface: 1, 'mobile-y': `${-3 * p}px`, 'mobile-scale': 1 - .08 * p, 'mobile-quote': 1 - p, 'mobile-quote-y': `${-6 * p}px` });
-      this.visibility(this.parts['mobile-quote'], p < .99);
+      this.set({ surface: 1, 'mobile-y': `${-3 * p}px`, 'mobile-scale': 1 - .08 * p });
       return;
     }
     if (this.home) {
