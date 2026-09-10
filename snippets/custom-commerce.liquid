@@ -1,0 +1,27 @@
+{{ 'custom-commerce.css' | asset_url | stylesheet_tag }}
+{% render 'brand-colors', scope: '.custom-commerce' %}
+<style>
+  .custom-commerce {
+    --custom-ratio: {% case settings.custom_card_ratio %}{% when 'landscape' %}4 / 3{% when 'square' %}1{% else %}3 / 4{% endcase %};
+    --custom-image-height: {% if settings.custom_card_ratio == 'custom' %}{{ settings.custom_card_height | default: 430 }}px{% else %}auto{% endif %};
+    --custom-radius: {{ settings.custom_card_radius | default: 16 }}px;
+    --custom-title-size: {{ settings.custom_card_title_size | default: 13 }}px;
+    --custom-title-lines: {{ settings.custom_card_title_lines | default: 2 }};
+    --custom-sale: var(--color-{{ settings.custom_card_sale_color | default: 'primary' }});
+    --custom-new: var(--color-{{ settings.custom_card_new_color | default: 'text' }});
+    --custom-price: var(--color-{{ settings.custom_card_price_color | default: 'primary' }});
+    --custom-add-radius: {{ settings.custom_card_add_radius | default: 24 }}px;
+  }
+</style>
+{% assign wishlist_fallback = routes.root_url | append: 'pages/wishlist' %}
+{% assign wishlist_url = settings.custom_wishlist_url | default: wishlist_fallback %}
+<div id="custom-commerce-config" hidden data-root="{{ routes.root_url }}"></div>
+<dialog class="custom-commerce custom-quick-add" id="custom-quick-add" aria-label="Choose product options" data-native-scroll>
+  <button type="button" class="custom-close" data-custom-close aria-label="Close quick add">{% render 'custom-close-icon' %}</button>
+  <div data-custom-quick-content></div>
+</dialog>
+<aside class="custom-commerce custom-wishlist-toast" id="custom-wishlist-toast" popover="manual" hidden aria-label="Wishlist notification">
+  <button type="button" class="custom-close" data-custom-toast-close aria-label="Dismiss notification">{% render 'custom-close-icon' %}</button>
+  <img width="56" height="74" alt="" data-toast-image><div><strong data-toast-title></strong><p role="status">Added to wishlist</p><a href="{{ wishlist_url | escape }}">View Wishlist</a></div>
+</aside>
+<script src="{{ 'custom-commerce.js' | asset_url }}" type="module"></script>

@@ -343,6 +343,7 @@ export class CartItemsComponent extends createViewEventElement(Component) {
 
     event.promise
       ?.then(async ({ detail }) => {
+        if (detail?.customSectionsRendered) return;
         const sections = detail?.sections;
         const cartItemsHtml = sections?.[this.sectionId];
         // Animate empty → non-empty in the drawer (possible in squeeze mode

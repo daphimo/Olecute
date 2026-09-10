@@ -22,10 +22,10 @@ engine.registerFilter('image_tag', (src, ...entries) => {
 const sectionText = fs.readFileSync(path.join(root, 'sections/hero-slider.liquid'), 'utf8');
 const schema = JSON.parse(sectionText.match(/{% schema %}([\s\S]*?){% endschema %}/)[1]);
 const defaultSettings = Object.fromEntries(schema.settings.map(setting=>[setting.id,setting.default]));
-const imports = {'@theme/splide':'/assets/splide.min.js','@theme/theme-slider':'/assets/theme-slider.js','@theme/scroll-container':'/assets/scroll-container.js','@theme/lenis':'/assets/lenis-v1.3.25.js','@theme/smooth-scroll':'/assets/smooth-scroll.js'};
+const imports = {'@theme/splide':'/assets/splide.min.js','@theme/theme-slider':'/assets/theme-slider.js','@theme/scroll-container':'/assets/scroll-container.js','@theme/smooth-scroll':'/assets/smooth-scroll.js'};
 async function markup(count, settings, id='hero', editor=false) {
   const blocks = Array.from({length:count},(_,i)=>({id:id+'-slide-'+i,settings:{image:{id:'desktop-'+i},mobile_image:i===1?null:{id:'mobile-'+i},link:'/collections/'+i,button_label:i===2?'':'Collection '+(i+1)}}));
-  return engine.parseAndRender(sectionText.replace(/{% schema %}[\s\S]*?{% endschema %}/,''),{section:{id,settings:{...defaultSettings,autoplay_speed:2000,...settings},blocks},request:{design_mode:editor}});
+  return engine.parseAndRender(sectionText.replace(/{% schema %}[\s\S]*?{% endschema %}/,''),{section:{id,settings:{...defaultSettings,autoplay_speed:2,...settings},blocks},request:{design_mode:editor}});
 }
 async function fixture(name) {
   const count=name.includes('empty')?0:name.includes('single')?1:3;
@@ -88,7 +88,6 @@ async function fixture(name) {
     await page.goto(url+'/manual');await mounted();await wait(100);
     assert.equal(await hero().evaluate(el=>el.slider.Components.Autoplay.isPaused()),true);
     assert.equal(await hero().evaluate(el=>el.progressAnimation),null);
-    console.log('Static fill:',await active().locator('.olecute-hero__fill').evaluate(el=>({transform:getComputedStyle(el).transform,width:getComputedStyle(el).width,classes:el.closest('olecute-hero').className,sheets:[...document.styleSheets].map(s=>s.href)})));
     assert.equal(await active().locator('.olecute-hero__fill').evaluate(el=>getComputedStyle(el).transform),'matrix(1, 0, 0, 1, 0, 0)');
     for(const width of [320,390,749,750,990,1360]) {
       await page.setViewportSize({width,height:800});await wait(160);

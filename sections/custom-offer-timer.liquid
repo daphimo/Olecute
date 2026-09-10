@@ -1,0 +1,371 @@
+{{ 'custom-offer-timer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-offer-timer.js' | asset_url }}" type="module"></script>
+{% render 'brand-colors', scope: '.custom-offer-timer' %}
+<custom-offer-timer id="CustomOfferTimer-{{ section.id }}" class="custom-offer-timer" data-date="{{ section.settings.end_date | escape }}" data-time="{{ section.settings.end_time | escape }}" data-offset="{{ section.settings.timezone_offset | escape }}" data-interaction="{{ section.settings.enable_interaction }}" data-strength="{{ section.settings.interaction_strength }}" data-tilt="{{ section.settings.tilt_strength }}" data-angle="{{ section.settings.rope_angle }}" data-anchor="{{ section.settings.anchor_mode }}" data-mobile-ropes="{{ section.settings.mobile_rope_count }}" {% if request.design_mode %}data-editor{% endif %} style="--offer-background: var({{ section.settings.card_background }}); --offer-border: var({{ section.settings.card_border }}); --offer-rope-color: var({{ section.settings.rope_color }}); --offer-radius: {{ section.settings.card_radius }}px; --offer-shadow: {{ section.settings.card_shadow | divided_by: 100.0 }}; --offer-rope-width: {{ section.settings.rope_thickness }}px; --offer-length: {{ section.settings.rope_length }}px; --offer-mobile-length: {{ section.settings.mobile_rope_length }}px; --offer-width: {{ section.settings.desktop_width }}%; --offer-mobile-width: {{ section.settings.mobile_width }}%; --offer-top: {{ section.settings.padding_top }}px; --offer-bottom: {{ section.settings.padding_bottom }}px; --offer-mobile-top: {{ section.settings.mobile_padding_top }}px; --offer-mobile-bottom: {{ section.settings.mobile_padding_bottom }}px;">
+  <div class="custom-offer-timer__ropes" aria-hidden="true">{% for i in (1..4) %}<span class="custom-offer-timer__rope" data-rope="{{ i }}"></span>{% endfor %}</div>
+  <div class="custom-offer-timer__card">
+    <div class="custom-offer-timer__content">
+      <h2>{{ section.settings.heading | escape }} {% if section.settings.highlighted_word != blank %}<em>{{ section.settings.highlighted_word | escape }}</em>{% endif %}</h2>
+      {% if section.settings.promotion_text != blank %}<p>{{ section.settings.promotion_text | escape }}</p>{% endif %}
+    </div>
+    <div class="custom-offer-timer__countdown" role="timer" aria-live="off">
+      {% assign units = 'days,hours,minutes,seconds' | split: ',' %}
+      {% for unit in units %}{% assign label_key = unit | append: '_label' %}<div class="custom-offer-timer__value"><span data-timer-{{ unit }}>--</span><span>{{ section.settings[label_key] | escape }}</span></div>{% endfor %}
+    </div>
+    <p class="custom-offer-timer__expired" role="status" hidden>{{ section.settings.expired_message | escape }}</p>
+    {% if request.design_mode %}<p class="custom-offer-timer__notice" data-timer-notice hidden>Set a valid end date, time, and UTC offset in the section settings.</p>{% endif %}
+    <noscript><p class="custom-offer-timer__notice">{{ section.settings.end_date | escape }} {{ section.settings.end_time | escape }} (UTC{{ section.settings.timezone_offset | escape }})</p></noscript>
+  </div>
+</custom-offer-timer>
+
+{% schema %}
+{
+  "name": "Custom Offer Timer",
+  "tag": "div",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Leaving"
+    },
+    {
+      "type": "text",
+      "id": "highlighted_word",
+      "label": "Highlighted word",
+      "default": "soon"
+    },
+    {
+      "type": "text",
+      "id": "promotion_text",
+      "label": "Promotion text"
+    },
+    {
+      "type": "text",
+      "id": "expired_message",
+      "label": "Expired message"
+    },
+    {
+      "type": "text",
+      "id": "days_label",
+      "label": "Days label",
+      "default": "Days"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Hours label",
+      "default": "Hours"
+    },
+    {
+      "type": "text",
+      "id": "minutes_label",
+      "label": "Minutes label",
+      "default": "Minutes"
+    },
+    {
+      "type": "text",
+      "id": "seconds_label",
+      "label": "Seconds label",
+      "default": "Seconds"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date",
+      "info": "Use YYYY-MM-DD."
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time",
+      "default": "19:00",
+      "info": "Use 24-hour HH:MM or HH:MM:SS."
+    },
+    {
+      "type": "text",
+      "id": "timezone_offset",
+      "label": "UTC offset",
+      "default": "+05:30",
+      "info": "The deadline uses this fixed offset, not the visitor timezone. Use +05:30, +00:00, or -04:00. Set the correct offset for the end date, including daylight saving time."
+    },
+    {
+      "type": "header",
+      "content": "Card appearance"
+    },
+    {
+      "type": "select",
+      "id": "card_background",
+      "label": "Card background",
+      "options": [
+        {
+          "value": "--color-white",
+          "label": "White"
+        },
+        {
+          "value": "--color-background",
+          "label": "Off white"
+        }
+      ],
+      "default": "--color-white"
+    },
+    {
+      "type": "select",
+      "id": "card_border",
+      "label": "Card border",
+      "options": [
+        {
+          "value": "--color-white",
+          "label": "White"
+        },
+        {
+          "value": "--color-background",
+          "label": "Off white"
+        },
+        {
+          "value": "--color-border",
+          "label": "Soft border"
+        },
+        {
+          "value": "--color-primary-dark",
+          "label": "Primary dark"
+        },
+        {
+          "value": "--color-text-secondary",
+          "label": "Secondary text"
+        }
+      ],
+      "default": "--color-border"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_shadow",
+      "label": "Shadow opacity",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width",
+      "label": "Desktop card width",
+      "min": 40,
+      "max": 70,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_width",
+      "label": "Mobile card width",
+      "min": 80,
+      "max": 96,
+      "step": 1,
+      "default": 92,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Ropes"
+    },
+    {
+      "type": "select",
+      "id": "anchor_mode",
+      "label": "Anchor mode",
+      "options": [
+        {
+          "value": "previous",
+          "label": "Previous tabbed collection"
+        },
+        {
+          "value": "section",
+          "label": "Standalone"
+        }
+      ],
+      "default": "previous"
+    },
+    {
+      "type": "select",
+      "id": "rope_color",
+      "label": "Rope color",
+      "options": [
+        {
+          "value": "--color-border",
+          "label": "Soft border"
+        },
+        {
+          "value": "--color-primary-dark",
+          "label": "Primary dark"
+        },
+        {
+          "value": "--color-text-secondary",
+          "label": "Secondary text"
+        }
+      ],
+      "default": "--color-text-secondary"
+    },
+    {
+      "type": "range",
+      "id": "rope_thickness",
+      "label": "Rope thickness",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "rope_length",
+      "label": "Desktop hanging distance",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "default": 160,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_rope_length",
+      "label": "Mobile hanging distance",
+      "min": 40,
+      "max": 180,
+      "step": 10,
+      "default": 90,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "rope_angle",
+      "label": "Rope spread angle",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 3,
+      "unit": "deg"
+    },
+    {
+      "type": "select",
+      "id": "mobile_rope_count",
+      "label": "Mobile rope count",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "header",
+      "content": "Interaction"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_interaction",
+      "label": "Enable cursor interaction",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interaction_strength",
+      "label": "Horizontal movement",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "tilt_strength",
+      "label": "Tilt strength",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "default": 2.5,
+      "unit": "deg"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop vertical offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile vertical offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 48,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Offer Timer"
+    }
+  ]
+}
+{% endschema %}

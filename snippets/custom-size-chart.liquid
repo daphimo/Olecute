@@ -1,0 +1,11 @@
+<dialog class="custom-commerce custom-size-chart" data-custom-chart data-custom-measurements aria-label="Body Measurement" data-native-scroll>
+  <button type="button" class="custom-close" data-custom-close aria-label="Close size chart">{% render 'custom-close-icon' %}</button>
+  <header><strong>Body Measurement</strong>{% render 'custom-size-switcher' %}</header>
+  <div class="custom-chart-scroll"><table><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr></thead><tbody data-custom-chart-rows>
+    {% for variant in product.variants %}<tr><td>{{ variant.title | escape }}</td>
+      {% assign keys = 'chest,high_waist,hip' | split: ',' %}
+      {% for key in keys %}<td data-inches="{{ variant.metafields.custom[key].value | json | escape }}">{{ variant.metafields.custom[key].value | default: '-' | escape }}</td>{% endfor %}
+    </tr>{% endfor %}
+  </tbody></table></div>
+  <footer>{% render 'custom-product-highlights', product: product %}<p>{{ settings.custom_card_disclaimer | escape | newline_to_br }}</p></footer>
+</dialog>

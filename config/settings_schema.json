@@ -2116,5 +2116,221 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Custom Product Card",
+    "settings": [
+      {
+        "type": "select",
+        "id": "custom_card_ratio",
+        "label": "Image ratio",
+        "options": [
+          {
+            "value": "landscape",
+            "label": "Landscape"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "custom",
+            "label": "Custom"
+          }
+        ],
+        "default": "portrait"
+      },
+      {
+        "type": "range",
+        "id": "custom_card_height",
+        "label": "Custom image height",
+        "min": 180,
+        "max": 700,
+        "step": 10,
+        "unit": "px",
+        "default": 430
+      },
+      {
+        "type": "range",
+        "id": "custom_card_radius",
+        "label": "Image border radius",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_card_sale",
+        "label": "Show sale badge",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "custom_card_sale_color",
+        "label": "Sale badge text color",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          },
+          {
+            "value": "primary-dark",
+            "label": "Primary Dark"
+          },
+          {
+            "value": "accent-pink",
+            "label": "Accent Pink"
+          },
+          {
+            "value": "accent-yellow",
+            "label": "Accent Yellow"
+          },
+          {
+            "value": "text",
+            "label": "Text"
+          },
+          {
+            "value": "text-secondary",
+            "label": "Text Secondary"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_card_new",
+        "label": "Show New In badge",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "custom_card_new_color",
+        "label": "New In badge text color",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          },
+          {
+            "value": "primary-dark",
+            "label": "Primary Dark"
+          },
+          {
+            "value": "accent-pink",
+            "label": "Accent Pink"
+          },
+          {
+            "value": "accent-yellow",
+            "label": "Accent Yellow"
+          },
+          {
+            "value": "text",
+            "label": "Text"
+          },
+          {
+            "value": "text-secondary",
+            "label": "Text Secondary"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          }
+        ],
+        "default": "text"
+      },
+      {
+        "type": "select",
+        "id": "custom_card_price_color",
+        "label": "Sale price color",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          },
+          {
+            "value": "primary-dark",
+            "label": "Primary Dark"
+          },
+          {
+            "value": "accent-pink",
+            "label": "Accent Pink"
+          },
+          {
+            "value": "accent-yellow",
+            "label": "Accent Yellow"
+          },
+          {
+            "value": "text",
+            "label": "Text"
+          },
+          {
+            "value": "text-secondary",
+            "label": "Text Secondary"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "range",
+        "id": "custom_card_title_size",
+        "label": "Product title font size",
+        "min": 11,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "custom_card_title_lines",
+        "label": "Product title lines",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_card_quick_add",
+        "label": "Enable quick add",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "custom_card_add_radius",
+        "label": "Quick add border radius",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "url",
+        "id": "custom_wishlist_url",
+        "label": "Wishlist page",
+        "info": "Create a page using the wishlist template and select it here."
+      },
+      {
+        "type": "textarea",
+        "id": "custom_card_disclaimer",
+        "label": "Size chart disclaimer",
+        "default": "Not adjustable, non-stretch fabric. Fits according to the size chart. If you're between sizes or prefer a less fitted look, size up. Choose by body measurements. Natural variations of up to 0.5-1 inch may occur due to the garment being individually tailored by hand."
+      }
+    ]
   }
 ]

@@ -1,0 +1,14 @@
+{% unless product.has_only_default_variant %}
+  <div class="custom-variants">
+    {% for option in product.options_with_values %}
+      {% assign option_index = forloop.index0 %}
+      <fieldset data-custom-option="{{ option_index }}">
+        <legend>{{ option.name | escape }}</legend>
+        {% for value in option.values %}
+          {% assign option_value = value.name | default: value %}
+          <button type="button" data-custom-option-value="{{ option_value | escape }}" aria-pressed="{% if selected_variant.options[option_index] == option_value %}true{% else %}false{% endif %}">{{ option_value | escape }}</button>
+        {% endfor %}
+      </fieldset>
+    {% endfor %}
+  </div>
+{% endunless %}

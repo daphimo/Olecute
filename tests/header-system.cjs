@@ -30,7 +30,7 @@ async function fixture(home) {
     <link rel="stylesheet" href="/assets/base.css">
     <link rel="stylesheet" href="/assets/smooth-scroll.css">
     <style>:root{--font-body--family:Arial,sans-serif;--font-heading--family:Arial,sans-serif}body{background:#FCF9F4}main{min-height:2600px;background:linear-gradient(135deg,#807f67,#b6a68a 30%,#e0b9ac 60%,#fcf9f4)}main a{display:inline-block;margin-top:400px}</style>
-    <script type="importmap">{"imports":{"@theme/scroll-container":"/assets/scroll-container.js","@theme/smooth-scroll":"/assets/smooth-scroll.js","@theme/lenis":"/assets/lenis-v1.3.25.js","@shopify/events":"/mock-events.js"}}</script>
+    <script type="importmap">{"imports":{"@theme/scroll-container":"/assets/scroll-container.js","@theme/smooth-scroll":"/assets/smooth-scroll.js","@shopify/events":"/mock-events.js"}}</script>
     </head><body><div class="page-wrapper"><div id="header-group"><div style="height:40px">Existing announcement</div><section class="olecute-header-section">${header}</section></div><main><a href="#end">Background link</a></main></div>
     <theme-drawer id="cart-drawer"></theme-drawer><script>document.querySelector('theme-drawer').open=function(){this.setAttribute('open','')};</script></body></html>`;
 }
@@ -64,7 +64,7 @@ async function fixture(home) {
     await page.keyboard.press('Tab');
     assert(await page.evaluate(()=>document.activeElement.closest('dialog')!==null));
     await page.keyboard.press('Escape');await settle();
-    assert.equal(await page.locator('.page-wrapper').evaluate(el=>el.scrollTop),690);
+    assert.equal(await page.locator('.page-wrapper').evaluate(()=>window.scrollY),690);
     assert(await page.locator('[data-landing-menu] button').evaluate(el=>el===document.activeElement));
     await page.locator('.olecute-header__desktop [data-header-open="search-test"]').click();
     assert(await page.locator('#search-test').evaluate(el=>el.open));

@@ -14,7 +14,7 @@ The existing announcement section is preserved. The header starts below announce
 - Internal pages fade navigation into the quote over 100px of scrolling.
 - Mobile uses an independent centered composition, with a dedicated menu control alongside search. Its quote remains visible while the logo compacts over 120px while a stable 64px layout slot prevents content jumps.
 - Reduced motion uses a static compact homepage, static internal/mobile layout, and no rotating ring or drawer entrance animation.
-- Scroll updates subscribe to the global `@theme/smooth-scroll` controller, which uses the existing `@theme/scroll-container` module and its desktop container at 990px. Font/layout measurements occur on initialization, resize, and font readiness, not inside scroll frames. See `smooth-scroll.md` for the shared API.
+- Scroll updates subscribe directly to native window scroll events, with the document as the scroll container at every width. Font/layout measurements occur on initialization, resize, and font readiness, not inside scroll frames. See `smooth-scroll.md` for the shared API.
 - Cart links retain Shopify routes and use the existing cart drawer when available. Counts start with `cart.item_count`, update from Shopify's existing standard cart event, and refresh on back/forward cache restoration. Account links use Shopify's account route.
 - Menu and search dialogs intentionally contain only a close control and empty content container. The existing predictive-search implementation remains available for future integration. No search results or mega-menu content is added.
 - Native modal dialogs make the background inert. Tab containment, Escape, focus restoration, scroll locking, and section teardown are handled by the header element.

@@ -12,7 +12,7 @@
 .olecute-hero__button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; max-width: 100%; padding: 12px 28px; border-radius: 999px; background: var(--color-white); color: var(--color-primary-dark); font-family: var(--font-body--family, sans-serif); font-size: 13px; font-weight: 500; line-height: 1.2; text-align: center; text-decoration: none; pointer-events: auto; opacity: 0; transform: translateY(7px); transition: opacity 400ms ease, transform 500ms cubic-bezier(.2,.65,.3,1), background-color 180ms ease; }
 .olecute-hero__slide.is-active .olecute-hero__button, .olecute-hero:not(.is-initialized) .olecute-hero__button { opacity: 1; transform: translateY(0); }
 @media (hover: hover) { .olecute-hero__button:hover { background: var(--color-background); transform: translateY(-2px); } }
-.olecute-hero .olecute-hero__pagination { position: absolute; inset: auto 64px max(24px, env(safe-area-inset-bottom)); display: flex; flex-wrap: nowrap; gap: 0; padding: 0; margin: 0; }
+.olecute-hero.splide .olecute-hero__pagination { position: absolute; inset: auto 64px max(24px, env(safe-area-inset-bottom)); display: flex; flex-wrap: nowrap; gap: 0; padding: 0; margin: 0; }
 .olecute-hero .splide__pagination__page { position: relative; display: inline-flex; justify-content: center; align-items: center; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 999px; background: transparent; opacity: 1; transform: none; cursor: pointer; transition: none; }
 .olecute-hero__dot { display: block; position: relative; width: 7px; height: 7px; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--color-white) 78%, transparent); transition: width 300ms ease, background-color 300ms ease; }
 .olecute-hero .splide__pagination__page.is-active .olecute-hero__dot { width: 36px; background: color-mix(in srgb, var(--color-primary) 22%, var(--color-white)); }
@@ -30,13 +30,13 @@
 .olecute-hero:not(.is-initialized) .olecute-hero__list { display: grid; }
 .olecute-hero:not(.is-initialized) .olecute-hero__slide { grid-area: 1 / 1; width: 100%; }
 .olecute-hero:not(.is-initialized) .olecute-hero__slide:not(:first-child) { visibility: hidden; }
-.olecute-hero:not(.is-initialized) :is(.splide__arrows, .splide__pagination, .splide__toggle) { display: none; }
+.olecute-hero.splide:not(.is-initialized) :is(.splide__arrows, .splide__pagination, .splide__toggle) { display: none; }
 .olecute-hero__empty-message { position: absolute; inset: auto 24px 20%; text-align: center; font-family: var(--font-body--family, sans-serif); }
 @media (max-width: 749px) {
   .olecute-hero__image { object-position: var(--hero-mobile-focus, var(--hero-desktop-focus, 50% 50%)) !important; }
   .olecute-hero__content { bottom: 18%; inset-inline: 24px; }
   .olecute-hero__button { padding-inline: 24px; font-size: 12px; }
-  .olecute-hero .olecute-hero__pagination { inset-inline: 50px; bottom: max(16px, env(safe-area-inset-bottom)); }
+  .olecute-hero.splide .olecute-hero__pagination { inset-inline: 50px; bottom: max(16px, env(safe-area-inset-bottom)); }
   .olecute-hero .splide__pagination__page { width: clamp(27px, 7vw, 44px); }
   .olecute-hero .splide__pagination__page.is-active .olecute-hero__dot { width: 25px; }
   .olecute-hero .olecute-hero__toggle { right: 8px; bottom: max(16px, env(safe-area-inset-bottom)); }

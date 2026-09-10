@@ -353,7 +353,7 @@ function syncScrollLock() {
   pruneDisconnectedScrollLockOwners();
 
   if (scrollLockOwners.size > 0) {
-    window.OlecuteSmoothScroll?.stop('theme-overlays');
+    window.OlecuteReferenceScroll?.stop('theme-overlays');
     document.documentElement.setAttribute('scroll-lock', '');
 
     if (!scrollLockObserver) {
@@ -365,7 +365,7 @@ function syncScrollLock() {
   }
 
   document.documentElement.removeAttribute('scroll-lock');
-  window.OlecuteSmoothScroll?.start('theme-overlays');
+  window.OlecuteReferenceScroll?.start('theme-overlays');
   scrollLockObserver?.disconnect();
   scrollLockObserver = undefined;
 }

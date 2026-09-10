@@ -1,0 +1,6 @@
+<form class="custom-add-form" action="{{ routes.cart_add_url }}" method="post" data-custom-add-form>
+  <input type="hidden" name="id" value="{{ variant.id }}">
+  <input type="hidden" name="quantity" value="{{ quantity | default: 1 }}">
+  <button class="custom-add-button" type="submit" {% unless variant.available %}disabled{% endunless %}>{% if variant.available %}ADD TO CART{% else %}Sold out{% endif %}</button>
+  <p class="custom-error" role="alert" data-custom-error></p>
+</form>

@@ -1,0 +1,8 @@
+{% assign highlights = product.metafields.custom.highlights %}
+{% if highlights.value != blank %}
+  <div class="custom-highlights">
+    {% if highlights.type contains 'list.' %}
+      {% for highlight in highlights.value %}{% assign text = highlight.label.value | default: highlight.title.value | default: highlight.value | default: highlight %}{% if text != blank %}<span>{{ text | escape }}</span>{% endif %}{% endfor %}
+    {% else %}<span>{{ highlights.value | escape }}</span>{% endif %}
+  </div>
+{% endif %}

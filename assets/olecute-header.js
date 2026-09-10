@@ -1,6 +1,6 @@
 import { getScrollContainer, scrollContainerMediaQuery } from '@theme/scroll-container';
 import { StandardEvents } from '@shopify/events';
-import { smoothScroll } from '@theme/smooth-scroll';
+import { referenceScroll } from '@theme/smooth-scroll';
 
 const clamp = (value) => Math.min(1, Math.max(0, value));
 const phase = (progress, start, end) => {
@@ -64,11 +64,13 @@ class OlecuteHeader extends HTMLElement {
   bindScroll() {
     this.unsubscribeScroll?.();
     this.scroller = getScrollContainer();
-    this.unsubscribeScroll = smoothScroll.on('scroll', () => {
+    const onScroll = () => {
       cancelAnimationFrame(this.frame);
       this.frame = 0;
       this.renderScroll();
-    });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    this.unsubscribeScroll = () => window.removeEventListener('scroll', onScroll);
   }
 
   onBreakpoint = () => { this.closeDrawer(); this.bindScroll(); this.measure(); };
@@ -82,7 +84,7 @@ class OlecuteHeader extends HTMLElement {
       logo.style.fontSize = '100px';
       const natural = logo.offsetWidth || 1;
       const width = this.clientWidth - (this.clientWidth <= 1100 ? 32 : 40);
-      this.baseSize = width / natural * 100;
+      this.baseSize = width / natural * 98;
       logo.style.fontSize = '';
       this.style.setProperty('--logo-base', `${this.baseSize}px`);
       this.compactScale = 30 / this.baseSize;
@@ -186,7 +188,7 @@ class OlecuteHeader extends HTMLElement {
   }
 
   lockScroll() {
-    smoothScroll.stop(this);
+    referenceScroll.stop(this);
     const node = this.scroller;
     const root = node === document.scrollingElement;
     const target = root ? document.body : node;
@@ -212,7 +214,7 @@ class OlecuteHeader extends HTMLElement {
     }
     node.scrollTo({ left: x, top: y, behavior: 'instant' });
     this.lock = null;
-    smoothScroll.start(this);
+    referenceScroll.start(this);
   }
 
   updateCart(count) {

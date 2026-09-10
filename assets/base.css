@@ -25,14 +25,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (min-width: 990px) {
-  html:has(.page-wrapper),
-  html:has(.page-wrapper) body {
-    height: 100dvh;
-    overflow: hidden;
-  }
-}
-
 html[scroll-lock],
 html[scroll-lock] .page-wrapper {
   overflow: hidden;
@@ -46,14 +38,6 @@ html[scroll-lock] .page-wrapper {
 }
 
 @media (min-width: 990px) {
-  .page-wrapper {
-    height: 100dvh;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) var(--color-background);
-  }
-
   .page-wrapper--drawer-open shopify-account::part(dialog) {
     translate: calc(-1 * var(--theme-drawer-width, var(--sidebar-width)));
   }

@@ -1,0 +1,15 @@
+{% liquid
+  assign priced = variant | default: product.selected_or_first_available_variant | default: product
+  assign sale = false
+  if priced.compare_at_price > priced.price
+    assign sale = true
+    assign discount = priced.compare_at_price | minus: priced.price | times: 100.0 | divided_by: priced.compare_at_price | round
+  endif
+%}
+<span class="custom-price{% if sale %} custom-price--sale{% endif %}">
+  {% if priced.price != blank %}
+    {% if sale %}<s><span class="visually-hidden">Regular price </span>{{ priced.compare_at_price | money }}</s>{% endif %}
+    <span class="custom-price__current">{{ priced.price | money }}</span>
+    {% if sale and show_discount %}<span class="custom-price__discount">{{ discount }}% off</span>{% endif %}
+  {% else %}<span>Unavailable</span>{% endif %}
+</span>

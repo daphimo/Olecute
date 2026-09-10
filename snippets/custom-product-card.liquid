@@ -1,0 +1,40 @@
+{% liquid
+  assign selected = product.selected_or_first_available_variant
+  assign available = product.variants | where: 'available', true
+  assign is_new = false
+  for tag in product.tags
+    assign normalized = tag | downcase | strip
+    if normalized == 'new'
+      assign is_new = true
+    endif
+  endfor
+  assign loading = 'lazy'
+  assign priority = 'auto'
+  if eager
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+%}
+{% if product != blank %}
+<article class="custom-commerce custom-product-card">
+  <div class="custom-product-card__media" data-custom-gallery data-index="0">
+    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" data-custom-image>
+      {% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: widths: '180, 320, 480, 640, 720', sizes: '(max-width: 749px) 50vw, 25vw', loading: loading, fetchpriority: priority, decoding: 'async' }}{% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+    </a>
+    {% if product.images.size > 1 %}
+      <div hidden>{% for image in product.images %}<template data-custom-image-template>{{ image | image_url: width: 720 | image_tag: widths: '180, 320, 480, 640, 720', sizes: '(max-width: 749px) 50vw, 25vw', loading: 'lazy', decoding: 'async' }}</template>{% endfor %}</div>
+      <button class="custom-gallery-arrow custom-gallery-arrow--prev" type="button" data-custom-gallery-step="-1" aria-label="Previous image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 4-6 6 6 6"/></svg></button>
+      <button class="custom-gallery-arrow custom-gallery-arrow--next" type="button" data-custom-gallery-step="1" aria-label="Next image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 4 6 6-6 6"/></svg></button>
+      <div class="custom-gallery-dots" role="group" aria-label="Product images">{% for image in product.images %}<button type="button" data-custom-gallery-index="{{ forloop.index0 }}" aria-label="Image {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>{% endfor %}</div>
+    {% endif %}
+    <div class="custom-product-card__badges">
+      {% if settings.custom_card_sale != false and selected.compare_at_price > selected.price %}<span class="custom-badge-sale">{{ selected.compare_at_price | minus: selected.price | times: 100.0 | divided_by: selected.compare_at_price | round }}% off</span>{% endif %}
+      {% if settings.custom_card_new != false and is_new %}<span class="custom-badge-new">New In</span>{% endif %}
+    </div>
+  </div>
+  <div class="custom-product-card__details"><div><a class="custom-product-card__title" href="{{ product.url }}">{{ product.title | escape }}</a>{% render 'custom-product-price', product: product, variant: selected %}</div>
+    {% if settings.custom_card_quick_add != false %}<button type="button" class="custom-product-card__add" data-custom-quick-add="{{ product.url }}" {% if available.size == 1 %}data-direct-variant="{{ available.first.id }}"{% endif %} {% unless product.available %}disabled{% endunless %} aria-label="{% if product.available %}Add {{ product.title | escape }}{% else %}Sold out{% endif %}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>{% if product.available %}Add{% else %}Sold out{% endif %}</button>{% endif %}
+  </div>
+  <p class="custom-error" data-custom-error role="alert"></p>
+</article>
+{% endif %}

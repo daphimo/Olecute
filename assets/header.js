@@ -141,9 +141,7 @@ class HeaderComponent extends Component {
 
   /**
    * Rebinds the scroll listener and IntersectionObserver when the viewport
-   * crosses the squeeze breakpoint (990px). The scroll container switches
-   * between `.page-wrapper` (desktop) and `document.scrollingElement` (mobile),
-   * so cached bindings from initialization become stale after a resize.
+   * crosses the drawer breakpoint (990px), refreshing geometry for the new layout.
    */
   #handleBreakpointChange = () => {
     const stickyMode = this.getAttribute('sticky');

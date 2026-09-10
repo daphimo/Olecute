@@ -1,0 +1,9 @@
+<section class="custom-commerce custom-wishlist-page" data-custom-wishlist-page>
+  <h1>{{ page.title | default: 'Wishlist' | escape }}</h1>
+  <p class="custom-wishlist-note">Saved on this browser. Prices and availability are confirmed on the product page.</p>
+  <div data-wishlist-empty><h2>Your wishlist is empty.</h2><p>Save pieces you love and find them here later.</p><a href="{{ routes.all_products_collection_url }}">Continue shopping</a></div>
+  <p data-wishlist-storage-error role="status" hidden>Wishlist storage is unavailable in this browser.</p>
+  <div class="custom-product-grid" data-wishlist-grid></div>
+  <template data-wishlist-template>{% render 'custom-wishlist-card' %}</template>
+</section>
+{% schema %}{"name":"Custom wishlist","settings":[],"presets":[{"name":"Custom wishlist"}]}{% endschema %}
