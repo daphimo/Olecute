@@ -48,7 +48,7 @@
       "type": "custom-featured-collection",
       "name": "Custom Featured Collection",
       "settings": {
-        "collection": "tops",
+        "collection": "frontpage",
         "heading": "Most Wanted",
         "products_to_show": 4,
         "show_discover_more": true,
