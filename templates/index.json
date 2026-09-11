@@ -62,10 +62,163 @@
         "mobile_padding_top": 12,
         "mobile_padding_bottom": 20
       }
+    },
+    "custom_featured_collection_emaRmQ": {
+      "type": "custom-featured-collection",
+      "name": "Custom Featured Collection",
+      "settings": {
+        "collection": "all",
+        "heading": "Most Wanted",
+        "products_to_show": 4,
+        "show_discover_more": true,
+        "discover_more_label": "Discover More",
+        "desktop_columns": 4,
+        "desktop_gap": 16,
+        "mobile_products_per_view": "1.25",
+        "mobile_gap": 12,
+        "padding_top": 12,
+        "padding_bottom": 24,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "custom_featured_collection_8bm3aD": {
+      "type": "custom-featured-collection",
+      "name": "Custom Featured Collection",
+      "settings": {
+        "collection": "all",
+        "heading": "Most Wanted",
+        "products_to_show": 4,
+        "show_discover_more": true,
+        "discover_more_label": "Discover More",
+        "desktop_columns": 4,
+        "desktop_gap": 16,
+        "mobile_products_per_view": "1.25",
+        "mobile_gap": 12,
+        "padding_top": 12,
+        "padding_bottom": 24,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "custom_featured_collection_t7UJy6": {
+      "type": "custom-featured-collection",
+      "name": "Custom Featured Collection",
+      "settings": {
+        "collection": "all",
+        "heading": "Most Wanted",
+        "products_to_show": 4,
+        "show_discover_more": true,
+        "discover_more_label": "Discover More",
+        "desktop_columns": 4,
+        "desktop_gap": 16,
+        "mobile_products_per_view": "1.25",
+        "mobile_gap": 12,
+        "padding_top": 12,
+        "padding_bottom": 24,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 20
+      }
+    },
+    "custom_tabbed_collection_F4bkca": {
+      "type": "custom-tabbed-collection",
+      "blocks": {
+        "tab_cTxGi8": {
+          "type": "tab",
+          "settings": {
+            "label": "",
+            "collection": "co-ord-sets",
+            "products_to_show": 10,
+            "show_discover": true,
+            "discover_label": "Discover more"
+          }
+        },
+        "tab_YxChCx": {
+          "type": "tab",
+          "settings": {
+            "label": "",
+            "collection": "dresses",
+            "products_to_show": 10,
+            "show_discover": true,
+            "discover_label": "Discover more"
+          }
+        },
+        "tab_7ARRTR": {
+          "type": "tab",
+          "settings": {
+            "label": "",
+            "collection": "tops",
+            "products_to_show": 10,
+            "show_discover": true,
+            "discover_label": "Discover more"
+          }
+        }
+      },
+      "block_order": [
+        "tab_cTxGi8",
+        "tab_YxChCx",
+        "tab_7ARRTR"
+      ],
+      "name": "Custom Tabbed Collection",
+      "settings": {
+        "heading": "Curated Fits for you",
+        "image_radius": 16,
+        "image_ratio": "2 / 3",
+        "desktop_view": 5,
+        "desktop_gap": 14,
+        "mobile_view": "1.25",
+        "mobile_gap": 12,
+        "padding_top": 40,
+        "padding_bottom": 38,
+        "mobile_padding_top": 24,
+        "mobile_padding_bottom": 0
+      }
+    },
+    "custom_offer_timer_kVn9YV": {
+      "type": "custom-offer-timer",
+      "name": "Custom Offer Timer",
+      "settings": {
+        "heading": "Leaving",
+        "highlighted_word": "soon",
+        "promotion_text": "Get 30% Off on our seasonal sale!",
+        "expired_message": "Sale Ended",
+        "days_label": "Days",
+        "hours_label": "Hours",
+        "minutes_label": "Minutes",
+        "seconds_label": "Seconds",
+        "end_date": "2026-10-01",
+        "end_time": "19:00",
+        "timezone_offset": "+05:30",
+        "card_background": "--color-white",
+        "card_border": "--color-border",
+        "card_radius": 24,
+        "card_shadow": 6,
+        "desktop_width": 50,
+        "mobile_width": 92,
+        "anchor_mode": "previous",
+        "rope_color": "--color-text-secondary",
+        "rope_thickness": 2,
+        "rope_length": 160,
+        "mobile_rope_length": 90,
+        "rope_angle": 3,
+        "mobile_rope_count": "4",
+        "enable_interaction": true,
+        "interaction_strength": 1.2,
+        "tilt_strength": 2.5,
+        "padding_top": 0,
+        "padding_bottom": 100,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 48
+      }
     }
   },
   "order": [
     "hero_slider_tFXepy",
-    "custom_featured_collection_hCELLR"
+    "custom_featured_collection_hCELLR",
+    "custom_featured_collection_emaRmQ",
+    "custom_featured_collection_8bm3aD",
+    "custom_featured_collection_t7UJy6",
+    "custom_tabbed_collection_F4bkca",
+    "custom_offer_timer_kVn9YV"
   ]
 }
