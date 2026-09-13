@@ -1,0 +1,189 @@
+{{ 'collection-link-groups.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="rs-collection-links"
+  style="
+    --rs-links-bg: {{ section.settings.background_color }};
+    --rs-links-color: {{ section.settings.text_color }};
+    --rs-links-border: {{ section.settings.border_color }};
+    --rs-links-radius: {{ section.settings.border_radius }}px;
+    --rs-links-padding-top: {{ section.settings.padding_top }}px;
+    --rs-links-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --rs-links-padding-inline: {{ section.settings.padding_horizontal }}px;
+  "
+>
+  <div class="rs-collection-links__inner">
+
+    {% for block in section.blocks %}
+
+      {% if block.settings.title != blank or block.settings.collection_list != blank %}
+
+        <div
+          class="rs-collection-links__group"
+          {{ block.shopify_attributes }}
+        >
+
+          {% if block.settings.title != blank %}
+            <h3 class="rs-collection-links__title">
+              {{ block.settings.title }}
+            </h3>
+          {% endif %}
+
+
+          {% if block.settings.collection_list != blank %}
+
+            <div class="rs-collection-links__list">
+
+              {% for collection in block.settings.collection_list %}
+
+                <a
+                  href="{{ collection.url }}"
+                  class="rs-collection-links__link"
+                >
+                  {{ collection.title }}
+                </a>
+
+                {% unless forloop.last %}
+                  <span
+                    class="rs-collection-links__separator"
+                    aria-hidden="true"
+                  >
+                    |
+                  </span>
+                {% endunless %}
+
+              {% endfor %}
+
+            </div>
+
+          {% endif %}
+
+        </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Collection link groups",
+  "tag": "section",
+  "class": "section-collection-link-groups",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#EEEEEE"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#6A342D"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Divider color",
+      "default": "#D4D4D4"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "collection_group",
+      "name": "Collection group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kurtis"
+        },
+        {
+          "type": "collection_list",
+          "id": "collection_list",
+          "label": "Collections",
+          "limit": 20
+        }
+      ]
+    }
+  ],
+
+  "max_blocks": 20,
+
+  "presets": [
+    {
+      "name": "Collection link groups",
+      "blocks": [
+        {
+          "type": "collection_group"
+        },
+        {
+          "type": "collection_group"
+        },
+        {
+          "type": "collection_group"
+        },
+        {
+          "type": "collection_group"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
