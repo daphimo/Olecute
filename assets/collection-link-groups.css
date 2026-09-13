@@ -1,0 +1,140 @@
+.rs-collection-links {
+  width: 100%;
+
+  color: var(--rs-links-color);
+}
+
+.rs-collection-links *,
+.rs-collection-links *::before,
+.rs-collection-links *::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.rs-collection-links__inner {
+  width: 100%;
+
+  padding:
+    var(--rs-links-padding-top)
+    var(--rs-links-padding-inline)
+    var(--rs-links-padding-bottom);
+
+  background: var(--rs-links-bg);
+
+  border-radius: var(--rs-links-radius);
+}
+
+
+/* =========================================
+   GROUP
+========================================= */
+
+.rs-collection-links__group {
+  width: 100%;
+
+  padding: 0 0 14px;
+
+  margin: 0 0 14px;
+
+  border-bottom:
+    1px solid
+    var(--rs-links-border);
+}
+
+
+/* No divider after last item */
+
+.rs-collection-links__group:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.rs-collection-links__title {
+  margin: 0 0 7px;
+
+  color: var(--rs-links-color);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+
+/* =========================================
+   COLLECTION LINKS
+========================================= */
+
+.rs-collection-links__list {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  column-gap: 5px;
+  row-gap: 4px;
+
+  color: var(--rs-links-color);
+
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+.rs-collection-links__link {
+  color: inherit;
+
+  text-decoration: none;
+
+  transition: opacity 0.2s ease;
+}
+
+
+.rs-collection-links__link:hover {
+  opacity: 0.65;
+}
+
+
+.rs-collection-links__separator {
+  color: inherit;
+
+  opacity: 0.65;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media screen and (max-width: 749px) {
+
+  .rs-collection-links__title {
+    font-size: 12px;
+  }
+
+  .rs-collection-links__list {
+    font-size: 10px;
+
+    column-gap: 4px;
+  }
+
+  .rs-collection-links__group {
+    padding-bottom: 11px;
+
+    margin-bottom: 11px;
+  }
+
+}
