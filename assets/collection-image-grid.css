@@ -126,12 +126,6 @@
     transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.rs-collection-grid__card:hover
-.rs-collection-grid__image {
-  transform: scale(1.04);
-}
-
-
 /* =========================================
    OVERLAY
 ========================================= */
