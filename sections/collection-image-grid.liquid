@@ -1,0 +1,428 @@
+{{ 'collection-image-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_id = 'CollectionImageGrid-' | append: section.id
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="rs-collection-grid"
+  style="
+    --rs-grid-columns-desktop: {{ section.settings.desktop_columns }};
+    --rs-grid-columns-mobile: {{ section.settings.mobile_columns }};
+
+    --rs-grid-gap-desktop: {{ section.settings.desktop_gap }}px;
+    --rs-grid-gap-mobile: {{ section.settings.mobile_gap }}px;
+
+    --rs-grid-radius: {{ section.settings.border_radius }}px;
+
+    --rs-grid-card-ratio: {{ section.settings.card_ratio }};
+
+    --rs-grid-padding-top: {{ section.settings.padding_top }}px;
+    --rs-grid-padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    --rs-grid-max-width: {{ section.settings.max_width }}px;
+
+    --rs-grid-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+
+    --rs-grid-title-size: {{ section.settings.title_size }}px;
+    --rs-grid-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+  "
+>
+  <div
+    class="
+      rs-collection-grid__container
+      {% if section.settings.full_width %}
+        rs-collection-grid__container--full
+      {% endif %}
+    "
+  >
+
+    {% if section.settings.heading != blank %}
+      <div class="rs-collection-grid__header">
+        <h2 class="rs-collection-grid__heading">
+          {{ section.settings.heading }}
+        </h2>
+      </div>
+    {% endif %}
+
+    <div class="rs-collection-grid__items">
+
+      {% for block in section.blocks %}
+
+        {%- liquid
+          assign collection = block.settings.collection
+
+          if block.settings.title_override != blank
+            assign card_title = block.settings.title_override
+          elsif collection != blank
+            assign card_title = collection.title
+          else
+            assign card_title = 'Collection'
+          endif
+
+          if block.settings.image_override != blank
+            assign card_image = block.settings.image_override
+          elsif collection.featured_image != blank
+            assign card_image = collection.featured_image
+          elsif collection.products.first.featured_image != blank
+            assign card_image = collection.products.first.featured_image
+          else
+            assign card_image = blank
+          endif
+        -%}
+
+        <div
+          class="rs-collection-grid__item"
+          {{ block.shopify_attributes }}
+        >
+
+          {% if collection != blank %}
+            <a
+              href="{{ collection.url }}"
+              class="rs-collection-grid__card"
+              aria-label="{{ card_title | escape }}"
+            >
+          {% else %}
+            <div class="rs-collection-grid__card">
+          {% endif %}
+
+
+          <div class="rs-collection-grid__media">
+
+            {% if card_image != blank %}
+
+              {{
+                card_image
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'rs-collection-grid__image',
+                  loading: 'lazy',
+                  widths: '300, 400, 500, 600, 800, 1000, 1200, 1600',
+                  sizes: '(max-width: 749px) 50vw, 25vw',
+                  alt: card_title
+              }}
+
+            {% else %}
+
+              {{
+                'collection-1'
+                | placeholder_svg_tag: 'rs-collection-grid__placeholder'
+              }}
+
+            {% endif %}
+
+
+            {% if section.settings.show_overlay %}
+              <div class="rs-collection-grid__overlay"></div>
+            {% endif %}
+
+
+            {% if section.settings.show_titles %}
+              <div class="rs-collection-grid__content">
+
+                <h3 class="rs-collection-grid__title">
+                  {{ card_title }}
+                </h3>
+
+              </div>
+            {% endif %}
+
+          </div>
+
+
+          {% if collection != blank %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Collection image grid",
+  "tag": "section",
+  "class": "section-collection-image-grid",
+
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 columns"
+        },
+        {
+          "value": "3",
+          "label": "3 columns"
+        },
+        {
+          "value": "4",
+          "label": "4 columns"
+        },
+        {
+          "value": "5",
+          "label": "5 columns"
+        },
+        {
+          "value": "6",
+          "label": "6 columns"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Desktop gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+
+    {
+      "type": "header",
+      "content": "Card"
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Image ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "2 / 3",
+          "label": "Portrait 2:3"
+        }
+      ],
+      "default": "3 / 4"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+
+    {
+      "type": "header",
+      "content": "Card title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_titles",
+      "label": "Show collection titles",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Desktop title size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Mobile title size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "header",
+      "content": "Image overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show image overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 15
+    },
+
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 500,
+      "max": 2000,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title_override",
+          "label": "Title override",
+          "info": "Leave empty to use the collection title."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_override",
+          "label": "Image override",
+          "info": "Leave empty to use the collection featured image."
+        }
+      ]
+    }
+  ],
+
+  "max_blocks": 30,
+
+  "presets": [
+    {
+      "name": "Collection image grid",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
