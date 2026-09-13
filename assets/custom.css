@@ -1,50 +1,34 @@
-  /* ========================================
-     GLOBAL STORE-WIDE SCROLLBAR
-     ======================================== */
+/* ========================================
+   GLOBAL FLAT SCROLLBAR
+   ======================================== */
 
-  html,
-  body,
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #32166F transparent;
-  }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 
-  /* Chrome / Edge / Safari */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  /* Transparent track */
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+::-webkit-scrollbar-thumb {
+  background: #32166F !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
 
-  /* Flat scrollbar thumb */
-  ::-webkit-scrollbar-thumb {
-    background: #32166F;
-    border-radius: 0 !important;
-    border: none;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: #D91472 !important;
+  border-radius: 0 !important;
+}
 
-  /* Slightly deeper pink on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #32166F;
-  }
+::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
 
-  /* Remove arrows/buttons */
-  ::-webkit-scrollbar-button {
-    display: none;
-    width: 0;
-    height: 0;
-  }
-
-  /* Flat horizontal scrollbar */
-  ::-webkit-scrollbar:horizontal {
-    height: 6px;
-  }
-
-  /* Transparent corner */
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
