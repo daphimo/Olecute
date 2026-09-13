@@ -76,7 +76,7 @@
         "desktop_background_image": "shopify://shop_images/footer_bottom.png",
         "mobile_background_image": "shopify://shop_images/mobile_footer.png",
         "background_alt": "",
-        "background_image_opacity": 100,
+        "background_image_opacity": 45,
         "text_color": "#6f6360",
         "heading_color": "#351710",
         "link_color": "#756866",
