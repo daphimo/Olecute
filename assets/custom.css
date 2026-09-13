@@ -6,7 +6,7 @@
   body,
   * {
     scrollbar-width: thin;
-    scrollbar-color: #D91472 transparent;
+    scrollbar-color: #32166F transparent;
   }
 
   /* Chrome / Edge / Safari */
@@ -22,14 +22,14 @@
 
   /* Flat scrollbar thumb */
   ::-webkit-scrollbar-thumb {
-    background: #D91472;
+    background: #32166F;
     border-radius: 0;
     border: none;
   }
 
   /* Slightly deeper pink on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #B81060;
+    background: #32166F;
   }
 
   /* Remove arrows/buttons */
