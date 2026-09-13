@@ -302,6 +302,33 @@
         "mobile_padding_bottom": 20
       }
     },
+    "media_hero_pill_fdajwY": {
+      "type": "media-hero-pill",
+      "name": "Media hero pill",
+      "settings": {
+        "media_type": "image",
+        "desktop_image": "shopify://shop_images/MOST_WANTED_PICTURE_2.png",
+        "image_alt": "",
+        "section_width": "contained",
+        "max_width": 1400,
+        "desktop_height": 70,
+        "mobile_height": 60,
+        "border_radius": 48,
+        "button_text": "Shop All",
+        "button_link": "",
+        "button_style": "glass",
+        "button_background": "#FFFFFF",
+        "button_text_color": "#1B1B1B",
+        "button_border_color": "#FFFFFF",
+        "button_font_size": 14,
+        "button_padding_vertical": 14,
+        "button_padding_horizontal": 32,
+        "glass_opacity": 60,
+        "glass_blur": 12,
+        "margin_top": 56,
+        "margin_bottom": 56
+      }
+    },
     "custom_featured_collection_t7UJy6": {
       "type": "custom-featured-collection",
       "name": "Custom Featured Collection",
@@ -420,6 +447,7 @@
     "custom_featured_collection_emaRmQ",
     "collection_image_grid_7acafp",
     "custom_featured_collection_8bm3aD",
+    "media_hero_pill_fdajwY",
     "custom_featured_collection_t7UJy6",
     "custom_tabbed_collection_F4bkca",
     "custom_offer_timer_kVn9YV"
