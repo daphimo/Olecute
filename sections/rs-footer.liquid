@@ -160,18 +160,8 @@
                         </div>
                       {% endif %}
 
-                      {%- comment -%}
-                        ========================================
-                        CONTACT / ADDRESS BLOCK
-                        ========================================
-                      {%- endcomment -%}
-
                     {% when 'contact' %}
                       <div class="rs-footer__contact-list">
-                        {%- comment -%}
-                          STORE 1
-                        {%- endcomment -%}
-
                         {% if block.settings.store_1 != blank %}
                           <div class="rs-footer__contact-row">
                             {% if block.settings.store_icon != blank %}
@@ -186,10 +176,6 @@
                           </div>
                         {% endif %}
 
-                        {%- comment -%}
-                          STORE 2
-                        {%- endcomment -%}
-
                         {% if block.settings.store_2 != blank %}
                           <div class="rs-footer__contact-row">
                             {% if block.settings.store_icon != blank %}
@@ -203,10 +189,6 @@
                             </div>
                           </div>
                         {% endif %}
-
-                        {%- comment -%}
-                          MOBILE 1
-                        {%- endcomment -%}
 
                         {% if block.settings.mobile_1 != blank %}
                           <div class="rs-footer__contact-row">
@@ -231,11 +213,6 @@
                             </div>
                           </div>
                         {% endif %}
-
-                        {%- comment -%}
-                          MOBILE 2
-                        {%- endcomment -%}
-
                         {% if block.settings.mobile_2 != blank %}
                           <div class="rs-footer__contact-row">
                             {% if block.settings.phone_icon != blank %}
@@ -260,10 +237,6 @@
                           </div>
                         {% endif %}
 
-                        {%- comment -%}
-                          EMAIL 1
-                        {%- endcomment -%}
-
                         {% if block.settings.email_1 != blank %}
                           <div class="rs-footer__contact-row">
                             {% if block.settings.email_icon != blank %}
@@ -282,10 +255,6 @@
                             </div>
                           </div>
                         {% endif %}
-
-                        {%- comment -%}
-                          EMAIL 2
-                        {%- endcomment -%}
 
                         {% if block.settings.email_2 != blank %}
                           <div class="rs-footer__contact-row">
@@ -306,10 +275,6 @@
                           </div>
                         {% endif %}
 
-                        {%- comment -%}
-                          OPENING HOURS 1
-                        {%- endcomment -%}
-
                         {% if block.settings.hours_1 != blank %}
                           <div class="rs-footer__contact-row">
                             {% if block.settings.hours_icon != blank %}
@@ -323,10 +288,6 @@
                             </div>
                           </div>
                         {% endif %}
-
-                        {%- comment -%}
-                          OPENING HOURS 2
-                        {%- endcomment -%}
 
                         {% if block.settings.hours_2 != blank %}
                           <div class="rs-footer__contact-row">
@@ -564,12 +525,6 @@
     {
       "type": "header",
       "content": "Bottom footer"
-    },
-    {
-      "type": "richtext",
-      "id": "bottom_text",
-      "label": "Bottom text",
-      "default": "<p>Designed by Nishorama | © Nishorama 2026</p>"
     }
   ],
 
