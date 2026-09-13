@@ -1,6 +1,12 @@
 /* ========================================
    GLOBAL FLAT SCROLLBAR
    ======================================== */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #32166F transparent;
+}
 
 ::-webkit-scrollbar {
   width: 6px;
