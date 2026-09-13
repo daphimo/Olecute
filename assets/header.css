@@ -50,7 +50,7 @@
 .olecute-header__drawer-content { min-height: 100%; }
 @keyframes olecute-drawer-in { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
 /* Header wrapper reserves only the compact height; the homepage wordmark overlays the hero. */
-.olecute-header-section { height: 64px; flex-shrink: 0; }
+.olecute-header-section { height: 64px; flex-shrink: 0; width: 100%; max-width: 100% !important; }
 @media (min-width: 750px) {
   .olecute-header-section:has(.olecute-header[data-home='true']) { height: 0; }
 }
