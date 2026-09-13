@@ -23,7 +23,7 @@
   /* Flat scrollbar thumb */
   ::-webkit-scrollbar-thumb {
     background: #32166F;
-    border-radius: 0;
+    border-radius: 0 !important;
     border: none;
   }
 
