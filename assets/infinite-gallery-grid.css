@@ -214,15 +214,6 @@
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-
-/* Image hover zoom */
-
-.rs-infinite-gallery__item:hover
-.rs-infinite-gallery__image {
-  transform: scale(var(--rs-gallery-hover-scale));
-}
-
-
 /* ============================================
    PLACEHOLDER
 ============================================ */
