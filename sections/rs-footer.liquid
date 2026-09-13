@@ -45,11 +45,8 @@
     --rs-footer-border-color: {{ section.settings.mobile_border_color }};
   "
 >
-
   <div class="rs-footer__outer">
-
     <div class="rs-footer__panel">
-
       {%- comment -%}
         ========================================
         BACKGROUND IMAGE
@@ -58,9 +55,7 @@
       {%- endcomment -%}
 
       {% if desktop_bg != blank %}
-
         <picture class="rs-footer__background">
-
           {% if mobile_bg != blank %}
             <source
               media="(max-width: 749px)"
@@ -84,33 +79,22 @@
               loading: 'lazy',
               alt: section.settings.background_alt
           }}
-
         </picture>
-
       {% endif %}
 
-
       <div class="rs-footer__content">
-
         <div class="rs-footer__columns">
-
           {% for block in section.blocks %}
-
             <div
               class="
                 rs-footer__column
                 rs-footer__column--{{ block.type }}
               "
-              style="
-                --rs-footer-column-width: {{ block.settings.desktop_width }}%;
-              "
+              style="                --rs-footer-column-width: {{ block.settings.desktop_width }}%;"
               {{ block.shopify_attributes }}
             >
-
               <details class="rs-footer__details">
-
                 <summary class="rs-footer__summary">
-
                   <span class="rs-footer__block-heading">
                     {{ block.settings.heading }}
                   </span>
@@ -132,90 +116,64 @@
                       <path d="M6 9l6 6 6-6"/>
                     </svg>
                   </span>
-
                 </summary>
 
-
                 <div class="rs-footer__collapsible-content">
-
                   {% case block.type %}
-
-
-                    {%- comment -%}
-                      ========================================
-                      MENU BLOCK
-                      ========================================
-                    {%- endcomment -%}
+                      {%- comment -%}
+                        ========================================
+                        MENU BLOCK
+                        ========================================
+                      {%- endcomment -%}
 
                     {% when 'menu' %}
-
                       {% if block.settings.menu != blank %}
-
                         <nav
                           class="rs-footer__menu"
                           aria-label="{{ block.settings.heading | escape }}"
                         >
-
                           <ul class="rs-footer__menu-list">
-
                             {% for link in block.settings.menu.links %}
-
                               <li class="rs-footer__menu-item">
-
                                 <a
                                   href="{{ link.url }}"
                                   class="rs-footer__link"
                                 >
                                   {{ link.title }}
                                 </a>
-
                               </li>
-
                             {% endfor %}
-
                           </ul>
-
                         </nav>
-
                       {% endif %}
 
-
-                    {%- comment -%}
-                      ========================================
-                      RICH TEXT BLOCK
-                      ========================================
-                    {%- endcomment -%}
+                      {%- comment -%}
+                        ========================================
+                        RICH TEXT BLOCK
+                        ========================================
+                      {%- endcomment -%}
 
                     {% when 'richtext' %}
-
                       {% if block.settings.content != blank %}
-
                         <div class="rs-footer__richtext rte">
                           {{ block.settings.content }}
                         </div>
-
                       {% endif %}
 
-
-                    {%- comment -%}
-                      ========================================
-                      CONTACT / ADDRESS BLOCK
-                      ========================================
-                    {%- endcomment -%}
+                      {%- comment -%}
+                        ========================================
+                        CONTACT / ADDRESS BLOCK
+                        ========================================
+                      {%- endcomment -%}
 
                     {% when 'contact' %}
-
                       <div class="rs-footer__contact-list">
-
-
                         {%- comment -%}
                           STORE 1
                         {%- endcomment -%}
 
                         {% if block.settings.store_1 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.store_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.store_icon }}
@@ -225,20 +183,15 @@
                             <div class="rs-footer__contact-text">
                               {{ block.settings.store_1 | newline_to_br }}
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           STORE 2
                         {%- endcomment -%}
 
                         {% if block.settings.store_2 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.store_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.store_icon }}
@@ -248,20 +201,15 @@
                             <div class="rs-footer__contact-text">
                               {{ block.settings.store_2 | newline_to_br }}
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           MOBILE 1
                         {%- endcomment -%}
 
                         {% if block.settings.mobile_1 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.phone_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.phone_icon }}
@@ -269,9 +217,7 @@
                             {% endif %}
 
                             <div class="rs-footer__contact-text">
-
                               {% if block.settings.mobile_1_link != blank %}
-
                                 <a
                                   href="{{ block.settings.mobile_1_link }}"
                                   class="rs-footer__link"
@@ -280,26 +226,18 @@
                                 </a>
 
                               {% else %}
-
                                 {{ block.settings.mobile_1 }}
-
                               {% endif %}
-
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           MOBILE 2
                         {%- endcomment -%}
 
                         {% if block.settings.mobile_2 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.phone_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.phone_icon }}
@@ -307,9 +245,7 @@
                             {% endif %}
 
                             <div class="rs-footer__contact-text">
-
                               {% if block.settings.mobile_2_link != blank %}
-
                                 <a
                                   href="{{ block.settings.mobile_2_link }}"
                                   class="rs-footer__link"
@@ -318,26 +254,18 @@
                                 </a>
 
                               {% else %}
-
                                 {{ block.settings.mobile_2 }}
-
                               {% endif %}
-
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           EMAIL 1
                         {%- endcomment -%}
 
                         {% if block.settings.email_1 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.email_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.email_icon }}
@@ -345,29 +273,22 @@
                             {% endif %}
 
                             <div class="rs-footer__contact-text">
-
                               <a
                                 href="mailto:{{ block.settings.email_1 | escape }}"
                                 class="rs-footer__link"
                               >
                                 {{ block.settings.email_1 }}
                               </a>
-
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           EMAIL 2
                         {%- endcomment -%}
 
                         {% if block.settings.email_2 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.email_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.email_icon }}
@@ -375,29 +296,22 @@
                             {% endif %}
 
                             <div class="rs-footer__contact-text">
-
                               <a
                                 href="mailto:{{ block.settings.email_2 | escape }}"
                                 class="rs-footer__link"
                               >
                                 {{ block.settings.email_2 }}
                               </a>
-
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           OPENING HOURS 1
                         {%- endcomment -%}
 
                         {% if block.settings.hours_1 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.hours_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.hours_icon }}
@@ -407,20 +321,15 @@
                             <div class="rs-footer__contact-text">
                               {{ block.settings.hours_1 }}
                             </div>
-
                           </div>
-
                         {% endif %}
-
 
                         {%- comment -%}
                           OPENING HOURS 2
                         {%- endcomment -%}
 
                         {% if block.settings.hours_2 != blank %}
-
                           <div class="rs-footer__contact-row">
-
                             {% if block.settings.hours_icon != blank %}
                               <span class="rs-footer__contact-icon">
                                 {{ block.settings.hours_icon }}
@@ -430,46 +339,28 @@
                             <div class="rs-footer__contact-text">
                               {{ block.settings.hours_2 }}
                             </div>
-
                           </div>
-
                         {% endif %}
-
                       </div>
-
                   {% endcase %}
-
                 </div>
-
               </details>
-
             </div>
-
           {% endfor %}
-
         </div>
-
       </div>
-
     </div>
 
-
     {% if section.settings.bottom_text != blank %}
-
       <div class="rs-footer__bottom">
-
         <div class="rs-footer__bottom-text">
-          {{ section.settings.bottom_text }}
+          Designed by {{ shop.name }} | © {{ 'now' | date: '%Y' }}
+          {{ shop.name }}
         </div>
-
       </div>
-
     {% endif %}
-
   </div>
-
 </footer>
-
 
 {% schema %}
 {
