@@ -112,9 +112,14 @@
           {{ 'content.no_products_found' | t }}
         </h2>
         <p>
-          {{ 'content.use_fewer_filters_html' | t: link: collection.url, class: 'main-collection-grid__empty-link' }}
+          {% if request.page_type == 'search' %}
+            Try another search or <a href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&amp;type=product">clear filters</a>.
+          {% else %}
+            {{ 'content.use_fewer_filters_html' | t: link: collection.url, class: 'main-collection-grid__empty-link' }}
+          {% endif %}
         </p>
       </div>
+      {% render 'pagination-controls', paginate: paginate %}
     {% else %}
       {% if enable_infinite_scroll %}
         <span ref="viewMorePrevious"></span>

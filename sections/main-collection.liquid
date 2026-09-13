@@ -70,12 +70,7 @@
               data-product-id="{{ product.id }}"
               ref="cards[]"
             >
-              {% content_for 'block',
-                type: '_product-card',
-                id: 'product-card',
-                closest.product: product,
-                product_view_context: 'collection'
-              %}
+              {% render 'custom-product-card', product: product %}
             </li>
           {% endfor %}
         {% endcapture %}

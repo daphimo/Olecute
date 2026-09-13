@@ -192,7 +192,8 @@ export default class PaginatedList extends Component {
 
     grid.append(...nextPageItemElements);
 
-    this.#aspectRatioHelper.processNewElements();
+    // Custom product cards size their media in CSS and do not create this helper.
+    this.#aspectRatioHelper?.processNewElements();
 
     await yieldToMainThread();
 
@@ -233,7 +234,8 @@ export default class PaginatedList extends Component {
     // Prepend the new elements
     grid.prepend(...previousPageItemElements);
 
-    this.#aspectRatioHelper.processNewElements();
+    // Custom product cards size their media in CSS and do not create this helper.
+    this.#aspectRatioHelper?.processNewElements();
 
     // Calculate and adjust scroll position to maintain the same view
     if (firstElement) {

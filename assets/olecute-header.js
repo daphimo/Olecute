@@ -210,6 +210,10 @@ class OlecuteHeader extends HTMLElement {
     trigger.setAttribute('aria-expanded', 'true');
     // Native modal traps focus and makes background content inert.
     dialog.showModal();
+    // Animate the matching control inside the modal, where it stays visible.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (this.activeDialog === dialog && dialog.open) dialog.setAttribute('data-menu-active', '');
+    }));
     const input = dialog.querySelector('[data-search-input]');
     if (input) { input.value = ''; this.onSearchInput({ target: input }); }
     (input || dialog.querySelector('[data-header-close]')).focus({ preventScroll: true });
@@ -223,6 +227,7 @@ class OlecuteHeader extends HTMLElement {
 
   releaseDrawer() {
     this.cancelSearch();
+    this.activeDialog?.removeAttribute('data-menu-active');
     this.activeDialog = null;
     this.triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
     this.unlockScroll();
@@ -290,7 +295,7 @@ class OlecuteHeader extends HTMLElement {
     destination.searchParams.set('type', 'product');
     action.href = destination.href;
     action.firstElementChild.textContent = `Search for "${query}"`;
-    status.textContent = 'Searching?';
+    status.textContent = 'Searching...';
     results.setAttribute('aria-busy', 'true');
     this.searchTimer = setTimeout(async () => {
       this.searchRequest = new AbortController();

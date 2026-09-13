@@ -40,10 +40,7 @@
         {% content_for 'block', type: 'filters', id: 'filters', results: search, results_size: search.results_count %}
         {% assign products = search.results | where: 'object_type', 'product' %}
       {% else %}
-        {% assign collection = settings.empty_state_collection | default: collections.all %}
-        {% assign default_title = 'content.search_results_resource_products' | t %}
-        {% assign title = settings.empty_state_collection.title | default: default_title %}
-        {% assign products = collection.products %}
+        {% assign products = search.results | where: 'object_type', 'product' %}
       {% endif %}
 
       {% capture children %}
@@ -55,12 +52,7 @@
             data-product-id="{{ product.id }}"
             ref="cards[]"
           >
-            {% content_for 'block',
-              type: '_product-card',
-              id: 'product-card',
-              closest.product: product,
-              product_view_context: 'search'
-            %}
+            {% render 'custom-product-card', product: product %}
           </li>
         {% endfor %}
       {% endcapture %}
@@ -70,8 +62,7 @@
         children: children,
         products: products,
         paginate: paginate,
-        enable_infinite_scroll: section.settings.enable_infinite_scroll,
-        title: title
+        enable_infinite_scroll: section.settings.enable_infinite_scroll
       %}
     {% endpaginate %}
   </div>
@@ -83,7 +74,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "t:content.edit_empty_state_collection_in_theme_settings"
+      "content": "Product results use the shared Custom Product Card settings. Empty searches show a no-results message."
     },
     {
       "type": "select",

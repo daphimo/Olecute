@@ -108,7 +108,9 @@
               <details
                 class="rs-footer__details"
                 data-mobile-open-default="{{ block.settings.open_by_default_mobile }}"
-                {% if block.settings.open_by_default_mobile %}open{% endif %}
+                {% if block.settings.open_by_default_mobile %}
+                  open
+                {% endif %}
               >
                 <summary class="rs-footer__summary">
                   <span class="rs-footer__block-heading">
@@ -404,14 +406,12 @@
       </div>
     </div>
 
-    {% if section.settings.bottom_text != blank %}
       <div class="rs-footer__bottom">
         <div class="rs-footer__bottom-text">
           Designed by {{ shop.name }} | © {{ 'now' | date: '%Y' }}
           {{ shop.name }}
         </div>
       </div>
-    {% endif %}
   </div>
 </footer>
 

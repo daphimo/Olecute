@@ -1,20 +1,49 @@
-<dialog id="{{ drawer }}-{{ section.id }}" class="olecute-header__drawer olecute-header__drawer--{{ drawer }}" aria-label="{{ label }}" data-header-dialog>
+<dialog
+  id="{{ drawer }}-{{ section.id }}"
+  class="olecute-header__drawer olecute-header__drawer--{{ drawer }}"
+  aria-label="{{ label | escape }}"
+  data-header-dialog
+>
   {% if drawer == 'desktop-menu' %}
-    <div class="drawer-masthead"><button type="button" data-header-close aria-label="Close menu">× Menu</button>{% render 'header-logo', section: section, context: 'standard' %}<div class="olecute-header__icons">{% render 'header-search-trigger', section: section %}{% render 'header-account' %}{% render 'header-cart' %}</div></div>
+    <div class="drawer-masthead">
+      <button type="button" data-header-close aria-label="Close menu">{% render 'header-menu-icon' %}<span>Menu</span></button>
+      {% render 'header-logo', section: section, context: 'standard' %}
+      <div class="olecute-header__icons">
+        {% render 'header-search-trigger', section: section %}
+        {% render 'header-account' %}
+        {% render 'header-cart' %}
+      </div>
+    </div>
   {% else %}
-    <form class="drawer-search" action="{{ routes.search_url }}" role="search" data-drawer-search data-predictive-url="{{ routes.predictive_search_url }}">
-      <input type="search" name="q" placeholder="Search" aria-label="Search products" autocomplete="off" data-search-input aria-controls="results-{{ drawer }}-{{ section.id }}">
+    <form
+      class="drawer-search"
+      action="{{ routes.search_url }}"
+      role="search"
+      data-drawer-search
+      data-predictive-url="{{ routes.predictive_search_url }}"
+    >
+      <input
+        type="search"
+        name="q"
+        placeholder="Search"
+        aria-label="Search products"
+        autocomplete="off"
+        data-search-input
+        aria-controls="results-{{ drawer }}-{{ section.id }}"
+      >
       <input type="hidden" name="type" value="product">
-      <button type="button" data-search-clear aria-label="Clear search" hidden>×</button>
-      <button type="button" data-header-close aria-label="Close {{ label | downcase }}">{{ 'icon-close.svg' | inline_asset_content }}</button>
+      <button type="button" data-search-clear aria-label="Clear search" hidden><span aria-hidden="true">&#215;</span></button>
+      <button type="button" data-header-close aria-label="Close {{ label | downcase | escape }}">{% if drawer == 'mobile-menu' %}{% render 'header-menu-icon' %}{% else %}{{ 'icon-close.svg' | inline_asset_content }}{% endif %}</button>
     </form>
     <div id="results-{{ drawer }}-{{ section.id }}" data-search-results hidden>
       <p class="drawer-search-status" role="status" data-search-status></p>
       <div class="drawer-products" data-search-products></div>
-      <a class="drawer-search-all" data-search-all><span></span><span aria-hidden="true">?</span></a>
+      <a class="drawer-search-all" data-search-all><span></span><span aria-hidden="true">&#8594;</span></a>
     </div>
   {% endif %}
   <div class="olecute-header__drawer-content" data-drawer-content {% if drawer == 'search' %}hidden{% endif %}>
-    {% unless drawer == 'search' %}{% render 'header-drawer-navigation', section: section, drawer: drawer %}{% endunless %}
+    {% unless drawer == 'search' %}
+      {% render 'header-drawer-navigation', section: section, drawer: drawer %}
+    {% endunless %}
   </div>
 </dialog>

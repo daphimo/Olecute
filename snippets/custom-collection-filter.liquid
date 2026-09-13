@@ -1,0 +1,13 @@
+﻿{% assign filter_id = section_id | append: '-filter-' | append: index %}
+<details class="custom-main-collection__filter-group" {% if filter.active_values.size > 0 or filter.min_value.value != nil or filter.max_value.value != nil %}open{% endif %}>
+  <summary>{{ filter.label | escape }}<span aria-hidden="true"></span></summary>
+  {% case filter.type %}
+    {% when 'list', 'boolean' %}
+      <ul role="list">{% for value in filter.values %}<li><label for="{{ filter_id }}-{{ forloop.index }}"><input id="{{ filter_id }}-{{ forloop.index }}" type="checkbox" name="{{ value.param_name | escape }}" value="{{ value.value | escape }}" {% if value.active %}checked{% elsif value.count == 0 %}disabled{% endif %}><span>{{ value.label | escape }}</span><small>{{ value.count }}</small></label></li>{% endfor %}</ul>
+    {% when 'price_range' %}
+      <div class="custom-main-collection__price">
+        <label for="{{ filter_id }}-min">From ({{ cart.currency.iso_code | default: shop.currency }})<input type="number" inputmode="decimal" id="{{ filter_id }}-min" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | divided_by: 100.0 }}" step="0.01" placeholder="0" {% if filter.min_value.value != nil %}value="{{ filter.min_value.value | divided_by: 100.0 }}"{% endif %} data-price-min></label>
+        <label for="{{ filter_id }}-max">To ({{ cart.currency.iso_code | default: shop.currency }})<input type="number" inputmode="decimal" id="{{ filter_id }}-max" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | divided_by: 100.0 }}" step="0.01" placeholder="{{ filter.range_max | divided_by: 100.0 }}" {% if filter.max_value.value != nil %}value="{{ filter.max_value.value | divided_by: 100.0 }}"{% endif %} data-price-max></label>
+      </div>
+  {% endcase %}
+</details>

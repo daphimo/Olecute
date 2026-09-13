@@ -2,6 +2,8 @@
   width: 100%;
   max-width: var(--page-width);
   margin-inline: auto;
+  box-sizing: border-box;
+  padding-inline:  16px;
 
   color: var(--rs-links-color);
 }

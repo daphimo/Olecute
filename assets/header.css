@@ -168,3 +168,25 @@
 @media (max-width: 749px) {
   .olecute-header__mobile button.olecute-header__circle > span { width: 18px; height: 18px; }
 }
+
+/* Three-line menu mark, shared by the triggers and modal close controls. */
+.olecute-header__menu-icon { position: relative; display: inline-block; flex: 0 0 18px; width: 18px; height: 16px; }
+.olecute-header__menu-icon > span { position: absolute; left: 0; top: 7px; width: 18px; height: 2px; border-radius: 2px; background: #DE117A; transition: transform 240ms ease, opacity 180ms ease; }
+.olecute-header__menu-icon > span:first-child { transform: translateY(-6px); }
+.olecute-header__menu-icon > span:nth-child(2) { background: #F7C100; }
+.olecute-header__menu-icon > span:last-child { transform: translateY(6px); }
+[aria-expanded='true'] > .olecute-header__menu-icon > span:first-child,
+[data-menu-active] [data-header-close] .olecute-header__menu-icon > span:first-child { transform: rotate(45deg); }
+[aria-expanded='true'] > .olecute-header__menu-icon > span:nth-child(2),
+[data-menu-active] [data-header-close] .olecute-header__menu-icon > span:nth-child(2) { opacity: 0; }
+[aria-expanded='true'] > .olecute-header__menu-icon > span:last-child,
+[data-menu-active] [data-header-close] .olecute-header__menu-icon > span:last-child { transform: rotate(-45deg); }
+.drawer-masthead > [data-header-close] { display: inline-flex; align-items: center; gap: 8px; }
+@media (max-width: 749px) {
+  /* Equal control columns preserve the centered logo with one left button. */
+  .olecute-header__mobile { grid-template-columns: 92px minmax(0, 1fr) 92px; }
+  .olecute-header__mobile-icons { justify-content: flex-end; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .olecute-header__menu-icon > span { transition: none; }
+}

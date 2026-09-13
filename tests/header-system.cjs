@@ -126,11 +126,9 @@ async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No horizontal viewport overflow at '+width);
       if(width<750) {
         assert.equal(await page.getByRole('button',{name:'Open menu',exact:true}).count(),1,'One accessible menu trigger');
-        assert.equal(await page.locator('.olecute-header__mobile-left > button').count(),2,'Separate menu and search controls');
-        assert.equal(await page.locator('.olecute-header__mobile [data-header-open="search-test"]').count(),1,'Working mobile search trigger');
-        await page.locator('.olecute-header__mobile [data-header-open="search-test"]').click();
-        assert(await page.locator('#search-test [data-search-input]').evaluate(el=>el===document.activeElement));
-        await page.keyboard.press('Escape');
+        assert.equal(await page.locator('.olecute-header__mobile-left > button').count(),1,'Only the menu control on mobile');
+        assert.equal(await page.locator('.olecute-header__mobile [data-header-open="search-test"]').count(),0,'No separate mobile search trigger');
+
         const actions=page.locator('.olecute-header__mobile-left > button, .olecute-header__mobile-icons > a');
         for(const action of await actions.all()) {
           const style=await action.evaluate(el=>{const s=getComputedStyle(el);return {width:s.width,height:s.height,radius:s.borderRadius,background:s.backgroundColor};});
@@ -155,6 +153,14 @@ async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
         await scroll(260);
         await page.locator('.olecute-header__mobile [data-header-open="mobile-menu-test"]').click();
         assert(await page.locator('#mobile-menu-test').evaluate(el=>el.open));
+        await page.waitForTimeout(300);
+        const lines=page.locator('#mobile-menu-test [data-header-close] .olecute-header__menu-icon > span');
+        assert.equal(await lines.count(),3);
+        assert.equal(await lines.nth(1).evaluate(el=>getComputedStyle(el).opacity),'0');
+        assert.equal(await lines.first().evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(222, 17, 122)');
+        assert.equal(await lines.nth(1).evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(247, 193, 0)');
+        assert(await lines.first().evaluate(el=>getComputedStyle(el).transform.includes('0.707')));
+
         await page.keyboard.press('Escape');await settle();
         assert.equal(await page.evaluate(()=>document.scrollingElement.scrollTop),260);
         await page.locator('.olecute-header__logo--mobile').evaluate(el=>{el.dataset.original=el.innerHTML;el.textContent='OLECUTE EXTENDED WORDMARK';});
