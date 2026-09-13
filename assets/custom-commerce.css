@@ -15,7 +15,8 @@
 .custom-badge-sale { color: var(--custom-sale); }.custom-badge-new { color: var(--custom-new); }
 .custom-gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 36px; height: 36px; padding: 8px; border: 0; border-radius: 50%; background: color-mix(in srgb,var(--color-white) 85%,transparent); opacity: 0; transition: opacity .15s; }
 .custom-gallery-arrow--prev { left: 6px; }.custom-gallery-arrow--next { right: 6px; }
-.custom-product-card__media:hover .custom-gallery-arrow, .custom-product-card__media:focus-within .custom-gallery-arrow { opacity: 1; }
+.custom-product-card__media:hover .custom-gallery-arrow, .custom-product-card__media:focus-within .custom-gallery-arrow--prev { left: 6px; }
+.custom-product-card__media:hover .custom-gallery-arrow, .custom-product-card__media:focus-within .custom-gallery-arrow--next { right: 6px; }
 .custom-gallery-arrow svg, .custom-product-card__add svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; }
 .custom-gallery-dots { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); display: flex; max-width: 90%; overflow-x: auto; }
 .custom-gallery-dots button { flex: 0 0 24px; width: 24px; height: 28px; padding: 0; border: 0; background: none; }
