@@ -3,7 +3,7 @@
   <header><strong>Body Measurement</strong>{% render 'custom-size-switcher' %}</header>
   <div class="custom-chart-scroll"><table><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr></thead><tbody data-custom-chart-rows>
     {% for variant in product.variants %}<tr><td>{{ variant.title | escape }}</td>
-      {% assign keys = 'chest,high_waist,hip' | split: ',' %}
+      {% assign keys = 'chest,waist,hip' | split: ',' %}
       {% for key in keys %}<td data-inches="{{ variant.metafields.custom[key].value | json | escape }}">{{ variant.metafields.custom[key].value | default: '-' | escape }}</td>{% endfor %}
     </tr>{% endfor %}
   </tbody></table></div>
