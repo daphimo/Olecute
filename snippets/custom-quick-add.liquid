@@ -1,13 +1,41 @@
 {% assign selected = product.selected_or_first_available_variant %}
 <custom-product-options class="custom-commerce" {% render 'custom-product-data', product: product %}>
   <div class="custom-quick-add__gallery" tabindex="0" aria-label="Product images" data-native-scroll>
-    {% for image in product.images %}{{ image | image_url: width: 480 | image_tag: widths: '160, 240, 360, 480', sizes: '160px', loading: 'lazy', decoding: 'async', class: 'custom-quick-add__image' }}{% endfor %}
+    {% for image in product.images -%}
+      {{-
+        image
+        | image_url: width: 480
+        | image_tag:
+          widths: '160, 240, 360, 480',
+          sizes: '160px',
+          loading: 'lazy',
+          decoding: 'async',
+          class: 'custom-quick-add__image'
+      -}}
+    {%- endfor %}
   </div>
-  <h2><a href="{{ product.url }}">{{ product.title | escape }}</a></h2>
-  <div class="custom-quick-add__summary">{% render 'custom-product-highlights', product: product %}<div data-custom-price>{% render 'custom-product-price', product: product, variant: selected, show_discount: true %}</div></div>
-  <div class="custom-measurement-tools">{% render 'custom-size-switcher' %}<button type="button" data-custom-chart-open>What's my size?</button></div>
-  <div class="custom-measurements"><span>Chest <b data-measure="chest">-</b></span><span>High Waist <b data-measure="high_waist">-</b></span><span>Hip <b data-measure="hip">-</b></span></div>
+  <h2>
+    <a href="{{ product.url }}">{{ product.title | escape }}</a>
+  </h2>
+  <div class="custom-quick-add__summary">
+    {% render 'custom-product-highlights', product: product %}
+    <div data-custom-price>
+      {% render 'custom-product-price', product: product, variant: selected, show_discount: true %}
+    </div>
+  </div>
+  <div class="custom-measurement-tools">
+    {% render 'custom-size-switcher' -%}
+    <button type="button" data-custom-chart-open>What's my size?</button>
+  </div>
+  <div class="custom-measurements">
+    <span>Chest <b data-measure="chest">-</b></span
+    ><span>High Waist <b data-measure="high_waist">-</b></span
+    ><span>Hip <b data-measure="hip">-</b></span>
+  </div>
   {% render 'custom-variant-selector', product: product, selected_variant: selected %}
-  <div class="custom-purchase">{% render 'custom-add-to-cart', variant: selected %}{% render 'custom-wishlist-button', product: product, variant: selected %}</div>
+  <div class="custom-purchase">
+    {% render 'custom-add-to-cart', variant: selected -%}
+    {%- render 'custom-wishlist-button', product: product, variant: selected %}
+  </div>
   {% render 'custom-size-chart', product: product %}
 </custom-product-options>
