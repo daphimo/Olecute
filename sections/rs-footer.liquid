@@ -1,0 +1,959 @@
+{{ 'rs-footer.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign footer_id = 'RSFooter-' | append: section.id
+
+  assign desktop_bg = section.settings.desktop_background_image
+  assign mobile_bg = section.settings.mobile_background_image
+
+  if desktop_bg == blank and mobile_bg != blank
+    assign desktop_bg = mobile_bg
+  endif
+
+  if mobile_bg == blank
+    assign mobile_bg = desktop_bg
+  endif
+-%}
+
+<footer
+  id="{{ footer_id }}"
+  class="rs-footer"
+  style="
+    --rs-footer-bg: {{ section.settings.background_color }};
+    --rs-footer-text: {{ section.settings.text_color }};
+    --rs-footer-heading: {{ section.settings.heading_color }};
+    --rs-footer-link: {{ section.settings.link_color }};
+    --rs-footer-link-hover: {{ section.settings.link_hover_color }};
+
+    --rs-footer-gutter: {{ section.settings.desktop_gutter }}px;
+    --rs-footer-gutter-mobile: {{ section.settings.mobile_gutter }}px;
+
+    --rs-footer-radius: {{ section.settings.border_radius }}px;
+    --rs-footer-radius-mobile: {{ section.settings.border_radius_mobile }}px;
+
+    --rs-footer-padding-top: {{ section.settings.padding_top }}px;
+    --rs-footer-padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    --rs-footer-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rs-footer-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+
+    --rs-footer-column-gap: {{ section.settings.column_gap }}px;
+    --rs-footer-row-gap: {{ section.settings.row_gap }}px;
+
+    --rs-footer-bg-opacity: {{ section.settings.background_image_opacity | divided_by: 100.0 }};
+
+    --rs-footer-border-color: {{ section.settings.mobile_border_color }};
+  "
+>
+
+  <div class="rs-footer__outer">
+
+    <div class="rs-footer__panel">
+
+      {%- comment -%}
+        ========================================
+        BACKGROUND IMAGE
+        Actual image element, not CSS background
+        ========================================
+      {%- endcomment -%}
+
+      {% if desktop_bg != blank %}
+
+        <picture class="rs-footer__background">
+
+          {% if mobile_bg != blank %}
+            <source
+              media="(max-width: 749px)"
+              srcset="
+                {{ mobile_bg | image_url: width: 600 }} 600w,
+                {{ mobile_bg | image_url: width: 900 }} 900w,
+                {{ mobile_bg | image_url: width: 1200 }} 1200w,
+                {{ mobile_bg | image_url: width: 1600 }} 1600w
+              "
+              sizes="100vw"
+            >
+          {% endif %}
+
+          {{
+            desktop_bg
+            | image_url: width: 3000
+            | image_tag:
+              class: 'rs-footer__background-image',
+              widths: '750, 1000, 1200, 1500, 1800, 2200, 2600, 3000',
+              sizes: '100vw',
+              loading: 'lazy',
+              alt: section.settings.background_alt
+          }}
+
+        </picture>
+
+      {% endif %}
+
+
+      <div class="rs-footer__content">
+
+        <div class="rs-footer__columns">
+
+          {% for block in section.blocks %}
+
+            <div
+              class="
+                rs-footer__column
+                rs-footer__column--{{ block.type }}
+              "
+              style="
+                --rs-footer-column-width: {{ block.settings.desktop_width }}%;
+              "
+              {{ block.shopify_attributes }}
+            >
+
+              <details class="rs-footer__details">
+
+                <summary class="rs-footer__summary">
+
+                  <span class="rs-footer__block-heading">
+                    {{ block.settings.heading }}
+                  </span>
+
+                  <span
+                    class="rs-footer__toggle-icon"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </span>
+
+                </summary>
+
+
+                <div class="rs-footer__collapsible-content">
+
+                  {% case block.type %}
+
+
+                    {%- comment -%}
+                      ========================================
+                      MENU BLOCK
+                      ========================================
+                    {%- endcomment -%}
+
+                    {% when 'menu' %}
+
+                      {% if block.settings.menu != blank %}
+
+                        <nav
+                          class="rs-footer__menu"
+                          aria-label="{{ block.settings.heading | escape }}"
+                        >
+
+                          <ul class="rs-footer__menu-list">
+
+                            {% for link in block.settings.menu.links %}
+
+                              <li class="rs-footer__menu-item">
+
+                                <a
+                                  href="{{ link.url }}"
+                                  class="rs-footer__link"
+                                >
+                                  {{ link.title }}
+                                </a>
+
+                              </li>
+
+                            {% endfor %}
+
+                          </ul>
+
+                        </nav>
+
+                      {% endif %}
+
+
+                    {%- comment -%}
+                      ========================================
+                      RICH TEXT BLOCK
+                      ========================================
+                    {%- endcomment -%}
+
+                    {% when 'richtext' %}
+
+                      {% if block.settings.content != blank %}
+
+                        <div class="rs-footer__richtext rte">
+                          {{ block.settings.content }}
+                        </div>
+
+                      {% endif %}
+
+
+                    {%- comment -%}
+                      ========================================
+                      CONTACT / ADDRESS BLOCK
+                      ========================================
+                    {%- endcomment -%}
+
+                    {% when 'contact' %}
+
+                      <div class="rs-footer__contact-list">
+
+
+                        {%- comment -%}
+                          STORE 1
+                        {%- endcomment -%}
+
+                        {% if block.settings.store_1 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.store_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.store_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+                              {{ block.settings.store_1 | newline_to_br }}
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          STORE 2
+                        {%- endcomment -%}
+
+                        {% if block.settings.store_2 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.store_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.store_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+                              {{ block.settings.store_2 | newline_to_br }}
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          MOBILE 1
+                        {%- endcomment -%}
+
+                        {% if block.settings.mobile_1 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.phone_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.phone_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+
+                              {% if block.settings.mobile_1_link != blank %}
+
+                                <a
+                                  href="{{ block.settings.mobile_1_link }}"
+                                  class="rs-footer__link"
+                                >
+                                  {{ block.settings.mobile_1 }}
+                                </a>
+
+                              {% else %}
+
+                                {{ block.settings.mobile_1 }}
+
+                              {% endif %}
+
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          MOBILE 2
+                        {%- endcomment -%}
+
+                        {% if block.settings.mobile_2 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.phone_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.phone_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+
+                              {% if block.settings.mobile_2_link != blank %}
+
+                                <a
+                                  href="{{ block.settings.mobile_2_link }}"
+                                  class="rs-footer__link"
+                                >
+                                  {{ block.settings.mobile_2 }}
+                                </a>
+
+                              {% else %}
+
+                                {{ block.settings.mobile_2 }}
+
+                              {% endif %}
+
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          EMAIL 1
+                        {%- endcomment -%}
+
+                        {% if block.settings.email_1 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.email_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.email_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+
+                              <a
+                                href="mailto:{{ block.settings.email_1 | escape }}"
+                                class="rs-footer__link"
+                              >
+                                {{ block.settings.email_1 }}
+                              </a>
+
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          EMAIL 2
+                        {%- endcomment -%}
+
+                        {% if block.settings.email_2 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.email_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.email_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+
+                              <a
+                                href="mailto:{{ block.settings.email_2 | escape }}"
+                                class="rs-footer__link"
+                              >
+                                {{ block.settings.email_2 }}
+                              </a>
+
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          OPENING HOURS 1
+                        {%- endcomment -%}
+
+                        {% if block.settings.hours_1 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.hours_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.hours_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+                              {{ block.settings.hours_1 }}
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+
+                        {%- comment -%}
+                          OPENING HOURS 2
+                        {%- endcomment -%}
+
+                        {% if block.settings.hours_2 != blank %}
+
+                          <div class="rs-footer__contact-row">
+
+                            {% if block.settings.hours_icon != blank %}
+                              <span class="rs-footer__contact-icon">
+                                {{ block.settings.hours_icon }}
+                              </span>
+                            {% endif %}
+
+                            <div class="rs-footer__contact-text">
+                              {{ block.settings.hours_2 }}
+                            </div>
+
+                          </div>
+
+                        {% endif %}
+
+                      </div>
+
+                  {% endcase %}
+
+                </div>
+
+              </details>
+
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {% if section.settings.bottom_text != blank %}
+
+      <div class="rs-footer__bottom">
+
+        <div class="rs-footer__bottom-text">
+          {{ section.settings.bottom_text }}
+        </div>
+
+      </div>
+
+    {% endif %}
+
+  </div>
+
+</footer>
+
+
+{% schema %}
+{
+  "name": "RS Footer",
+  "tag": "section",
+  "class": "section-rs-footer",
+
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#E9E9E9"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_background_image",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_image",
+      "label": "Mobile background image",
+      "info": "Falls back to desktop image when empty."
+    },
+    {
+      "type": "text",
+      "id": "background_alt",
+      "label": "Background image alt text"
+    },
+    {
+      "type": "range",
+      "id": "background_image_opacity",
+      "label": "Background image opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#6F6360"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#351710"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#756866"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#351710"
+    },
+    {
+      "type": "color",
+      "id": "mobile_border_color",
+      "label": "Mobile accordion border",
+      "default": "#CEC8C6"
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_gutter",
+      "label": "Left and right gutter",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gutter",
+      "label": "Left and right gutter",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "border_radius_mobile",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "Bottom footer"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_text",
+      "label": "Bottom text",
+      "default": "<p>Designed by Nishorama | © Nishorama 2026</p>"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quick links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        },
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop column width",
+          "options": [
+            {
+              "value": "15",
+              "label": "15%"
+            },
+            {
+              "value": "20",
+              "label": "20%"
+            },
+            {
+              "value": "25",
+              "label": "25%"
+            },
+            {
+              "value": "30",
+              "label": "30%"
+            },
+            {
+              "value": "35",
+              "label": "35%"
+            },
+            {
+              "value": "40",
+              "label": "40%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            }
+          ],
+          "default": "20"
+        }
+      ]
+    },
+
+    {
+      "type": "richtext",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Information"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your footer content here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop column width",
+          "options": [
+            {
+              "value": "15",
+              "label": "15%"
+            },
+            {
+              "value": "20",
+              "label": "20%"
+            },
+            {
+              "value": "25",
+              "label": "25%"
+            },
+            {
+              "value": "30",
+              "label": "30%"
+            },
+            {
+              "value": "35",
+              "label": "35%"
+            },
+            {
+              "value": "40",
+              "label": "40%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            }
+          ],
+          "default": "25"
+        }
+      ]
+    },
+
+    {
+      "type": "contact",
+      "name": "Address / Contact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Contact us"
+        },
+
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop column width",
+          "options": [
+            {
+              "value": "20",
+              "label": "20%"
+            },
+            {
+              "value": "25",
+              "label": "25%"
+            },
+            {
+              "value": "30",
+              "label": "30%"
+            },
+            {
+              "value": "35",
+              "label": "35%"
+            },
+            {
+              "value": "40",
+              "label": "40%"
+            },
+            {
+              "value": "50",
+              "label": "50%"
+            }
+          ],
+          "default": "35"
+        },
+
+        {
+          "type": "header",
+          "content": "Store / Address"
+        },
+        {
+          "type": "textarea",
+          "id": "store_icon",
+          "label": "Store SVG icon",
+          "info": "Paste SVG markup. Leave empty to hide the icon."
+        },
+        {
+          "type": "textarea",
+          "id": "store_1",
+          "label": "Store 1"
+        },
+        {
+          "type": "textarea",
+          "id": "store_2",
+          "label": "Store 2"
+        },
+
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "textarea",
+          "id": "phone_icon",
+          "label": "Phone SVG icon",
+          "info": "Paste SVG markup. Leave empty to hide the icon."
+        },
+        {
+          "type": "text",
+          "id": "mobile_1",
+          "label": "Mobile 1"
+        },
+        {
+          "type": "url",
+          "id": "mobile_1_link",
+          "label": "Mobile 1 link",
+          "info": "Optional. Example: tel:+919999999999"
+        },
+        {
+          "type": "text",
+          "id": "mobile_2",
+          "label": "Mobile 2"
+        },
+        {
+          "type": "url",
+          "id": "mobile_2_link",
+          "label": "Mobile 2 link"
+        },
+
+        {
+          "type": "header",
+          "content": "Email"
+        },
+        {
+          "type": "textarea",
+          "id": "email_icon",
+          "label": "Email SVG icon",
+          "info": "Paste SVG markup. Leave empty to hide the icon."
+        },
+        {
+          "type": "text",
+          "id": "email_1",
+          "label": "Email 1"
+        },
+        {
+          "type": "text",
+          "id": "email_2",
+          "label": "Email 2"
+        },
+
+        {
+          "type": "header",
+          "content": "Opening hours"
+        },
+        {
+          "type": "textarea",
+          "id": "hours_icon",
+          "label": "Opening hours SVG icon",
+          "info": "Paste SVG markup. Leave empty to hide the icon."
+        },
+        {
+          "type": "text",
+          "id": "hours_1",
+          "label": "Opening hours 1"
+        },
+        {
+          "type": "text",
+          "id": "hours_2",
+          "label": "Opening hours 2"
+        }
+      ]
+    }
+  ],
+
+  "max_blocks": 12,
+
+  "presets": [
+    {
+      "name": "RS Footer",
+      "blocks": [
+        {
+          "type": "menu"
+        },
+        {
+          "type": "menu"
+        },
+        {
+          "type": "richtext"
+        },
+        {
+          "type": "contact"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
