@@ -1,0 +1,747 @@
+{{ 'infinite-gallery-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign gallery_id = 'InfiniteGallery-' | append: section.id
+
+  assign hover_scale = section.settings.hover_zoom | times: 0.01
+-%}
+
+<section
+  id="{{ gallery_id }}"
+  class="
+    rs-infinite-gallery
+    rs-infinite-gallery--{{ section.settings.animation_direction }}
+    {% if section.settings.pause_on_hover %}
+      rs-infinite-gallery--pause-hover
+    {% endif %}
+  "
+  style="
+    --rs-gallery-height-desktop:
+      {% if section.settings.desktop_height_mode == 'viewport' %}
+        calc({{ section.settings.desktop_height_vh }}vh + {{ section.settings.desktop_height_extra }}vw)
+      {% else %}
+        {{ section.settings.desktop_height_px }}px
+      {% endif %};
+
+    --rs-gallery-height-mobile:
+      {% if section.settings.mobile_height_mode == 'viewport' %}
+        calc({{ section.settings.mobile_height_vh }}vh + {{ section.settings.mobile_height_extra }}vw)
+      {% else %}
+        {{ section.settings.mobile_height_px }}px
+      {% endif %};
+
+    --rs-gallery-grid-width:
+      calc({{ section.settings.grid_width_desktop }}vw - {{ section.settings.grid_width_offset_desktop }}px);
+
+    --rs-gallery-grid-width-mobile:
+      calc({{ section.settings.grid_width_mobile }}vw - {{ section.settings.grid_width_offset_mobile }}px);
+
+    --rs-gallery-item-gap: {{ section.settings.item_gap }}px;
+    --rs-gallery-item-gap-mobile: {{ section.settings.item_gap_mobile }}px;
+
+    --rs-gallery-grid-gap: {{ section.settings.grid_gap }}px;
+    --rs-gallery-grid-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+
+    --rs-gallery-radius: {{ section.settings.border_radius }}px;
+    --rs-gallery-radius-mobile: {{ section.settings.border_radius_mobile }}px;
+
+    --rs-gallery-padding-top: {{ section.settings.padding_top }}px;
+    --rs-gallery-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --rs-gallery-padding-inline: {{ section.settings.padding_horizontal }}px;
+
+    --rs-gallery-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rs-gallery-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --rs-gallery-padding-inline-mobile: {{ section.settings.padding_horizontal_mobile }}px;
+
+    --rs-gallery-duration: {{ section.settings.animation_speed }}s;
+    --rs-gallery-start-offset: {{ section.settings.animation_offset }}vw;
+
+    --rs-gallery-feature-column: {{ section.settings.feature_column_ratio }}fr;
+
+    --rs-gallery-background: {{ section.settings.background_color }};
+
+    --rs-gallery-image-fit: {{ section.settings.image_fit }};
+    --rs-gallery-image-position: {{ section.settings.image_position }};
+
+    --rs-gallery-hover-scale: {{ hover_scale }};
+  "
+>
+  <div class="rs-infinite-gallery__viewport">
+
+    {% if section.blocks.size > 0 %}
+
+      <div class="rs-infinite-gallery__track">
+
+        {%- comment -%}
+          The sequence is rendered twice automatically.
+
+          First sequence:
+          Real Shopify blocks with editor attributes.
+
+          Second sequence:
+          Visual duplicate for seamless infinite looping.
+        {%- endcomment -%}
+
+        {% for sequence_number in (1..2) %}
+
+          <div
+            class="rs-infinite-gallery__sequence"
+            {% if sequence_number == 2 %}
+              aria-hidden="true"
+            {% endif %}
+          >
+
+            {% for block in section.blocks %}
+
+              <div
+                class="rs-infinite-gallery__grid"
+                {% if sequence_number == 1 %}
+                  {{ block.shopify_attributes }}
+                {% endif %}
+              >
+
+                {% for image_index in (1..5) %}
+
+                  {%- liquid
+                    assign image_setting = 'image_' | append: image_index
+                    assign link_setting = 'link_' | append: image_index
+                    assign alt_setting = 'alt_' | append: image_index
+
+                    assign gallery_image = block.settings[image_setting]
+                    assign gallery_link = block.settings[link_setting]
+                    assign custom_alt = block.settings[alt_setting]
+
+                    if custom_alt != blank
+                      assign final_alt = custom_alt
+                    elsif gallery_image.alt != blank
+                      assign final_alt = gallery_image.alt
+                    else
+                      assign final_alt = ''
+                    endif
+
+                    if sequence_number == 2
+                      assign final_alt = ''
+                    endif
+                  -%}
+
+                  <div
+                    class="
+                      rs-infinite-gallery__item
+                      rs-infinite-gallery__item--{{ image_index }}
+                    "
+                  >
+
+                    {% if gallery_link != blank %}
+                      <a
+                        href="{{ gallery_link }}"
+                        class="rs-infinite-gallery__media"
+                        {% if sequence_number == 2 %}
+                          tabindex="-1"
+                        {% endif %}
+                      >
+                    {% else %}
+                      <div class="rs-infinite-gallery__media">
+                    {% endif %}
+
+                    {% if gallery_image != blank %}
+
+                      {{
+                        gallery_image
+                        | image_url: width: 2400
+                        | image_tag:
+                          class: 'rs-infinite-gallery__image',
+                          widths: '360, 540, 720, 960, 1200, 1600, 2000, 2400',
+                          sizes: '100vw',
+                          loading: 'lazy',
+                          alt: final_alt
+                      }}
+
+                    {% else %}
+
+                      {{
+                        'image'
+                        | placeholder_svg_tag: 'rs-infinite-gallery__placeholder'
+                      }}
+
+                    {% endif %}
+
+                    {% if gallery_link != blank %}
+                      </a>
+                    {% else %}
+                      </div>
+                    {% endif %}
+
+                  </div>
+
+                {% endfor %}
+
+              </div>
+
+            {% endfor %}
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+
+      <div class="rs-infinite-gallery__empty">
+        Add a Gallery Group block to start adding images.
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Infinite gallery grid",
+  "tag": "section",
+  "class": "section-infinite-gallery",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop section height"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height_mode",
+      "label": "Height mode",
+      "options": [
+        {
+          "value": "viewport",
+          "label": "Viewport height"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed pixels"
+        }
+      ],
+      "default": "viewport"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height_vh",
+      "label": "Viewport height",
+      "min": 40,
+      "max": 120,
+      "step": 1,
+      "unit": "vh",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "desktop_height_extra",
+      "label": "Additional viewport width",
+      "info": "Allows layouts such as 100vh + 4vw.",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "vw",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "desktop_height_px",
+      "label": "Fixed height",
+      "min": 300,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 800
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile section height"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height_mode",
+      "label": "Height mode",
+      "options": [
+        {
+          "value": "viewport",
+          "label": "Viewport height"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed pixels"
+        }
+      ],
+      "default": "viewport"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_vh",
+      "label": "Viewport height",
+      "min": 40,
+      "max": 120,
+      "step": 1,
+      "unit": "vh",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_extra",
+      "label": "Additional viewport width",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "vw",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_px",
+      "label": "Fixed height",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 650
+    },
+
+    {
+      "type": "header",
+      "content": "Gallery width"
+    },
+    {
+      "type": "range",
+      "id": "grid_width_desktop",
+      "label": "Desktop grid width",
+      "min": 60,
+      "max": 120,
+      "step": 1,
+      "unit": "vw",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "grid_width_offset_desktop",
+      "label": "Subtract from desktop width",
+      "info": "For your original 100vw - 14px setup, use 100vw and 14px.",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "grid_width_mobile",
+      "label": "Mobile grid width",
+      "min": 100,
+      "max": 200,
+      "step": 5,
+      "unit": "vw",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "grid_width_offset_mobile",
+      "label": "Subtract from mobile width",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "feature_column_ratio",
+      "label": "Large column ratio",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "default": 2
+    },
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Image gap - desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "item_gap_mobile",
+      "label": "Image gap - mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between gallery groups - desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "label": "Gap between gallery groups - mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+
+    {
+      "type": "header",
+      "content": "Corners"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius - desktop",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius_mobile",
+      "label": "Border radius - mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation duration",
+      "info": "Higher value = slower movement.",
+      "min": 5,
+      "max": 400,
+      "step": 5,
+      "unit": "s",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Animation direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Move left"
+        },
+        {
+          "value": "right",
+          "label": "Move right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "animation_offset",
+      "label": "Starting position",
+      "info": "Moves the starting position left or right.",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "unit": "vw",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause animation on hover",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "hover_zoom",
+      "label": "Image hover zoom",
+      "min": 100,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 105
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_group",
+      "name": "Gallery group",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "alt_1",
+          "label": "Alt text"
+        },
+
+        {
+          "type": "header",
+          "content": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "alt_2",
+          "label": "Alt text"
+        },
+
+        {
+          "type": "header",
+          "content": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "alt_3",
+          "label": "Alt text"
+        },
+
+        {
+          "type": "header",
+          "content": "Image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "alt_4",
+          "label": "Alt text"
+        },
+
+        {
+          "type": "header",
+          "content": "Image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "alt_5",
+          "label": "Alt text"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Infinite gallery grid",
+      "blocks": [
+        {
+          "type": "gallery_group"
+        },
+        {
+          "type": "gallery_group"
+        },
+        {
+          "type": "gallery_group"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
