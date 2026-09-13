@@ -1,4 +1,5 @@
 {{ 'rs-footer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rs-footer.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
   assign footer_id = 'RSFooter-' | append: section.id
@@ -43,6 +44,17 @@
     --rs-footer-bg-opacity: {{ section.settings.background_image_opacity | divided_by: 100.0 }};
 
     --rs-footer-border-color: {{ section.settings.mobile_border_color }};
+
+    --color-primary: #32166F;
+    --color-primary-dark: #21103F;
+    --color-accent-pink: #D91472;
+    --color-accent-yellow: #F4B51B;
+    --color-background: #FCF9F4;
+    --color-background-secondary: #F8EDF2;
+    --color-text: #18151C;
+    --color-text-secondary: #675E6D;
+    --color-border: #E7E0E5;
+    --color-white: #FFFFFF;
   "
 >
   <div class="rs-footer__outer">
@@ -90,10 +102,14 @@
                 rs-footer__column
                 rs-footer__column--{{ block.type }}
               "
-              style="                --rs-footer-column-width: {{ block.settings.desktop_width }}%;"
+              style="--rs-footer-column-width: {{ block.settings.desktop_width }}%;"
               {{ block.shopify_attributes }}
             >
-              <details class="rs-footer__details">
+              <details
+                class="rs-footer__details"
+                data-mobile-open-default="{{ block.settings.open_by_default_mobile }}"
+                {% if block.settings.open_by_default_mobile %}open{% endif %}
+              >
                 <summary class="rs-footer__summary">
                   <span class="rs-footer__block-heading">
                     {{ block.settings.heading }}
@@ -104,16 +120,18 @@
                     aria-hidden="true"
                   >
                     <svg
+                      class="rs-footer__toggle-svg"
                       viewBox="0 0 24 24"
-                      width="16"
-                      height="16"
+                      width="22"
+                      height="22"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="1.5"
+                      stroke-width="1.75"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
+                      aria-hidden="true"
                     >
-                      <path d="M6 9l6 6 6-6"/>
+                      <path class="rs-footer__icon-line rs-footer__icon-horizontal" d="M5 12h14"/>
+                      <path class="rs-footer__icon-line rs-footer__icon-vertical" d="M12 5v14"/>
                     </svg>
                   </span>
                 </summary>
@@ -303,6 +321,80 @@
                           </div>
                         {% endif %}
                       </div>
+
+                    {% when 'subscribe' %}
+                      <div
+                        class="rs-footer__subscribe"
+                        style="
+                          --rs-subscribe-button-bg: {{ block.settings.button_background }};
+                          --rs-subscribe-button-color: {{ block.settings.button_color }};
+                        "
+                      >
+                        {% if block.settings.content != blank %}
+                          <div class="rs-footer__subscribe-content">
+                            {{ block.settings.content }}
+                          </div>
+                        {% endif %}
+
+                        {% form 'customer', class: 'rs-footer__subscribe-form' %}
+                          <input type="hidden" name="contact[tags]" value="newsletter">
+
+                          <div class="rs-footer__subscribe-field">
+                            <label
+                              class="rs-footer__visually-hidden"
+                              for="RSFooterEmail-{{ section.id }}-{{ block.id }}"
+                            >
+                              Email address
+                            </label>
+
+                            <input
+                              id="RSFooterEmail-{{ section.id }}-{{ block.id }}"
+                              class="rs-footer__subscribe-input"
+                              type="email"
+                              name="contact[email]"
+                              value="{% if customer %}{{ customer.email }}{% endif %}"
+                              placeholder="{{ block.settings.email_placeholder | escape }}"
+                              autocapitalize="off"
+                              autocorrect="off"
+                              autocomplete="email"
+                              required
+                            >
+                          </div>
+
+                          <button
+                            class="rs-footer__subscribe-button"
+                            type="submit"
+                          >
+                            <span>{{ block.settings.button_label }}</span>
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="17"
+                              height="17"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.8"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path d="M5 12h14"/>
+                              <path d="m13 6 6 6-6 6"/>
+                            </svg>
+                          </button>
+
+                          {% if form.posted_successfully? %}
+                            <p class="rs-footer__subscribe-message rs-footer__subscribe-message--success" tabindex="-1">
+                              {{ block.settings.success_message }}
+                            </p>
+                          {% endif %}
+
+                          {% if form.errors %}
+                            <div class="rs-footer__subscribe-message rs-footer__subscribe-message--error">
+                              {{ form.errors | default_errors }}
+                            </div>
+                          {% endif %}
+                        {% endform %}
+                      </div>
                   {% endcase %}
                 </div>
               </details>
@@ -338,7 +430,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#E9E9E9"
+      "default": "#FCF9F4"
     },
     {
       "type": "image_picker",
@@ -375,31 +467,31 @@
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#6F6360"
+      "default": "#675E6D"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#351710"
+      "default": "#32166F"
     },
     {
       "type": "color",
       "id": "link_color",
       "label": "Link color",
-      "default": "#756866"
+      "default": "#675E6D"
     },
     {
       "type": "color",
       "id": "link_hover_color",
       "label": "Link hover color",
-      "default": "#351710"
+      "default": "#D91472"
     },
     {
       "type": "color",
       "id": "mobile_border_color",
       "label": "Mobile accordion border",
-      "default": "#CEC8C6"
+      "default": "#E7E0E5"
     },
 
     {
@@ -540,6 +632,12 @@
           "default": "Quick links"
         },
         {
+          "type": "checkbox",
+          "id": "open_by_default_mobile",
+          "label": "Open by default on mobile",
+          "default": false
+        },
+        {
           "type": "link_list",
           "id": "menu",
           "label": "Menu"
@@ -592,6 +690,12 @@
           "id": "heading",
           "label": "Heading",
           "default": "Information"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default_mobile",
+          "label": "Open by default on mobile",
+          "default": false
         },
         {
           "type": "richtext",
@@ -647,6 +751,12 @@
           "id": "heading",
           "label": "Heading",
           "default": "Contact us"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default_mobile",
+          "label": "Open by default on mobile",
+          "default": false
         },
 
         {
@@ -777,6 +887,75 @@
           "label": "Opening hours 2"
         }
       ]
+    },
+
+    {
+      "type": "subscribe",
+      "name": "Email subscription",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Stay in the loop"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default_mobile",
+          "label": "Open by default on mobile",
+          "default": true
+        },
+        {
+          "type": "inline_richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "Sign up for new arrivals, special offers and updates."
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email field placeholder",
+          "default": "Enter your email address"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Subscribe"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background",
+          "default": "#32166F"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button text color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "success_message",
+          "label": "Success message",
+          "default": "Thanks for subscribing."
+        },
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop column width",
+          "options": [
+            { "value": "20", "label": "20%" },
+            { "value": "25", "label": "25%" },
+            { "value": "30", "label": "30%" },
+            { "value": "35", "label": "35%" },
+            { "value": "40", "label": "40%" },
+            { "value": "50", "label": "50%" }
+          ],
+          "default": "30"
+        }
+      ]
     }
   ],
 
@@ -797,6 +976,9 @@
         },
         {
           "type": "contact"
+        },
+        {
+          "type": "subscribe"
         }
       ]
     }
