@@ -209,6 +209,80 @@
         "mobile_padding_bottom": 20
       }
     },
+    "collection_image_grid_7acafp": {
+      "type": "collection-image-grid",
+      "blocks": {
+        "collection_f4AAnd": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        },
+        "collection_fpbtBU": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        },
+        "collection_cWmNGz": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        },
+        "collection_3mwXNp": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        },
+        "collection_4He9EU": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        },
+        "collection_gwgmFX": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title_override": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_f4AAnd",
+        "collection_fpbtBU",
+        "collection_cWmNGz",
+        "collection_3mwXNp",
+        "collection_4He9EU",
+        "collection_gwgmFX"
+      ],
+      "name": "Collection image grid",
+      "settings": {
+        "heading": "",
+        "desktop_columns": "3",
+        "mobile_columns": "2",
+        "desktop_gap": 8,
+        "mobile_gap": 4,
+        "card_ratio": "3 / 4",
+        "border_radius": 10,
+        "show_titles": true,
+        "title_size": 16,
+        "title_size_mobile": 12,
+        "show_overlay": true,
+        "overlay_opacity": 15,
+        "full_width": false,
+        "max_width": 1200,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
     "custom_featured_collection_8bm3aD": {
       "type": "custom-featured-collection",
       "name": "Custom Featured Collection",
@@ -344,6 +418,7 @@
     "custom_featured_collection_hCELLR",
     "infinite_gallery_grid_H8T9Ez",
     "custom_featured_collection_emaRmQ",
+    "collection_image_grid_7acafp",
     "custom_featured_collection_8bm3aD",
     "custom_featured_collection_t7UJy6",
     "custom_tabbed_collection_F4bkca",
