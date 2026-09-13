@@ -18,7 +18,7 @@
           "type": "menu",
           "settings": {
             "heading": "Quick links",
-            "menu": "",
+            "menu": "main-menu",
             "desktop_width": "20"
           }
         },
@@ -26,7 +26,7 @@
           "type": "menu",
           "settings": {
             "heading": "Quick links",
-            "menu": "",
+            "menu": "footer",
             "desktop_width": "20"
           }
         },
@@ -68,14 +68,14 @@
       ],
       "name": "RS Footer",
       "settings": {
-        "background_color": "#E9E9E9",
+        "background_color": "#e9e9e9",
         "background_alt": "",
         "background_image_opacity": 100,
-        "text_color": "#6F6360",
+        "text_color": "#6f6360",
         "heading_color": "#351710",
         "link_color": "#756866",
         "link_hover_color": "#351710",
-        "mobile_border_color": "#CEC8C6",
+        "mobile_border_color": "#cec8c6",
         "desktop_gutter": 16,
         "column_gap": 36,
         "row_gap": 30,
@@ -85,8 +85,7 @@
         "padding_top": 48,
         "padding_bottom": 48,
         "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20,
-        "bottom_text": "<p>Designed by Olecute | © Olecute 2026</p>"
+        "padding_bottom_mobile": 20
       }
     },
     "collection_link_groups_NHcKre": {
@@ -129,9 +128,9 @@
       ],
       "name": "Collection link groups",
       "settings": {
-        "background_color": "#EEEEEE",
-        "text_color": "#6A342D",
-        "border_color": "#D4D4D4",
+        "background_color": "#eeeeee",
+        "text_color": "#6a342d",
+        "border_color": "#d4d4d4",
         "border_radius": 18,
         "padding_horizontal": 16,
         "padding_top": 18,
