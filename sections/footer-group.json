@@ -90,8 +90,8 @@
         "border_radius_mobile": 24,
         "padding_top": 48,
         "padding_bottom": 48,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20
+        "padding_top_mobile": 12,
+        "padding_bottom_mobile": 32
       }
     },
     "collection_link_groups_NHcKre": {
