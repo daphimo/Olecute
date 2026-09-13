@@ -49,6 +49,10 @@ export class ThemeDrawer extends Component {
   /**
    * @returns {boolean} Whether the drawer is currently open.
    */
+  get isModal() {
+    return this.hasAttribute('overlay') || this.#modalQuery.matches;
+  }
+
   get isOpen() {
     return this.hasAttribute('open');
   }
@@ -79,7 +83,7 @@ export class ThemeDrawer extends Component {
    */
   #onRestore() {
     const { panel } = this.refs;
-    if (this.#modalQuery.matches) {
+    if (this.isModal) {
       lockScroll(panel);
     }
 
@@ -146,7 +150,7 @@ export class ThemeDrawer extends Component {
     panel.close();
     removeTrapFocus();
 
-    if (this.#modalQuery.matches) {
+    if (this.isModal) {
       lockScroll(panel);
       panel.showModal();
     } else {
@@ -216,7 +220,7 @@ export class ThemeDrawer extends Component {
 
     this.#previouslyFocused = /** @type {HTMLElement | null} */ (document.activeElement);
 
-    if (this.#modalQuery.matches) {
+    if (this.isModal) {
       lockScroll(panel);
       panel.showModal();
     } else {
@@ -252,7 +256,7 @@ export class ThemeDrawer extends Component {
     // In modal mode, dialogs live in the browser's top layer where z-index
     // is ignored — stacking follows showModal() call order. Re-calling
     // showModal() moves this dialog to the top of the stack.
-    if (this.#modalQuery.matches && panel.open) {
+    if (this.isModal && panel.open) {
       lockScroll(panel);
       panel.close();
       panel.showModal();
@@ -320,13 +324,11 @@ export class ThemeDrawer extends Component {
     // closing the dialog, and restoring focus can each move the root scroller,
     // leaving the shopper at the top of the page instead of where they were
     // browsing. Capture the offset up front and re-apply it once the drawer is gone.
-    const closingAsModal = this.#modalQuery.matches;
+    const closingAsModal = this.isModal;
     const scrollTopWhileLocked = closingAsModal ? getScrollTop() : null;
 
     this.removeAttribute('open');
     this.dispatchEvent(new DrawerCloseEvent());
-
-    unlockScroll(panel);
 
     if (panel.open) {
       // Cancel any in-progress open animation before starting the close.
@@ -338,6 +340,7 @@ export class ThemeDrawer extends Component {
     }
 
     panel.close();
+    unlockScroll(panel);
     this.style.removeProperty('--drawer-stack-order');
 
     if (!document.querySelector('theme-drawer[open]')) {

@@ -2,6 +2,7 @@
   Renders the cart summary totals.
 
   @param {string} [accelerated_checkout_buttons_layout] - { 'vertical' } Forced layout of the additional checkout buttons, instead of relying on platform's layout.
+  @param {boolean} [drawer] - Use the custom drawer checkout layout.
   @param {string} [section_id] - The section ID for cart discount component.
 {%- enddoc -%}
 
@@ -257,6 +258,7 @@
   </div>
 </div>
 
+{% if drawer %}{% render 'custom-cart-footer' %}{% endif %}
 <div class="cart__ctas">
   <button
     type="submit"
@@ -269,8 +271,9 @@
     form="cart-form"
   >
     <span class="button-text">
-      {{ 'content.checkout' | t }}
+      {% if drawer %}{{ settings.custom_drawer_checkout_label | escape }}{% else %}{{ 'content.checkout' | t }}{% endif %}
     </span>
+    {% if drawer %}<span class="custom-cart-checkout-total">( {{ cart.total_price | money }} )</span>{% endif %}
   </button>
 
   {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}

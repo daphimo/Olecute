@@ -7,7 +7,7 @@
 {% render 'brand-colors' %}
 {{ 'header.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'olecute-header.js' | asset_url }}" type="module"></script>
-<olecute-header id="header-component" class="olecute-header" role="banner" data-home="{{ is_home }}" data-distance="{{ section.settings.scroll_distance }}" data-cart-url="{{ routes.cart_url }}.js" {% if is_home %}style="--surface: 0"{% endif %}>
+<olecute-header id="header-component" class="olecute-header" role="banner" data-home="{{ is_home }}" data-animation-type="{{ section.settings.animation_type | default: 'text_to_logo' }}" data-has-logo="{% if section.settings.logo != blank %}true{% else %}false{% endif %}" data-distance="{{ section.settings.scroll_distance }}" data-cart-url="{{ routes.cart_url }}.js" {% if is_home %}style="--surface: 0"{% endif %}>
   {% if is_home %}
     {% render 'header-desktop-landing', section: section %}
   {% else %}
@@ -35,6 +35,33 @@
       "id": "wordmark",
       "label": "Wordmark",
       "default": "OLECUTE"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Used on mobile and other pages. Wordmark is the fallback when no image is selected."
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation type",
+      "options": [
+        {
+          "value": "all_logo",
+          "label": "All logo"
+        },
+        {
+          "value": "all_text",
+          "label": "All text"
+        },
+        {
+          "value": "text_to_logo",
+          "label": "Text to logo"
+        }
+      ],
+      "default": "text_to_logo",
+      "info": "Desktop homepage animation only. Mobile and other pages always use the logo image."
     },
     {
       "type": "text",
@@ -68,6 +95,157 @@
       "id": "special_label",
       "label": "Rotating icon accessible label",
       "default": "Discover Olecute"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu",
+      "label": "Main navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policy menu"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Members Login label",
+      "default": "Members Login"
+    },
+    {
+      "type": "url",
+      "id": "login_link",
+      "label": "Members Login link"
+    },
+    {
+      "type": "text",
+      "id": "order_status_label",
+      "label": "Order Status label",
+      "default": "Order Status"
+    },
+    {
+      "type": "url",
+      "id": "order_status_link",
+      "label": "Order Status link"
+    },
+    {
+      "type": "text",
+      "id": "faq_label",
+      "label": "FAQ's label",
+      "default": "FAQ's"
+    },
+    {
+      "type": "url",
+      "id": "faq_link",
+      "label": "FAQ's link"
+    },
+    {
+      "type": "text",
+      "id": "order_heading",
+      "label": "Order support heading",
+      "default": "Order Support"
+    },
+    {
+      "type": "text",
+      "id": "order_timing",
+      "label": "Order support timing"
+    },
+    {
+      "type": "text",
+      "id": "call_label",
+      "label": "Call label",
+      "default": "Call"
+    },
+    {
+      "type": "text",
+      "id": "call_phone",
+      "label": "Call phone number"
+    },
+    {
+      "type": "text",
+      "id": "chat_label",
+      "label": "Chat label",
+      "default": "Chat"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "Contact Support"
+    },
+    {
+      "type": "text",
+      "id": "contact_timing",
+      "label": "Contact timing"
+    },
+    {
+      "type": "text",
+      "id": "support_email",
+      "label": "Support email"
+    },
+    {
+      "type": "text",
+      "id": "support_mobile",
+      "label": "Support mobile"
+    },
+    {
+      "type": "text",
+      "id": "return_heading",
+      "label": "Return heading",
+      "default": "Return/Exchange My Order"
+    },
+    {
+      "type": "text",
+      "id": "return_policy_label",
+      "label": "Return policy label",
+      "default": "Return & Exchange Policy"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit label",
+      "default": "Submit Request"
+    },
+    {
+      "type": "text",
+      "id": "help_heading",
+      "label": "Policies heading",
+      "default": "Help and Support"
+    },
+    {
+      "type": "url",
+      "id": "chat_link",
+      "label": "Chat link"
+    },
+    {
+      "type": "url",
+      "id": "return_link",
+      "label": "Return / exchange link"
+    },
+    {
+      "type": "url",
+      "id": "return_policy_link",
+      "label": "Return policy link"
+    },
+    {
+      "type": "url",
+      "id": "submit_link",
+      "label": "Submit request link"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_image_left",
+      "label": "Desktop drawer image left"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_image_center",
+      "label": "Desktop drawer image center"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_image_right",
+      "label": "Desktop drawer image right"
     }
   ],
   "blocks": [

@@ -2332,5 +2332,82 @@
         "default": "Not adjustable, non-stretch fabric. Fits according to the size chart. If you're between sizes or prefer a less fitted look, size up. Choose by body measurements. Natural variations of up to 0.5-1 inch may occur due to the garment being individually tailored by hand."
       }
     ]
+  },
+  {
+    "name": "Custom drawer content",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Shop Now uses Cart ? Empty cart button link. Set delivery, tax, return and promotion messages to match your store policies."
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_title",
+        "label": "Cart heading",
+        "default": "Your cart"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_empty_heading",
+        "label": "Empty cart heading",
+        "default": "Your bag is empty!"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_empty_text",
+        "label": "Empty cart text",
+        "default": "Let?s get started"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_shop_label",
+        "label": "Shop button label",
+        "default": "Shop Now"
+      },
+      {
+        "type": "collection",
+        "id": "custom_drawer_collection",
+        "label": "Empty cart collection"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_collection_heading",
+        "label": "Collection heading",
+        "default": "Curated collection for you babe !!"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_promotion",
+        "label": "Promotion text"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_discover_label",
+        "label": "Collection button label",
+        "default": "Discover More"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_delivery",
+        "label": "Delivery / tax message"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_returns",
+        "label": "Return message"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_checkout_label",
+        "label": "Checkout button label",
+        "default": "BUY NOW"
+      },
+      {
+        "type": "text",
+        "id": "custom_drawer_empty_checkout_label",
+        "label": "Empty checkout label",
+        "default": "Checkout"
+      }
+    ]
   }
 ]

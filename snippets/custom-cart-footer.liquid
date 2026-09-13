@@ -1,0 +1,5 @@
+<div class="custom-cart-assurance">
+  {% if settings.custom_drawer_delivery != blank %}<p>{{ settings.custom_drawer_delivery | escape }}</p>{% endif %}
+  {% if settings.custom_drawer_returns != blank %}<small>{{ settings.custom_drawer_returns | escape }}</small>{% endif %}
+</div>
+{% if is_empty %}<button class="custom-cart-empty-checkout" type="button" disabled>{{ settings.custom_drawer_empty_checkout_label | escape }}</button>{% endif %}

@@ -109,7 +109,7 @@ class CustomOfferTimer extends HTMLElement {
     const shift = -this.current * Math.min(g.rootWidth * (Number(this.dataset.strength) || 0) / 100, 24);
     const angle = 1 + this.current * (Number(this.dataset.tilt) || 0);
     const rotation = angle * Math.PI / 180, yaw = 5 * Math.PI / 180;
-    this.card.style.transform = `perspective(1000px) translateX(${shift}px) rotate(${angle}deg) rotateY(5deg)`;
+    this.card.style.transform = `perspective(1000px) translateX(${shift}px) rotate(${angle}deg) rotateY(20deg)`;
     this.anchors.forEach((anchor, index) => {
       const localX = (anchor.point - 0.5) * g.width, localY = -g.height / 2 + anchor.depth;
       const x = localX * Math.cos(yaw), z = -localX * Math.sin(yaw), projection = 1000 / (1000 - z);

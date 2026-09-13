@@ -1,0 +1,18 @@
+<div class="custom-cart-empty">
+  <h2>{{ settings.custom_drawer_empty_heading | escape }}</h2>
+  <p>{{ settings.custom_drawer_empty_text | escape }}</p>
+  <a class="custom-cart-shop" href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}">{{ settings.custom_drawer_shop_label | escape }} <span aria-hidden="true">&#8599;</span></a>
+</div>
+{% assign curated = settings.custom_drawer_collection %}
+{% if curated != blank and curated.products_count > 0 %}
+  <div class="custom-cart-curated">
+    <div class="custom-cart-curated-heading"><span>{{ settings.custom_drawer_collection_heading | escape }}</span><span>{{ settings.custom_drawer_promotion | escape }}</span><a href="{{ curated.url }}">{{ settings.custom_drawer_discover_label | escape }}</a></div>
+    <div class="custom-cart-grid">
+      {% for product in curated.products limit: 8 %}
+        <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+          {% if product.featured_image %}{% assign image_alt = product.featured_image.alt | default: product.title %}{{ product.featured_image | image_url: width: 320 | image_tag: alt: image_alt, loading: 'lazy', widths: '160,320', sizes: '100px' }}{% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

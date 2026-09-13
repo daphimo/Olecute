@@ -1,0 +1,8 @@
+{% if predictive_search.performed %}
+  {% for product in predictive_search.resources.products limit: 6 %}
+    <a href="{{ product.url }}" class="drawer-product">
+      {% if product.featured_image %}{% assign image_alt = product.featured_image.alt | default: product.title %}{{ product.featured_image | image_url: width: 480 | image_tag: alt: image_alt, widths: '160,320,480', sizes: '(min-width: 750px) 160px, 33vw' }}{% endif %}
+      <span>{{ product.title | escape }}</span>
+    </a>
+  {% endfor %}
+{% endif %}

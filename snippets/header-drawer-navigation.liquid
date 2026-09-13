@@ -1,0 +1,38 @@
+{% assign config = section.settings %}
+<div class="drawer-navigation">
+  <div class="drawer-columns">
+    <div class="drawer-featured">{% render 'header-block-items', section: section %}</div>
+    <nav class="drawer-menu" aria-label="Main navigation">
+      {% for link in config.drawer_menu.links %}
+        {% capture item_id %}{{ drawer }}-{{ section.id }}-{{ forloop.index }}{% endcapture %}
+        {% render 'header-drawer-menu-item', link: link, mobile: drawer, item_id: item_id %}
+      {% endfor %}
+    </nav>
+  </div>
+  {% if drawer == 'desktop-menu' %}
+    <div class="drawer-image-strip">
+      {% assign positions = 'left,center,right' | split: ',' %}
+      {% for position in positions %}
+        {% assign key = 'drawer_image_' | append: position %}
+        <div class="drawer-image-panel">{% if config[key] != blank %}{{ config[key] | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '400,800,1200,1600', sizes: '(min-width: 750px) 50vw, 100vw' }}{% endif %}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+<nav class="drawer-utilities" aria-label="Account and assistance">
+  {% assign utilities = 'login,order_status,faq' | split: ',' %}
+  {% for utility in utilities %}{% assign key = utility | append: '_link' %}{% assign label_key = utility | append: '_label' %}{% if config[key] != blank %}<a href="{{ config[key] }}">{{ config[label_key] | escape }}</a>{% endif %}{% endfor %}
+</nav>
+<div class="drawer-support">
+  <div class="drawer-order"><div><span>{{ config.order_heading | escape }}</span><small>{{ config.order_timing | escape }}</small></div><div class="drawer-actions">
+    {% if config.call_phone != blank %}<a href="tel:{{ config.call_phone | escape }}">{{ config.call_label | escape }}</a>{% endif %}
+    {% if config.chat_link != blank %}<a href="{{ config.chat_link }}">{{ config.chat_label | escape }}</a>{% endif %}
+  </div></div>
+  <div class="drawer-contact"><div>{{ config.contact_heading | escape }}<small>{{ config.contact_timing | escape }}</small></div><div class="drawer-actions">{% if config.support_email != blank %}<a href="mailto:{{ config.support_email | escape }}">{{ config.support_email | escape }}</a>{% endif %}{% if config.support_mobile != blank %}<a href="tel:{{ config.support_mobile | escape }}">{{ config.support_mobile | escape }}</a>{% endif %}</div></div>
+  <div class="drawer-return">{% if config.return_link != blank %}<a href="{{ config.return_link }}">{{ config.return_heading | escape }}</a>{% else %}<span>{{ config.return_heading | escape }}</span>{% endif %}
+    <div class="drawer-return-details">{% if config.return_policy_link != blank %}<a href="{{ config.return_policy_link }}"><small>{{ config.return_policy_label | escape }}</small></a>{% endif %}{% if config.submit_link != blank %}<div class="drawer-actions"><a href="{{ config.submit_link }}">{{ config.submit_label | escape }}</a></div>{% endif %}
+      {% for utility in utilities offset: 1 %}{% assign key = utility | append: '_link' %}{% assign label_key = utility | append: '_label' %}{% if config[key] != blank %}<a href="{{ config[key] }}">{{ config[label_key] | escape }}</a>{% endif %}{% endfor %}
+    </div>
+  </div>
+  {% if config.policy_menu.links != blank %}<nav class="drawer-policies" aria-label="{{ config.help_heading | escape }}"><strong>{{ config.help_heading | escape }}</strong>{% for link in config.policy_menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav>{% endif %}
+</div>

@@ -189,7 +189,7 @@ function startCommerce() {
       const variants = this.variants.filter(v=>this.sizeIndex < 0 || v.options.every((value,i)=>i===this.sizeIndex || value===variant.options[i]));
       for (const item of rows ? variants : []) {
         const row = document.createElement('tr');
-        for (const value of [this.sizeIndex < 0 ? item.options.join(' / ') : item.options[this.sizeIndex], ...['chest','high_waist','hip'].map(key=>measurement(item[key],this.unit))]) { const cell = document.createElement('td');cell.textContent = value;row.append(cell); }rows.append(row);
+        for (const value of [this.sizeIndex < 0 ? item.options.join(' / ') : item.options[this.sizeIndex], ...['chest','waist','hips'].map(key=>measurement(item[key],this.unit))]) { const cell = document.createElement('td');cell.textContent = value;row.append(cell); }rows.append(row);
       }
       const button = this.querySelector('[data-custom-wishlist]');
       if (button) { const item = JSON.parse(button.dataset.wishlistItem);item.variantId = variant.id;item.price = variant.price;item.image = variant.image || item.image;item.size = this.sizeIndex < 0 ? '' : variant.options[this.sizeIndex];item.url = item.url.split('?')[0]+'?variant='+variant.id;button.dataset.wishlistItem = JSON.stringify(item);syncWishlist(this); }

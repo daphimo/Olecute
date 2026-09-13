@@ -1,0 +1,241 @@
+.rs-media-hero {
+  width: 100%;
+
+  margin-top: var(--rs-media-margin-top);
+  margin-bottom: var(--rs-media-margin-bottom);
+}
+
+.rs-media-hero *,
+.rs-media-hero *::before,
+.rs-media-hero *::after {
+  box-sizing: border-box;
+}
+
+
+/* =============================================
+   CONTAINER
+============================================= */
+
+.rs-media-hero__container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Contained */
+
+.rs-media-hero--contained .rs-media-hero__container {
+  max-width: var(--page-width);
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/* Full width */
+
+.rs-media-hero--full .rs-media-hero__container {
+  max-width: var(--page-width);
+}
+
+
+/* =============================================
+   MEDIA WRAPPER
+============================================= */
+
+.rs-media-hero__media {
+  width: 100%;
+
+  /* fallback */
+  height: 58vh;
+
+  height: var(--rs-media-height-desktop);
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: var(--rs-media-radius);
+
+  background: #eeeeee;
+}
+
+
+/* Full width can still use radius */
+
+.rs-media-hero--full .rs-media-hero__media {
+  width: 100%;
+}
+
+
+/* =============================================
+   IMAGE + VIDEO
+============================================= */
+
+.rs-media-hero__asset {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center center;
+}
+
+
+/* Video */
+
+video.rs-media-hero__asset {
+  position: absolute;
+  inset: 0;
+}
+
+
+/* Placeholder */
+
+.rs-media-hero__placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+}
+
+
+/* =============================================
+   RESPONSIVE MEDIA
+============================================= */
+
+.rs-media-hero__asset--desktop {
+  display: block;
+}
+
+.rs-media-hero__asset--mobile {
+  display: none;
+}
+
+
+/* =============================================
+   CENTER BUTTON
+============================================= */
+
+.rs-media-hero__button-wrapper {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 3;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Pill button */
+
+.rs-media-hero__button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: max-content;
+
+  padding:
+    var(--rs-media-button-padding-y)
+    var(--rs-media-button-padding-x);
+
+  border: 1px solid var(--rs-media-button-border);
+
+  border-radius: 999px;
+
+  color: var(--rs-media-button-text);
+
+  font-family: inherit;
+  font-size: var(--rs-media-button-font-size);
+  font-weight: 500;
+  line-height: 1;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    background-color 0.3s ease;
+}
+
+
+.rs-media-hero__button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =============================================
+   SOLID BUTTON
+============================================= */
+
+.rs-media-hero--button-solid .rs-media-hero__button {
+  background: var(--rs-media-button-bg);
+}
+
+
+/* =============================================
+   GLASS BUTTON
+============================================= */
+
+.rs-media-hero--button-glass .rs-media-hero__button {
+  background:
+    color-mix(
+      in srgb,
+      var(--rs-media-button-bg)
+      calc(var(--rs-media-glass-opacity) * 100%),
+      transparent
+    );
+
+  -webkit-backdrop-filter:
+    blur(var(--rs-media-glass-blur));
+
+  backdrop-filter:
+    blur(var(--rs-media-glass-blur));
+
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =============================================
+   MOBILE
+============================================= */
+
+@media screen and (max-width: 749px) {
+
+  .rs-media-hero__media {
+    /* fallback */
+    height: 60vh;
+
+    height: var(--rs-media-height-mobile);
+  }
+
+
+  .rs-media-hero__asset--desktop {
+    display: none;
+  }
+
+
+  .rs-media-hero__asset--mobile {
+    display: block;
+  }
+
+
+  .rs-media-hero--contained .rs-media-hero__container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+}

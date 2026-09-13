@@ -1,12 +1,14 @@
-.custom-featured-collection { padding-block: var(--featured-top) var(--featured-bottom); }
+.custom-featured-collection { min-width: 0; max-width: 100%; padding-block: var(--featured-top) var(--featured-bottom); }
 .custom-featured-collection__header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; min-width: 0; }
 .custom-featured-collection__heading { margin: 0; min-width: 0; font-family: var(--font-heading--family, inherit); font-size: 18px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
 .custom-featured-collection__discover { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; max-width: 48%; margin-inline-start: auto; min-height: 32px; padding: 5px 13px; border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-white); color: var(--color-text); font-size: 10px; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
-.custom-featured-collection__track { display: grid; grid-template-columns: repeat(var(--featured-columns), minmax(0, 1fr)); gap: 24px var(--featured-gap); min-width: 0; }
+.custom-featured-collection__track { display: grid; grid-template-columns: repeat(var(--featured-columns), minmax(0, 1fr)); gap: 24px var(--featured-gap); min-width: 0; width: 100%; max-width: 100%; }
 .custom-featured-collection__item { min-width: 0; }
 .custom-featured-collection__track:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
 @media (max-width: 749px) {
-  .custom-featured-collection { padding-block: var(--featured-mobile-top) var(--featured-mobile-bottom); }
+  /* Keep the long swipe row from contributing to the page width.
+     The track remains the only horizontal scroll container. */
+  .custom-featured-collection { contain: inline-size; overflow-x: clip; padding-block: var(--featured-mobile-top) var(--featured-mobile-bottom); }
   .custom-featured-collection__header { gap: 8px; margin-bottom: 16px; }
   .custom-featured-collection__heading { font-size: 16px; }
   .custom-featured-collection__discover { min-height: 36px; padding-inline: 10px; }

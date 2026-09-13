@@ -1,0 +1,12 @@
+<div class="drawer-menu-item">
+  {% if mobile == 'mobile-menu' and link.links != blank %}
+    <button type="button" data-submenu-toggle aria-expanded="false" aria-controls="submenu-{{ item_id }}">{{ link.title | escape }}<span aria-hidden="true">+</span></button>
+    <div id="submenu-{{ item_id }}" class="drawer-submenu" hidden>
+      <a href="{{ link.url }}">Shop All {{ link.title | escape }}</a>
+      {% for child in link.links %}{% capture child_id %}{{ item_id }}-{{ forloop.index }}{% endcapture %}{% render 'header-drawer-menu-item', link: child, mobile: mobile, item_id: child_id %}{% endfor %}
+    </div>
+  {% else %}
+    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+    {% if link.links != blank %}<div class="drawer-submenu">{% for child in link.links %}{% capture child_id %}{{ item_id }}-{{ forloop.index }}{% endcapture %}{% render 'header-drawer-menu-item', link: child, mobile: mobile, item_id: child_id %}{% endfor %}</div>{% endif %}
+  {% endif %}
+</div>

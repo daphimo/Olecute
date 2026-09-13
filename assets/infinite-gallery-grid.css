@@ -1,0 +1,387 @@
+.rs-infinite-gallery {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  height: var(--rs-gallery-height-desktop);
+
+  box-sizing: border-box;
+
+  padding:
+    var(--rs-gallery-padding-top)
+    var(--rs-gallery-padding-inline)
+    var(--rs-gallery-padding-bottom);
+
+  background: var(--rs-gallery-background);
+
+  overflow: hidden;
+}
+
+.rs-infinite-gallery *,
+.rs-infinite-gallery *::before,
+.rs-infinite-gallery *::after {
+  box-sizing: border-box;
+}
+
+
+/* ============================================
+   VIEWPORT
+============================================ */
+
+.rs-infinite-gallery__viewport {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+
+/* ============================================
+   ANIMATED TRACK
+============================================ */
+
+.rs-infinite-gallery__track {
+  width: max-content;
+  height: 100%;
+
+  display: flex;
+  align-items: stretch;
+
+  animation-name: rs-infinite-gallery-scroll;
+  animation-duration: var(--rs-gallery-duration);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  will-change: transform;
+}
+
+
+/* Right direction */
+
+.rs-infinite-gallery--right
+.rs-infinite-gallery__track {
+  animation-direction: reverse;
+}
+
+
+/* Pause on hover */
+
+.rs-infinite-gallery--pause-hover
+.rs-infinite-gallery__viewport:hover
+.rs-infinite-gallery__track {
+  animation-play-state: paused;
+}
+
+
+/* Also pause while keyboard focusing a linked image */
+
+.rs-infinite-gallery--pause-hover
+.rs-infinite-gallery__viewport:focus-within
+.rs-infinite-gallery__track {
+  animation-play-state: paused;
+}
+
+
+/* ============================================
+   SEQUENCE
+============================================ */
+
+.rs-infinite-gallery__sequence {
+  height: 100%;
+
+  display: flex;
+  align-items: stretch;
+
+  flex: none;
+}
+
+
+/* ============================================
+   INDIVIDUAL GALLERY GROUP
+============================================ */
+
+.rs-infinite-gallery__grid {
+  width: var(--rs-gallery-grid-width);
+  min-width: var(--rs-gallery-grid-width);
+  height: 100%;
+
+  flex: 0 0 var(--rs-gallery-grid-width);
+
+  display: grid;
+
+  grid-template-columns:
+    var(--rs-gallery-feature-column)
+    1fr
+    1fr
+    1fr;
+
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+
+  gap: var(--rs-gallery-item-gap);
+
+  padding-right: var(--rs-gallery-grid-gap);
+}
+
+
+/* ============================================
+   FIVE IMAGE LAYOUT
+============================================ */
+
+.rs-infinite-gallery__item {
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  border-radius: var(--rs-gallery-radius);
+
+  position: relative;
+}
+
+
+/* Large left image */
+
+.rs-infinite-gallery__item--1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 6;
+}
+
+
+/* Top middle */
+
+.rs-infinite-gallery__item--2 {
+  grid-column: 3;
+  grid-row: 1 / 3;
+}
+
+
+/* Bottom middle */
+
+.rs-infinite-gallery__item--3 {
+  grid-column: 3;
+  grid-row: 3 / 6;
+}
+
+
+/* Top right */
+
+.rs-infinite-gallery__item--4 {
+  grid-column: 4;
+  grid-row: 1 / 4;
+}
+
+
+/* Bottom right */
+
+.rs-infinite-gallery__item--5 {
+  grid-column: 4;
+  grid-row: 4 / 6;
+}
+
+
+/* ============================================
+   MEDIA
+============================================ */
+
+.rs-infinite-gallery__media {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  overflow: hidden;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ============================================
+   IMAGE
+============================================ */
+
+.rs-infinite-gallery__image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: var(--rs-gallery-image-fit);
+  object-position: var(--rs-gallery-image-position);
+
+  transform: scale(1);
+
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================
+   PLACEHOLDER
+============================================ */
+
+.rs-infinite-gallery__placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  background: #eeeeee;
+
+  object-fit: cover;
+}
+
+
+/* ============================================
+   EMPTY STATE
+============================================ */
+
+.rs-infinite-gallery__empty {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px;
+
+  text-align: center;
+
+  font-size: 16px;
+}
+
+
+/* ============================================
+   INFINITE MOVEMENT
+
+   Track contains:
+   Sequence 1
+   Sequence 2
+
+   Therefore translating exactly -50%
+   lands on the identical duplicated sequence.
+============================================ */
+
+@keyframes rs-infinite-gallery-scroll {
+
+  0% {
+    transform:
+      translate3d(
+        var(--rs-gallery-start-offset),
+        0,
+        0
+      );
+  }
+
+  100% {
+    transform:
+      translate3d(
+        calc(-50% + var(--rs-gallery-start-offset)),
+        0,
+        0
+      );
+  }
+
+}
+
+/* ============================================
+   MOBILE
+   1 IMAGE PER VIEW
+   5 IMAGES IN A SINGLE HORIZONTAL ROW
+============================================ */
+
+@media screen and (max-width: 749px) {
+
+  .rs-infinite-gallery {
+    height: var(--rs-gallery-height-mobile);
+
+    padding:
+      var(--rs-gallery-padding-top-mobile)
+      var(--rs-gallery-padding-inline-mobile)
+      var(--rs-gallery-padding-bottom-mobile);
+  }
+
+
+  /* --------------------------------------------
+     Each Shopify block becomes:
+     [ 1 ][ 2 ][ 3 ][ 4 ][ 5 ]
+
+     Each image = one full available mobile width
+  -------------------------------------------- */
+
+  .rs-infinite-gallery__grid {
+    width: max-content;
+    min-width: max-content;
+
+    flex: 0 0 auto;
+
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(
+      5,
+      calc(
+        45vw -
+        (var(--rs-gallery-padding-inline-mobile) * 2)
+      )
+    );
+
+    grid-template-rows: minmax(0, 1fr);
+
+    gap: var(--rs-gallery-item-gap-mobile);
+
+    padding-right: var(--rs-gallery-grid-gap-mobile);
+  }
+
+
+  /* Reset desktop grid positions */
+
+  .rs-infinite-gallery__item,
+  .rs-infinite-gallery__item--1,
+  .rs-infinite-gallery__item--2,
+  .rs-infinite-gallery__item--3,
+  .rs-infinite-gallery__item--4,
+  .rs-infinite-gallery__item--5 {
+    grid-column: auto;
+    grid-row: 1;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: var(--rs-gallery-radius-mobile);
+  }
+
+
+  .rs-infinite-gallery__media {
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .rs-infinite-gallery__image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: var(--rs-gallery-image-fit);
+    object-position: var(--rs-gallery-image-position);
+  }
+
+}
+
+/* ============================================
+   REDUCED MOTION ACCESSIBILITY
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .rs-infinite-gallery__track {
+    animation-play-state: paused;
+  }
+
+  .rs-infinite-gallery__image {
+    transition: none;
+  }
+
+}

@@ -1,0 +1,473 @@
+{{ 'media-hero-pill.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_id = 'MediaHeroPill-' | append: section.id
+
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image
+
+  if mobile_image == blank
+    assign mobile_image = desktop_image
+  endif
+
+  assign desktop_video = section.settings.desktop_video
+  assign mobile_video = section.settings.mobile_video
+
+  if mobile_video == blank
+    assign mobile_video = desktop_video
+  endif
+-%}
+
+<section
+  id="{{ hero_id }}"
+  class="
+    rs-media-hero
+    rs-media-hero--{{ section.settings.section_width }}
+    rs-media-hero--button-{{ section.settings.button_style }}
+  "
+  style="
+    --rs-media-max-width: {{ section.settings.max_width }}px;
+
+    --rs-media-height-desktop: {{ section.settings.desktop_height }}dvh;
+    --rs-media-height-mobile: {{ section.settings.mobile_height }}dvh;
+
+    --rs-media-margin-top: {{ section.settings.margin_top }}px;
+    --rs-media-margin-bottom: {{ section.settings.margin_bottom }}px;
+
+    --rs-media-radius: {{ section.settings.border_radius }}px;
+
+    --rs-media-button-bg: {{ section.settings.button_background }};
+    --rs-media-button-text: {{ section.settings.button_text_color }};
+    --rs-media-button-border: {{ section.settings.button_border_color }};
+
+    --rs-media-button-font-size: {{ section.settings.button_font_size }}px;
+    --rs-media-button-padding-y: {{ section.settings.button_padding_vertical }}px;
+    --rs-media-button-padding-x: {{ section.settings.button_padding_horizontal }}px;
+
+    --rs-media-glass-opacity: {{ section.settings.glass_opacity | divided_by: 100.0 }};
+    --rs-media-glass-blur: {{ section.settings.glass_blur }}px;
+  "
+>
+  <div class="rs-media-hero__container">
+
+    <div class="rs-media-hero__media">
+
+      {% if section.settings.media_type == 'image' %}
+
+        {%- comment -%}
+          ==============================
+          DESKTOP IMAGE
+          ==============================
+        {%- endcomment -%}
+
+        {% if desktop_image != blank %}
+          {{
+            desktop_image
+            | image_url: width: 3000
+            | image_tag:
+              class: 'rs-media-hero__asset rs-media-hero__asset--desktop',
+              widths: '750, 1000, 1200, 1500, 1800, 2200, 2600, 3000',
+              sizes: '100vw',
+              loading: 'lazy',
+              alt: section.settings.image_alt
+          }}
+        {% else %}
+          {{
+            'lifestyle-1'
+            | placeholder_svg_tag: 'rs-media-hero__placeholder rs-media-hero__asset--desktop'
+          }}
+        {% endif %}
+
+
+        {%- comment -%}
+          ==============================
+          MOBILE IMAGE
+          ==============================
+        {%- endcomment -%}
+
+        {% if mobile_image != blank %}
+          {{
+            mobile_image
+            | image_url: width: 1600
+            | image_tag:
+              class: 'rs-media-hero__asset rs-media-hero__asset--mobile',
+              widths: '375, 550, 750, 900, 1200, 1600',
+              sizes: '100vw',
+              loading: 'lazy',
+              alt: section.settings.image_alt
+          }}
+        {% else %}
+          {{
+            'lifestyle-1'
+            | placeholder_svg_tag: 'rs-media-hero__placeholder rs-media-hero__asset--mobile'
+          }}
+        {% endif %}
+
+
+      {% elsif section.settings.media_type == 'video' %}
+
+        {%- comment -%}
+          ==============================
+          DESKTOP VIDEO
+          ==============================
+        {%- endcomment -%}
+
+        {% if desktop_video != blank %}
+          {{
+            desktop_video
+            | video_tag:
+              class: 'rs-media-hero__asset rs-media-hero__asset--desktop',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              playsinline: true,
+              preload: 'metadata'
+          }}
+        {% else %}
+          {{
+            'lifestyle-1'
+            | placeholder_svg_tag: 'rs-media-hero__placeholder rs-media-hero__asset--desktop'
+          }}
+        {% endif %}
+
+
+        {%- comment -%}
+          ==============================
+          MOBILE VIDEO
+          ==============================
+        {%- endcomment -%}
+
+        {% if mobile_video != blank %}
+          {{
+            mobile_video
+            | video_tag:
+              class: 'rs-media-hero__asset rs-media-hero__asset--mobile',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              playsinline: true,
+              preload: 'metadata'
+          }}
+        {% else %}
+          {{
+            'lifestyle-1'
+            | placeholder_svg_tag: 'rs-media-hero__placeholder rs-media-hero__asset--mobile'
+          }}
+        {% endif %}
+
+      {% endif %}
+
+
+      {% if section.settings.button_text != blank %}
+        <div class="rs-media-hero__button-wrapper">
+
+          {% if section.settings.button_link != blank %}
+
+            <a
+              href="{{ section.settings.button_link }}"
+              class="rs-media-hero__button"
+            >
+              {{ section.settings.button_text }}
+            </a>
+
+          {% else %}
+
+            <span class="rs-media-hero__button">
+              {{ section.settings.button_text }}
+            </span>
+
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Media hero pill",
+  "tag": "section",
+  "class": "section-media-hero-pill",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Falls back to the desktop image when empty."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop video"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop video"
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile video"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video",
+      "info": "Falls back to the desktop video when empty."
+    },
+
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "contained",
+          "label": "Contained"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "contained"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 800,
+      "max": 2000,
+      "step": 20,
+      "unit": "px",
+      "default": 1400
+    },
+
+    {
+      "type": "header",
+      "content": "Media height"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "dvh",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "dvh",
+      "default": 60
+    },
+
+    {
+      "type": "header",
+      "content": "Media appearance"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "glass",
+          "label": "Glassy"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#1B1B1B"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Button vertical padding",
+      "min": 6,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 15,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+
+    {
+      "type": "header",
+      "content": "Glassy button"
+    },
+    {
+      "type": "range",
+      "id": "glass_opacity",
+      "label": "Glass background opacity",
+      "min": 5,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "glass_blur",
+      "label": "Glass blur",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media hero pill"
+    }
+  ]
+}
+{% endschema %}

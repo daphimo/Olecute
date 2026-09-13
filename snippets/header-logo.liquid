@@ -1,3 +1,15 @@
-<a class="olecute-header__logo olecute-header__logo--{{ context }}" href="{{ routes.root_url }}" aria-label="{{ section.settings.wordmark | escape }} — Home">
-  {{- section.settings.wordmark | default: 'OLECUTE' | escape -}}
+{% liquid
+  assign use_image = false
+  if section.settings.logo != blank
+    if context != 'landing' or section.settings.animation_type == 'all_logo'
+      assign use_image = true
+    endif
+  endif
+%}
+<a class="olecute-header__logo olecute-header__logo--{{ context }}{% if use_image %} olecute-header__logo--image{% endif %}" href="{{ routes.root_url }}" aria-label="{{ section.settings.wordmark | escape }} ? Home">
+  {% if use_image %}
+    {{ section.settings.logo | image_url: width: 2000 | image_tag: class: 'olecute-header__logo-image', widths: '160,320,640,1000,1600,2000', sizes: '(max-width: 749px) 140px, 100vw', loading: 'eager', alt: section.settings.wordmark }}
+  {% else %}
+    <span {% if context == 'landing' %}data-wordmark-text{% endif %}>{{ section.settings.wordmark | default: 'OLECUTE' | escape }}</span>
+  {% endif %}
 </a>
