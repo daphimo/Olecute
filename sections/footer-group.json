@@ -78,9 +78,9 @@
         "background_alt": "Footer Background",
         "background_image_opacity": 5,
         "text_color": "{{ settings.color_palette.color1 }}",
-        "heading_color": "#32166F",
+        "heading_color": "#32166f",
         "link_color": "#756866",
-        "link_hover_color": "#32166F",
+        "link_hover_color": "#32166f",
         "mobile_border_color": "#cec8c6",
         "desktop_gutter": 16,
         "column_gap": 12,
@@ -97,47 +97,48 @@
     "collection_link_groups_NHcKre": {
       "type": "collection-link-groups",
       "blocks": {
-        "collection_group_ATfyzB": {
-          "type": "collection_group",
+        "menu_group_weL9kF": {
+          "type": "menu_group",
           "settings": {
-            "title": "Tops",
-            "collection_list": [
-              "tops"
-            ]
+            "menu": "co-ords"
           }
         },
-        "collection_group_GBnErQ": {
-          "type": "collection_group",
+        "menu_group_jQyxV9": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "dresses"
           }
         },
-        "collection_group_4TVr4j": {
-          "type": "collection_group",
+        "menu_group_XdUfR4": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "shirts"
           }
         },
-        "collection_group_7PFdiX": {
-          "type": "collection_group",
+        "menu_group_kbCRn9": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "tops"
+          }
+        },
+        "menu_group_yRKEdC": {
+          "type": "menu_group",
+          "settings": {
+            "menu": "tunics"
           }
         }
       },
       "block_order": [
-        "collection_group_ATfyzB",
-        "collection_group_GBnErQ",
-        "collection_group_4TVr4j",
-        "collection_group_7PFdiX"
+        "menu_group_weL9kF",
+        "menu_group_jQyxV9",
+        "menu_group_XdUfR4",
+        "menu_group_kbCRn9",
+        "menu_group_yRKEdC"
       ],
       "name": "Collection link groups",
       "settings": {
         "background_color": "#eeeeee",
-        "text_color": "#21103F",
+        "text_color": "#21103f",
         "border_color": "#d4d4d4",
         "border_radius": 18,
         "padding_horizontal": 16,
