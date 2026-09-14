@@ -1,0 +1,14 @@
+.custom-tabbed-product-grid{width:100%;padding:var(--product-tab-top) max(var(--page-margin,20px),calc((100% - var(--page-width))/2)) var(--product-tab-bottom);overflow:hidden!important;background:var(--color-background);color:var(--color-text)}
+.custom-tabbed-product-grid__inner{display:block;width:100%;max-width:var(--page-width);margin-inline:auto}
+.custom-tabbed-product-grid__heading{margin:0 0 16px;font-family:var(--font-heading--family,inherit);font-size:clamp(20px,2vw,28px);font-weight:500;text-align:center}
+.custom-tabbed-product-grid__tabs{display:flex;justify-content:center;gap:8px;margin-bottom:14px;overflow-x:auto;padding:2px;scrollbar-width:none}
+.custom-tabbed-product-grid__tabs::-webkit-scrollbar{display:none}
+.custom-tabbed-product-grid__tab{flex:0 0 auto;min-height:34px;padding:7px 17px;border:1px solid var(--color-border);border-radius:999px;background:var(--color-white);color:var(--color-text);font:inherit;font-size:11px;cursor:pointer}
+.custom-tabbed-product-grid__tab[aria-selected=true]{border-color:var(--color-primary);background:var(--color-primary);color:var(--color-white)}
+.custom-tabbed-product-grid__tab:focus-visible,.custom-tabbed-product-grid__view-all:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
+.custom-tabbed-product-grid__panel[hidden]{display:none}
+.custom-tabbed-product-grid__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--product-tab-gap);align-items:start}
+.custom-tabbed-product-grid__grid>.custom-product-card{min-width:0}
+.custom-tabbed-product-grid__view-all{display:block;width:max-content;margin:24px auto 0;padding:9px 20px;border:1px solid var(--color-primary);border-radius:999px;color:var(--color-primary);text-decoration:none}
+.custom-tabbed-product-grid__empty{grid-column:1/-1;margin:20px 0;text-align:center;color:var(--color-text-secondary)}
+@media(max-width:749px){.custom-tabbed-product-grid{padding:var(--product-tab-mobile-top) 6px var(--product-tab-mobile-bottom)}.custom-tabbed-product-grid__heading{margin-bottom:12px}.custom-tabbed-product-grid__tabs{justify-content:flex-start;margin-inline:-6px;padding-inline:8px}.custom-tabbed-product-grid__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--product-tab-mobile-gap)}}

@@ -1,0 +1,58 @@
+{{ 'custom-tabbed-product-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-tabbed-product-grid.js' | asset_url }}" type="module"></script>
+{% render 'brand-colors', scope: '.custom-tabbed-product-grid' %}
+<section class="custom-tabbed-product-grid custom-commerce" id="CustomTabbedProductGrid-{{ section.id }}" style="--product-tab-gap:{{ section.settings.gap }}px;--product-tab-mobile-gap:{{ section.settings.mobile_gap }}px;--product-tab-top:{{ section.settings.padding_top }}px;--product-tab-bottom:{{ section.settings.padding_bottom }}px;--product-tab-mobile-top:{{ section.settings.mobile_padding_top }}px;--product-tab-mobile-bottom:{{ section.settings.mobile_padding_bottom }}px">
+  <custom-tabbed-product-grid class="custom-tabbed-product-grid__inner">
+    {% if section.settings.heading != blank %}<h2 class="custom-tabbed-product-grid__heading">{{ section.settings.heading | escape }}</h2>{% endif %}
+    {% if section.blocks.size > 0 %}
+      <div class="custom-tabbed-product-grid__tabs" role="tablist" aria-label="{{ section.settings.heading | default: 'Product collections' | escape }}">
+        {% for block in section.blocks %}
+          <button class="custom-tabbed-product-grid__tab" id="ProductGridTab-{{ section.id }}-{{ block.id }}" type="button" role="tab" aria-controls="ProductGridPanel-{{ section.id }}-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-product-grid-tab="{{ block.id }}" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.collection.title | default: 'Collection' | escape }}</button>
+        {% endfor %}
+      </div>
+      {% for block in section.blocks %}
+        {% assign tab_collection = block.settings.collection %}
+        <div class="custom-tabbed-product-grid__panel" id="ProductGridPanel-{{ section.id }}-{{ block.id }}" role="tabpanel" aria-labelledby="ProductGridTab-{{ section.id }}-{{ block.id }}" data-product-grid-panel="{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+          <div class="custom-tabbed-product-grid__grid">
+            {% for product in tab_collection.products limit: block.settings.products_to_show %}
+              {% render 'custom-product-card', product: product, eager: false %}
+            {% else %}
+              {% if request.design_mode %}<p class="custom-tabbed-product-grid__empty">Choose a collection with products for this tab.</p>{% endif %}
+            {% endfor %}
+          </div>
+          {% if tab_collection != blank and block.settings.show_view_all %}<a class="custom-tabbed-product-grid__view-all" href="{{ tab_collection.url }}">{{ block.settings.view_all_label | default: 'View all' | escape }}</a>{% endif %}
+        </div>
+      {% endfor %}
+    {% elsif request.design_mode %}<p class="custom-tabbed-product-grid__empty">Add a collection tab to begin.</p>{% endif %}
+  </custom-tabbed-product-grid>
+</section>
+{% schema %}
+{
+  "name": "Tabbed Product Grid",
+  "tag": "section",
+  "class": "custom-tabbed-product-grid-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "range", "id": "gap", "label": "Desktop grid gap", "min": 4, "max": 40, "step": 2, "default": 14, "unit": "px" },
+    { "type": "range", "id": "mobile_gap", "label": "Mobile grid gap", "min": 4, "max": 24, "step": 2, "default": 10, "unit": "px" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 100, "step": 2, "default": 32, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 100, "step": 2, "default": 48, "unit": "px" },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile top spacing", "min": 0, "max": 80, "step": 2, "default": 24, "unit": "px" },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile bottom spacing", "min": 0, "max": 80, "step": 2, "default": 32, "unit": "px" }
+  ],
+  "blocks": [{
+    "type": "tab",
+    "name": "Collection tab",
+    "settings": [
+      { "type": "text", "id": "label", "label": "Tab label" },
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 24, "step": 4, "default": 8 },
+      { "type": "checkbox", "id": "show_view_all", "label": "Show view all link", "default": false },
+      { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View all" }
+    ]
+  }],
+  "presets": [{ "name": "Tabbed Product Grid", "blocks": [{ "type": "tab" }, { "type": "tab" }, { "type": "tab" }] }]
+}
+{% endschema %}
