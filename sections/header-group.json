@@ -89,7 +89,7 @@
         "wishlist_link": "shopify://pages/wishlist",
         "special_link": "",
         "special_label": "Discover Olecute",
-        "drawer_menu": "",
+        "drawer_menu": "main-menu",
         "policy_menu": "policies",
         "login_label": "Members Login",
         "login_link": "/account",
