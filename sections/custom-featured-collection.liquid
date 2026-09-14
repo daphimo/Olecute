@@ -8,7 +8,7 @@
   >
     {% if section.settings.heading != blank or section.settings.show_discover_more and section.settings.discover_more_label != blank %}
       <div class="custom-featured-collection__header">
-        {% if section.settings.heading != blank %}<h2 id="FeaturedCollectionHeading-{{ section.id }}" class="custom-featured-collection__heading {% if section.settings.custom %}custom_font_design{% endif %}">{{ section.settings.heading | escape }}</h2>{% endif %}
+        {% if section.settings.heading != blank %}<h2 id="FeaturedCollectionHeading-{{ section.id }}" class="custom-featured-collection__heading {% if section.settings.custom %}custom_font_design{% endif %}">{{ section.settings.heading }}</h2>{% endif %}
         {% if section.settings.show_discover_more and section.settings.discover_more_label != blank %}<a class="custom-featured-collection__discover" href="{{ featured_collection.url }}">{{ section.settings.discover_more_label | escape }}</a>{% endif %}
       </div>
     {% endif %}
