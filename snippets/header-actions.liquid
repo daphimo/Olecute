@@ -76,6 +76,8 @@
             assign font_obj = settings.type_subheading_font
           when 'accent'
             assign font_obj = settings.type_accent_font
+            when 'highlight'
+            assign font_obj = settings.type_highlight
         endcase
         assign font_family = font_obj.family | append: ', ' | append: font_obj.fallback_families
         assign font_family_safe = font_family | replace: '"', "'"
