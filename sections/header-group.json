@@ -33,8 +33,8 @@
         "nav_3": {
           "type": "nav_item",
           "settings": {
-            "label": "Kurtis",
-            "link": "",
+            "label": "Dresses",
+            "link": "shopify://collections/dresses",
             "show_indicator": false
           }
         },
@@ -42,7 +42,7 @@
           "type": "nav_item",
           "settings": {
             "label": "Trending",
-            "link": "",
+            "link": "shopify://collections/trending",
             "show_indicator": true
           }
         },
@@ -50,15 +50,15 @@
           "type": "nav_item",
           "settings": {
             "label": "Tops",
-            "link": "",
+            "link": "shopify://collections/tops",
             "show_indicator": false
           }
         },
         "nav_6": {
           "type": "nav_item",
           "settings": {
-            "label": "Bottom",
-            "link": "",
+            "label": "Co Ords",
+            "link": "shopify://collections/co-ord-sets",
             "show_indicator": false
           }
         }
