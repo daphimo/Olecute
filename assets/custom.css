@@ -38,5 +38,5 @@
   }
 
   .custom_font_design strong{
-    font-family: "covered_by_your_grace_n4"
+    font-family: var(--font-highlight--family, inherit) !important;
   }
