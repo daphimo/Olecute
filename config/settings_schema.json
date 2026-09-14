@@ -116,6 +116,12 @@
         "label": "t:options.accent"
       },
       {
+        "type": "font_picker",
+        "id": "type_highlight",
+        "default": "anonymous_pro_n4",
+        "label": "Highlight Texts"
+      },
+      {
         "type": "header",
         "content": "t:content.text_presets"
       },
