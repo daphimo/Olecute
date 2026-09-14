@@ -36,3 +36,7 @@
   ::-webkit-scrollbar-corner {
     background: transparent !important;
   }
+
+  .custom_font_design strong{
+    font-family: ""
+  }
