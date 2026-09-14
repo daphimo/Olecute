@@ -176,8 +176,6 @@ class OlecuteHeader extends HTMLElement {
     if (toggle) {
       const expanded = toggle.getAttribute('aria-expanded') !== 'true';
       toggle.setAttribute('aria-expanded', String(expanded));
-      this.querySelector(`[id="${toggle.getAttribute('aria-controls')}"]`).hidden = !expanded;
-      toggle.querySelector('span').textContent = expanded ? '?' : '+';
     }
     if (event.target.closest('[data-search-clear]')) {
       const input = event.target.closest('dialog').querySelector('[data-search-input]');

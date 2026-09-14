@@ -1,4 +1,19 @@
-{% assign selected = product.selected_or_first_available_variant %}
+{% liquid
+  assign selected = product.selected_or_first_available_variant
+  assign measurement_keys = 'chest,waist,hips,bust,to_fit_waist,pyjama_waist,inseam_length,front_length,across_shoulder' | split: ','
+  assign has_measurements = false
+  for variant in product.variants
+    for key in measurement_keys
+      if variant.metafields.custom[key].value != blank
+        assign has_measurements = true
+        break
+      endif
+    endfor
+    if has_measurements
+      break
+    endif
+  endfor
+%}
 <custom-product-options class="custom-commerce" {% render 'custom-product-data', product: product %}>
   <div class="custom-quick-add__gallery" tabindex="0" aria-label="Product images" data-native-scroll>
     {% for image in product.images -%}
@@ -23,19 +38,19 @@
       {% render 'custom-product-price', product: product, variant: selected, show_discount: true %}
     </div>
   </div>
-  <div class="custom-measurement-tools">
-    {% render 'custom-size-switcher' -%}
-    <button type="button" data-custom-chart-open>What's my size?</button>
-  </div>
-  <div class="custom-measurements">
-    <span>Chest <b data-measure="chest">-</b></span
-    ><span>High Waist <b data-measure="waist">-</b></span
-    ><span>Hips <b data-measure="hips">-</b></span>
-  </div>
+  {% if has_measurements %}
+    <div class="custom-measurement-tools">
+      {% render 'custom-size-switcher' -%}
+      <button type="button" data-custom-chart-open>What's my size?</button>
+    </div>
+    <div class="custom-measurements">
+      <span>Chest <b data-measure="chest">-</b></span><span>High Waist <b data-measure="waist">-</b></span><span>Hips <b data-measure="hips">-</b></span><span>Bust <b data-measure="bust">-</b></span><span>To Fit Waist <b data-measure="to_fit_waist">-</b></span><span>Pyjama Waist <b data-measure="pyjama_waist">-</b></span><span>Inseam Length <b data-measure="inseam_length">-</b></span><span>Front Length <b data-measure="front_length">-</b></span><span>Across Shoulder <b data-measure="across_shoulder">-</b></span>
+    </div>
+  {% endif %}
   {% render 'custom-variant-selector', product: product, selected_variant: selected %}
   <div class="custom-purchase">
     {% render 'custom-add-to-cart', variant: selected -%}
     {%- render 'custom-wishlist-button', product: product, variant: selected %}
   </div>
-  {% render 'custom-size-chart', product: product %}
+  {% if has_measurements %}{% render 'custom-size-chart', product: product %}{% endif %}
 </custom-product-options>

@@ -18,11 +18,24 @@
 {% if product != blank %}
 <article class="custom-commerce custom-product-card">
   <div class="custom-product-card__media" data-custom-gallery data-index="0">
-    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" data-custom-image>
-      {% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: widths: '180, 320, 480, 640, 720', sizes: '(max-width: 749px) 50vw, 25vw', loading: loading, fetchpriority: priority, decoding: 'async' }}{% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" class="custom-product-card__gallery-link">
+      <span class="custom-product-card__gallery-track" data-custom-image-track>
+        {% for image in product.images %}
+          {% liquid
+            assign image_loading = 'lazy'
+            assign image_priority = 'auto'
+            if forloop.first
+              assign image_loading = loading
+              assign image_priority = priority
+            endif
+          %}
+          <span class="custom-product-card__gallery-slide">{{ image | image_url: width: 720 | image_tag: widths: '180, 320, 480, 640, 720', sizes: '(max-width: 749px) 50vw, 25vw', loading: image_loading, fetchpriority: image_priority, decoding: 'async', alt: image.alt | default: product.title }}</span>
+        {% else %}
+          <span class="custom-product-card__gallery-slide">{{ 'product-1' | placeholder_svg_tag }}</span>
+        {% endfor %}
+      </span>
     </a>
     {% if product.images.size > 1 %}
-      <div hidden>{% for image in product.images %}<template data-custom-image-template>{{ image | image_url: width: 720 | image_tag: widths: '180, 320, 480, 640, 720', sizes: '(max-width: 749px) 50vw, 25vw', loading: 'lazy', decoding: 'async' }}</template>{% endfor %}</div>
       <button class="custom-gallery-arrow custom-gallery-arrow--prev" type="button" data-custom-gallery-step="-1" aria-label="Previous image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 4-6 6 6 6"/></svg></button>
       <button class="custom-gallery-arrow custom-gallery-arrow--next" type="button" data-custom-gallery-step="1" aria-label="Next image"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 4 6 6-6 6"/></svg></button>
       <div class="custom-gallery-dots" role="group" aria-label="Product images">{% for image in product.images %}<button type="button" data-custom-gallery-index="{{ forloop.index0 }}" aria-label="Image {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>{% endfor %}</div>

@@ -12,16 +12,6 @@
     "main": {
       "type": "custom-main-product",
       "blocks": {
-        "more_styles_default": {
-          "type": "more_styles",
-          "settings": {
-            "label": "More Styles",
-            "products": [],
-            "image_width": 80,
-            "image_height": 116,
-            "gap": 6
-          }
-        },
         "benefit_delivery": {
           "type": "benefit",
           "settings": {
@@ -42,7 +32,6 @@
         }
       },
       "block_order": [
-        "more_styles_default",
         "benefit_delivery",
         "benefit_returns",
         "benefit_customers"

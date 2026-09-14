@@ -62,6 +62,8 @@
   defer
 ></script>
 
+<script src="{{ 'page-fade.js' | asset_url }}" type="module"></script>
+
 {% if settings.transition_to_main_product or settings.page_transition_enabled %}
   {%- comment -%}
     Inlined to avoid a network round trip for a render blocking asset.

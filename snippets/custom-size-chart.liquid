@@ -1,11 +1,28 @@
-<dialog class="custom-commerce custom-size-chart" data-custom-chart data-custom-measurements aria-label="Body Measurement" data-native-scroll>
-  <button type="button" class="custom-close" data-custom-close aria-label="Close size chart">{% render 'custom-close-icon' %}</button>
-  <header><strong>Body Measurement</strong>{% render 'custom-size-switcher' %}</header>
-  <div class="custom-chart-scroll"><table><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hips</th></tr></thead><tbody data-custom-chart-rows>
-    {% for variant in product.variants %}<tr><td>{{ variant.title | escape }}</td>
-      {% assign keys = 'chest,waist,hips' | split: ',' %}
-      {% for key in keys %}<td data-inches="{{ variant.metafields.custom[key].value | json | escape }}">{{ variant.metafields.custom[key].value | default: '-' | escape }}</td>{% endfor %}
-    </tr>{% endfor %}
-  </tbody></table></div>
-  <footer>{% render 'custom-product-highlights', product: product %}<p>{{ settings.custom_card_disclaimer | escape | newline_to_br }}</p></footer>
-</dialog>
+{% liquid
+  assign measurement_keys = 'chest,waist,hips,bust,to_fit_waist,pyjama_waist,inseam_length,front_length,across_shoulder' | split: ','
+  assign measurement_labels = 'Chest,High Waist,Hips,Bust,To Fit Waist,Pyjama Waist,Inseam Length,Front Length,Across Shoulder' | split: ','
+  assign has_measurements = false
+  for variant in product.variants
+    for key in measurement_keys
+      if variant.metafields.custom[key].value != blank
+        assign has_measurements = true
+        break
+      endif
+    endfor
+    if has_measurements
+      break
+    endif
+  endfor
+%}
+{% if has_measurements %}
+  <dialog class="custom-commerce custom-size-chart" data-custom-chart data-custom-measurements aria-label="Body Measurement" data-native-scroll>
+    <button type="button" class="custom-close" data-custom-close aria-label="Close size chart">{% render 'custom-close-icon' %}</button>
+    <header><strong>Body Measurement</strong>{% render 'custom-size-switcher' %}</header>
+    <div class="custom-chart-scroll"><table><thead><tr><th>Size</th>{% for label in measurement_labels %}<th>{{ label }}</th>{% endfor %}</tr></thead><tbody data-custom-chart-rows>
+      {% for variant in product.variants %}<tr><td>{{ variant.title | escape }}</td>
+        {% for key in measurement_keys %}<td data-inches="{{ variant.metafields.custom[key].value | json | escape }}">{{ variant.metafields.custom[key].value | default: '-' | escape }}</td>{% endfor %}
+      </tr>{% endfor %}
+    </tbody></table></div>
+    <footer>{% render 'custom-product-highlights', product: product %}<p>{{ settings.custom_card_disclaimer | escape | newline_to_br }}</p></footer>
+  </dialog>
+{% endif %}

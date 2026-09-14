@@ -19,6 +19,7 @@ function startCommerce() {
   const quick = document.getElementById('custom-quick-add');
   const toast = document.getElementById('custom-wishlist-toast');
   const key = 'olecute_wishlist_v1';
+  const measurementKeys = ['chest','waist','hips','bust','to_fit_waist','pyjama_waist','inseam_length','front_length','across_shoulder'];
   const opened = new Set(), returnFocus = new WeakMap(), cache = new Map();
   let scrollLock, pendingQuick, toastTimer, cartBusy = false, storageOK = true;
   const safeURL = (value, image = false) => {
@@ -189,7 +190,7 @@ function startCommerce() {
       const variants = this.variants.filter(v=>this.sizeIndex < 0 || v.options.every((value,i)=>i===this.sizeIndex || value===variant.options[i]));
       for (const item of rows ? variants : []) {
         const row = document.createElement('tr');
-        for (const value of [this.sizeIndex < 0 ? item.options.join(' / ') : item.options[this.sizeIndex], ...['chest','waist','hips'].map(key=>measurement(item[key],this.unit))]) { const cell = document.createElement('td');cell.textContent = value;row.append(cell); }rows.append(row);
+        for (const value of [this.sizeIndex < 0 ? item.options.join(' / ') : item.options[this.sizeIndex], ...measurementKeys.map(key=>measurement(item[key],this.unit))]) { const cell = document.createElement('td');cell.textContent = value;row.append(cell); }rows.append(row);
       }
       const button = this.querySelector('[data-custom-wishlist]');
       if (button) { const item = JSON.parse(button.dataset.wishlistItem);item.variantId = variant.id;item.price = variant.price;item.image = variant.image || item.image;item.size = this.sizeIndex < 0 ? '' : variant.options[this.sizeIndex];item.url = item.url.split('?')[0]+'?variant='+variant.id;button.dataset.wishlistItem = JSON.stringify(item);syncWishlist(this); }
@@ -206,9 +207,9 @@ function startCommerce() {
     if (button.matches('[data-custom-close]')) { const dialog=button.closest('dialog');dialog===quick ? closeQuick() : (dialog.close(),closed(dialog)); }
     if (button.matches('[data-custom-quick-add]')) button.dataset.directVariant ? submit(button,button.dataset.directVariant) : openQuick(button);
     if (button.matches('[data-custom-gallery-step],[data-custom-gallery-index]')) {
-      const gallery = button.closest('[data-custom-gallery]'), templates = gallery.querySelectorAll('template');
-      const index = button.hasAttribute('data-custom-gallery-index') ? Number(button.dataset.customGalleryIndex) : (Number(gallery.dataset.index)+Number(button.dataset.customGalleryStep)+templates.length)%templates.length;
-      gallery.dataset.index = index;gallery.querySelector('[data-custom-image]').replaceChildren(templates[index].content.cloneNode(true));gallery.querySelectorAll('[data-custom-gallery-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.customGalleryIndex)===index)));
+      const gallery = button.closest('[data-custom-gallery]'), slides = gallery.querySelectorAll('.custom-product-card__gallery-slide');
+      const index = button.hasAttribute('data-custom-gallery-index') ? Number(button.dataset.customGalleryIndex) : (Number(gallery.dataset.index)+Number(button.dataset.customGalleryStep)+slides.length)%slides.length;
+      gallery.dataset.index = index;gallery.querySelector('[data-custom-image-track]').style.transform=`translate3d(${-100*index}%,0,0)`;gallery.querySelectorAll('[data-custom-gallery-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.customGalleryIndex)===index)));
     }
     const options = button.closest('custom-product-options');
     if (options && button.matches('[data-custom-option-value]')) {

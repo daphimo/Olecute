@@ -136,6 +136,16 @@ p:empty {
 
 /* view transitions */
 
+@media (prefers-reduced-motion: no-preference) {
+  .page-wrapper { animation: page-fade-in 220ms ease-out both; }
+  html.page-is-leaving .page-wrapper { opacity: 0; transition: opacity 180ms ease-in; pointer-events: none; }
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /*
  * The cross-document (MPA) opt-in `@view-transition { navigation: auto }` is declared per-layout
  * (layout/theme.liquid and layout/password.liquid), because this stylesheet is shared by both layouts

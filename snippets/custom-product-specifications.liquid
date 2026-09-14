@@ -1,0 +1,28 @@
+{% liquid
+  assign specification_keys = 'bottom_closure,bottom_fabric,bottom_pattern,bottom_type,dupatta_border,dupatta_fabric,dupatta_pattern,neck,ornamentation,package_contains,pattern_coverage,print_or_pattern_type,primary_color,secondary_color,sleeve_length,sleeve_styling,occasions,slit_detail,top_design_styling,top_fabric,top_hemline,top_length,top_pattern,top_shape,top_type,waistband,weave_pattern,weave_type' | split: ','
+  assign specification_labels = 'Bottom Closure,Bottom Fabric,Bottom Pattern,Bottom Type,Dupatta Border,Dupatta Fabric,Dupatta Pattern,Neck,Ornamentation,Package Contains,Pattern Coverage,Print or Pattern Type,Primary Color,Secondary Color,Sleeve Length,Sleeve Styling,Occasions,Slit Detail,Top Design Styling,Top Fabric,Top Hemline,Top Length,Top Pattern,Top Shape,Top Type,Waistband,Weave Pattern,Weave Type' | split: ','
+%}
+{% capture specification_items %}
+  {% for key in specification_keys %}
+    {% assign specification = product.metafields.custom[key] %}
+    {% if specification.value != blank %}
+      <div class="custom-product-specifications__item">
+        <dt>{{ specification_labels[forloop.index0] }}</dt>
+        <dd>
+          {% if key == 'occasions' %}
+            {% for entry in specification.value %}{% assign entry_text = entry.label.value | default: entry.name.value | default: entry.title.value | default: entry.value | default: entry %}{{ entry_text | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+          {% elsif specification.type contains 'list.' %}
+            {% for entry in specification.value %}{{ entry | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}
+          {% else %}
+            {{ specification.value | escape }}
+          {% endif %}
+        </dd>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% assign specification_items = specification_items | strip %}
+{% if specification_items != blank %}
+  {% render 'brand-colors', scope: '.custom-product-specifications' %}
+  <dl class="custom-product-specifications">{{ specification_items }}</dl>
+{% endif %}

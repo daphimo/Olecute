@@ -1,9 +1,14 @@
 <div class="drawer-menu-item">
   {% if mobile == 'mobile-menu' and link.links != blank %}
-    <button type="button" data-submenu-toggle aria-expanded="false" aria-controls="submenu-{{ item_id }}">{{ link.title | escape }}<span aria-hidden="true">+</span></button>
-    <div id="submenu-{{ item_id }}" class="drawer-submenu" hidden>
-      <a href="{{ link.url }}">Shop All {{ link.title | escape }}</a>
-      {% for child in link.links %}{% capture child_id %}{{ item_id }}-{{ forloop.index }}{% endcapture %}{% render 'header-drawer-menu-item', link: child, mobile: mobile, item_id: child_id %}{% endfor %}
+    <button type="button" data-submenu-toggle aria-expanded="false" aria-controls="submenu-{{ item_id }}">
+      <span>{{ link.title | escape }}</span>
+      <svg class="drawer-accordion-icon" viewBox="0 0 16 16" aria-hidden="true"><path class="drawer-accordion-icon__horizontal" d="M2.5 8h11"/><path class="drawer-accordion-icon__vertical" d="M8 2.5v11"/></svg>
+    </button>
+    <div id="submenu-{{ item_id }}" class="drawer-submenu">
+      <div class="drawer-submenu__inner">
+        <a href="{{ link.url }}">Shop All {{ link.title | escape }}</a>
+        {% for child in link.links %}{% capture child_id %}{{ item_id }}-{{ forloop.index }}{% endcapture %}{% render 'header-drawer-menu-item', link: child, mobile: mobile, item_id: child_id %}{% endfor %}
+      </div>
     </div>
   {% else %}
     <a href="{{ link.url }}">{{ link.title | escape }}</a>
