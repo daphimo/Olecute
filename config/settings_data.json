@@ -105,10 +105,10 @@
     "variant_button_width": "equal-width-buttons",
     "content_for_index": [],
     "color_palette": {
-      "background": "#ffffff",
+      "background": "#FCF9F4",
       "foreground": "#000000",
       "color1": "#333333",
-      "color2": "#DFDFDF"
+      "color2": "#dfdfdf"
     }
   },
   "presets": {
