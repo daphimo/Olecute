@@ -100,8 +100,10 @@
         "collection_group_ATfyzB": {
           "type": "collection_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "title": "Tops",
+            "collection_list": [
+              "tops"
+            ]
           }
         },
         "collection_group_GBnErQ": {
