@@ -83,7 +83,7 @@
         "link_hover_color": "#32166F",
         "mobile_border_color": "#cec8c6",
         "desktop_gutter": 16,
-        "column_gap": 36,
+        "column_gap": 12,
         "row_gap": 30,
         "border_radius": 34,
         "mobile_gutter": 12,
