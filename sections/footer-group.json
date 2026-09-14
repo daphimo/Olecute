@@ -17,9 +17,9 @@
         "menu_W9LFCg": {
           "type": "menu",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Connect with us",
             "open_by_default_mobile": false,
-            "menu": "main-menu",
+            "menu": "footer",
             "desktop_width": "20"
           }
         },
