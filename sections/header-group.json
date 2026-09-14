@@ -102,9 +102,9 @@
         "submit_label": "Submit Request",
         "help_heading": "Help and Support",
         "chat_link": "https://wa.me/918952011127",
-        "return_link": "",
-        "return_policy_link": "",
-        "submit_link": "",
+        "return_link": "shopify://pages/return-exchange-policy",
+        "return_policy_link": "shopify://pages/return-policy",
+        "submit_link": "shopify://pages/submit-request",
         "drawer_image_left": "shopify://shop_images/download_-_2026-05-06T003635.711.png",
         "drawer_image_center": "shopify://shop_images/adfjpeg_2x_839aa034-da36-4b82-9f.png",
         "drawer_image_right": "shopify://shop_images/download_-_2026-05-06T003703.332.png"
