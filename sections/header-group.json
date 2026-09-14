@@ -69,6 +69,14 @@
             "link": "shopify://collections/co-ord-sets",
             "show_indicator": false
           }
+        },
+        "story_video_WgUUqn": {
+          "type": "story_video",
+          "settings": {
+            "video": "shopify://files/videos/cd417ebef4184c04b792429d8d1eeab3.mp4",
+            "link": "shopify://collections/all",
+            "button_label": "Shop now"
+          }
         }
       },
       "block_order": [
@@ -78,7 +86,8 @@
         "nav_3",
         "nav_4",
         "nav_5",
-        "nav_6"
+        "nav_6",
+        "story_video_WgUUqn"
       ],
       "settings": {
         "wordmark": "OLECUTE",
