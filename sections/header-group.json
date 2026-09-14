@@ -81,7 +81,7 @@
         "special_link": "",
         "special_label": "Discover Olecute",
         "drawer_menu": "",
-        "policy_menu": "",
+        "policy_menu": "policies",
         "login_label": "Members Login",
         "login_link": "/account",
         "order_status_label": "Order Status",
