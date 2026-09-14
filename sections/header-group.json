@@ -14,6 +14,14 @@
     "header_section": {
       "type": "header",
       "blocks": {
+        "nav_item_j4CL7D": {
+          "type": "nav_item",
+          "settings": {
+            "label": "Home",
+            "link": "/",
+            "show_indicator": false
+          }
+        },
         "nav_1": {
           "type": "nav_item",
           "settings": {
@@ -64,6 +72,7 @@
         }
       },
       "block_order": [
+        "nav_item_j4CL7D",
         "nav_1",
         "nav_2",
         "nav_3",
