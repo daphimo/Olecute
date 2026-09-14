@@ -13,34 +13,26 @@
   "
 >
   <div class="rs-collection-links__inner">
-
     {% for block in section.blocks %}
+      {% assign selected_menu = linklists[block.settings.menu] %}
 
-      {% if block.settings.title != blank or block.settings.collection_list != blank %}
-
+      {% if selected_menu != blank %}
         <div
           class="rs-collection-links__group"
           {{ block.shopify_attributes }}
         >
+          <h3 class="rs-collection-links__title">
+            {{ selected_menu.title }}
+          </h3>
 
-          {% if block.settings.title != blank %}
-            <h3 class="rs-collection-links__title">
-              {{ block.settings.title }}
-            </h3>
-          {% endif %}
-
-
-          {% if block.settings.collection_list != blank %}
-
+          {% if selected_menu.links != blank %}
             <div class="rs-collection-links__list">
-
-              {% for collection in block.settings.collection_list %}
-
+              {% for link in selected_menu.links %}
                 <a
-                  href="{{ collection.url }}"
+                  href="{{ link.url }}"
                   class="rs-collection-links__link"
                 >
-                  {{ collection.title }}
+                  {{ link.title }}
                 </a>
 
                 {% unless forloop.last %}
@@ -51,22 +43,14 @@
                     |
                   </span>
                 {% endunless %}
-
               {% endfor %}
-
             </div>
-
           {% endif %}
-
         </div>
-
       {% endif %}
-
     {% endfor %}
-
   </div>
 </section>
-
 
 {% schema %}
 {
@@ -96,7 +80,6 @@
       "label": "Divider color",
       "default": "#D4D4D4"
     },
-
     {
       "type": "header",
       "content": "Layout"
@@ -145,20 +128,13 @@
 
   "blocks": [
     {
-      "type": "collection_group",
-      "name": "Collection group",
+      "type": "menu_group",
+      "name": "Menu group",
       "settings": [
         {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Kurtis"
-        },
-        {
-          "type": "collection_list",
-          "id": "collection_list",
-          "label": "Collections",
-          "limit": 20
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
         }
       ]
     }
@@ -171,16 +147,16 @@
       "name": "Collection link groups",
       "blocks": [
         {
-          "type": "collection_group"
+          "type": "menu_group"
         },
         {
-          "type": "collection_group"
+          "type": "menu_group"
         },
         {
-          "type": "collection_group"
+          "type": "menu_group"
         },
         {
-          "type": "collection_group"
+          "type": "menu_group"
         }
       ]
     }

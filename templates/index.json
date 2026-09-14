@@ -49,7 +49,8 @@
       "name": "Custom Featured Collection",
       "settings": {
         "collection": "all",
-        "heading": "Most Wanted",
+        "custom": true,
+        "heading": "<strong>Most</strong> Wanted",
         "products_to_show": 4,
         "show_discover_more": true,
         "discover_more_label": "Discover More",
@@ -156,11 +157,11 @@
       "name": "Infinite gallery grid",
       "settings": {
         "desktop_height_mode": "viewport",
-        "desktop_height_vh": 72,
+        "desktop_height_vh": 100,
         "desktop_height_extra": 4,
         "desktop_height_px": 800,
         "mobile_height_mode": "viewport",
-        "mobile_height_vh": 40,
+        "mobile_height_vh": 45,
         "mobile_height_extra": 0,
         "mobile_height_px": 400,
         "grid_width_desktop": 100,
@@ -195,6 +196,7 @@
       "name": "Custom Featured Collection",
       "settings": {
         "collection": "all",
+        "custom": false,
         "heading": "Most Wanted",
         "products_to_show": 4,
         "show_discover_more": true,
@@ -288,6 +290,7 @@
       "name": "Custom Featured Collection",
       "settings": {
         "collection": "all",
+        "custom": false,
         "heading": "Most Wanted",
         "products_to_show": 4,
         "show_discover_more": true,
@@ -334,6 +337,7 @@
       "name": "Custom Featured Collection",
       "settings": {
         "collection": "all",
+        "custom": false,
         "heading": "Most Wanted",
         "products_to_show": 4,
         "show_discover_more": true,

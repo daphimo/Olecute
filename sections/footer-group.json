@@ -14,60 +14,60 @@
     "rs_footer_AMjVqN": {
       "type": "rs-footer",
       "blocks": {
+        "menu_t3JmzQ": {
+          "type": "menu",
+          "settings": {
+            "heading": "We Are Olecute",
+            "open_by_default_mobile": false,
+            "menu": "we-are-olecute",
+            "desktop_width": "15"
+          }
+        },
         "menu_W9LFCg": {
           "type": "menu",
           "settings": {
-            "heading": "Quick links",
-            "open_by_default_mobile": false,
-            "menu": "main-menu",
-            "desktop_width": "20"
+            "heading": "Connect with us",
+            "open_by_default_mobile": true,
+            "menu": "footer",
+            "desktop_width": "15"
           }
         },
         "menu_WxN9mY": {
           "type": "menu",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Order Support",
             "open_by_default_mobile": false,
-            "menu": "footer",
+            "menu": "order-support",
             "desktop_width": "20"
-          }
-        },
-        "richtext_U8qFYU": {
-          "type": "richtext",
-          "settings": {
-            "heading": "Information",
-            "open_by_default_mobile": false,
-            "content": "<p>Add your footer content here.</p>",
-            "desktop_width": "25"
           }
         },
         "contact_RNyrjM": {
           "type": "contact",
           "settings": {
-            "heading": "Contact us",
+            "heading": "Contact Info",
             "open_by_default_mobile": false,
             "desktop_width": "35",
-            "store_icon": "",
-            "store_1": "",
+            "store_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M21 13.2422V20H22V22H2V20H3V13.2422C1.79401 12.435 1 11.0602 1 9.5C1 8.67286 1.22443 7.87621 1.63322 7.19746L4.3453 2.5C4.52393 2.1906 4.85406 2 5.21132 2H18.7887C19.1459 2 19.4761 2.1906 19.6547 2.5L22.3575 7.18172C22.7756 7.87621 23 8.67286 23 9.5C23 11.0602 22.206 12.435 21 13.2422ZM19 13.9725C18.8358 13.9907 18.669 14 18.5 14C17.2409 14 16.0789 13.478 15.25 12.6132C14.4211 13.478 13.2591 14 12 14C10.7409 14 9.5789 13.478 8.75 12.6132C7.9211 13.478 6.75911 14 5.5 14C5.331 14 5.16417 13.9907 5 13.9725V20H19V13.9725ZM5.78865 4L3.35598 8.21321C3.12409 8.59843 3 9.0389 3 9.5C3 10.8807 4.11929 12 5.5 12C6.53096 12 7.44467 11.3703 7.82179 10.4295C8.1574 9.59223 9.3426 9.59223 9.67821 10.4295C10.0553 11.3703 10.969 12 12 12C13.031 12 13.9447 11.3703 14.3218 10.4295C14.6574 9.59223 15.8426 9.59223 16.1782 10.4295C16.5553 11.3703 17.469 12 18.5 12C19.8807 12 21 10.8807 21 9.5C21 9.0389 20.8759 8.59843 20.6347 8.19746L18.2113 4H5.78865Z\"></path></svg>",
+            "store_1": "2nd Floor, I-95,96,97, Laxminarayan Industerial Park, Brc Compound",
             "store_2": "",
-            "phone_icon": "",
-            "mobile_1": "",
-            "mobile_1_link": "",
+            "phone_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9.36556 10.6821C10.302 12.3288 11.6712 13.698 13.3179 14.6344L14.2024 13.3961C14.4965 12.9845 15.0516 12.8573 15.4956 13.0998C16.9024 13.8683 18.4571 14.3353 20.0789 14.4637C20.599 14.5049 21 14.9389 21 15.4606V19.9234C21 20.4361 20.6122 20.8657 20.1022 20.9181C19.5723 20.9726 19.0377 21 18.5 21C9.93959 21 3 14.0604 3 5.5C3 4.96227 3.02742 4.42771 3.08189 3.89776C3.1343 3.38775 3.56394 3 4.07665 3H8.53942C9.0611 3 9.49513 3.40104 9.5363 3.92109C9.66467 5.54288 10.1317 7.09764 10.9002 8.50444C11.1427 8.9484 11.0155 9.50354 10.6039 9.79757L9.36556 10.6821ZM6.84425 10.0252L8.7442 8.66809C8.20547 7.50514 7.83628 6.27183 7.64727 5H5.00907C5.00303 5.16632 5 5.333 5 5.5C5 12.9558 11.0442 19 18.5 19C18.667 19 18.8337 18.997 19 18.9909V16.3527C17.7282 16.1637 16.4949 15.7945 15.3319 15.2558L13.9748 17.1558C13.4258 16.9425 12.8956 16.6915 12.3874 16.4061L12.3293 16.373C10.3697 15.2587 8.74134 13.6303 7.627 11.6707L7.59394 11.6126C7.30849 11.1044 7.05754 10.5742 6.84425 10.0252Z\"></path></svg>",
+            "mobile_1": "918952011127",
+            "mobile_1_link": "tel:+918952011127",
             "mobile_2": "",
             "mobile_2_link": "",
-            "email_icon": "",
-            "email_1": "",
+            "email_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M21 3C21.5523 3 22 3.44772 22 4V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V19H20V7.3L12 14.5L2 5.5V4C2 3.44772 2.44772 3 3 3H21ZM8 15V17H0V15H8ZM5 10V12H0V10H5ZM19.5659 5H4.43414L12 11.8093L19.5659 5Z\"></path></svg>",
+            "email_1": "info.olecute@gmail.com",
             "email_2": "",
-            "hours_icon": "",
-            "hours_1": "",
+            "hours_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM13 12H17V14H11V7H13V12Z\"></path></svg>",
+            "hours_1": "Mon to Sat: 10:30 AM - 6:30 PM",
             "hours_2": ""
           }
         }
       },
       "block_order": [
+        "menu_t3JmzQ",
         "menu_W9LFCg",
         "menu_WxN9mY",
-        "richtext_U8qFYU",
         "contact_RNyrjM"
       ],
       "name": "RS Footer",
@@ -75,15 +75,15 @@
         "background_color": "#e9e9e9",
         "desktop_background_image": "shopify://shop_images/footer_bottom.png",
         "mobile_background_image": "shopify://shop_images/mobile_footer.png",
-        "background_alt": "",
-        "background_image_opacity": 45,
-        "text_color": "#6f6360",
-        "heading_color": "#351710",
+        "background_alt": "Footer Background",
+        "background_image_opacity": 5,
+        "text_color": "{{ settings.color_palette.color1 }}",
+        "heading_color": "#32166f",
         "link_color": "#756866",
-        "link_hover_color": "#351710",
+        "link_hover_color": "#32166f",
         "mobile_border_color": "#cec8c6",
         "desktop_gutter": 16,
-        "column_gap": 36,
+        "column_gap": 12,
         "row_gap": 30,
         "border_radius": 34,
         "mobile_gutter": 12,
@@ -97,45 +97,48 @@
     "collection_link_groups_NHcKre": {
       "type": "collection-link-groups",
       "blocks": {
-        "collection_group_ATfyzB": {
-          "type": "collection_group",
+        "menu_group_weL9kF": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "co-ords"
           }
         },
-        "collection_group_GBnErQ": {
-          "type": "collection_group",
+        "menu_group_jQyxV9": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "dresses"
           }
         },
-        "collection_group_4TVr4j": {
-          "type": "collection_group",
+        "menu_group_XdUfR4": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "shirts"
           }
         },
-        "collection_group_7PFdiX": {
-          "type": "collection_group",
+        "menu_group_kbCRn9": {
+          "type": "menu_group",
           "settings": {
-            "title": "Kurtis",
-            "collection_list": []
+            "menu": "tops"
+          }
+        },
+        "menu_group_yRKEdC": {
+          "type": "menu_group",
+          "settings": {
+            "menu": "tunics"
           }
         }
       },
       "block_order": [
-        "collection_group_ATfyzB",
-        "collection_group_GBnErQ",
-        "collection_group_4TVr4j",
-        "collection_group_7PFdiX"
+        "menu_group_weL9kF",
+        "menu_group_jQyxV9",
+        "menu_group_XdUfR4",
+        "menu_group_kbCRn9",
+        "menu_group_yRKEdC"
       ],
       "name": "Collection link groups",
       "settings": {
         "background_color": "#eeeeee",
-        "text_color": "#6a342d",
+        "text_color": "#21103f",
         "border_color": "#d4d4d4",
         "border_radius": 18,
         "padding_horizontal": 16,

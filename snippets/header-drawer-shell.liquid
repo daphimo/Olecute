@@ -6,9 +6,14 @@
 >
   {% if drawer == 'desktop-menu' %}
     <div class="drawer-masthead">
-      <button type="button" data-header-close aria-label="Close menu">{% render 'header-menu-icon' %}<span>Menu</span></button>
+      <button type="button" data-header-close aria-label="Close menu">
+        {% render 'header-menu-icon' -%}
+        <span>Menu</span>
+      </button>
       {% render 'header-logo', section: section, context: 'standard' %}
       <div class="olecute-header__icons">
+        {% render 'header-special-icon', section: section %}
+        {% render 'header-wishlist', section: section %}
         {% render 'header-search-trigger', section: section %}
         {% render 'header-account' %}
         {% render 'header-cart' %}
@@ -32,8 +37,16 @@
         aria-controls="results-{{ drawer }}-{{ section.id }}"
       >
       <input type="hidden" name="type" value="product">
-      <button type="button" data-search-clear aria-label="Clear search" hidden><span aria-hidden="true">&#215;</span></button>
-      <button type="button" data-header-close aria-label="Close {{ label | downcase | escape }}">{% if drawer == 'mobile-menu' %}{% render 'header-menu-icon' %}{% else %}{{ 'icon-close.svg' | inline_asset_content }}{% endif %}</button>
+      <button type="button" data-search-clear aria-label="Clear search" hidden>
+        <span aria-hidden="true">&#215;</span>
+      </button>
+      <button type="button" data-header-close aria-label="Close {{ label | downcase | escape }}">
+        {% if drawer == 'mobile-menu' -%}
+          {%- render 'header-menu-icon' -%}
+        {%- else -%}
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        {%- endif %}
+      </button>
     </form>
     <div id="results-{{ drawer }}-{{ section.id }}" data-search-results hidden>
       <p class="drawer-search-status" role="status" data-search-status></p>
@@ -41,7 +54,13 @@
       <a class="drawer-search-all" data-search-all><span></span><span aria-hidden="true">&#8594;</span></a>
     </div>
   {% endif %}
-  <div class="olecute-header__drawer-content" data-drawer-content {% if drawer == 'search' %}hidden{% endif %}>
+  <div
+    class="olecute-header__drawer-content"
+    data-drawer-content
+    {% if drawer == 'search' %}
+      hidden
+    {% endif %}
+  >
     {% unless drawer == 'search' %}
       {% render 'header-drawer-navigation', section: section, drawer: drawer %}
     {% endunless %}
