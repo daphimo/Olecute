@@ -39,4 +39,5 @@
 
   .custom_font_design strong{
     font-family: var(--font-highlight--family, inherit) !important;
+    font-weight: normal;
   }
