@@ -1,0 +1,28 @@
+{% assign story_blocks = section.blocks | where: 'type', 'story_video' %}
+{% if story_blocks.size > 0 %}
+  {{ 'header-video-stories.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'header-video-stories.js' | asset_url }}" type="module"></script>
+  {% render 'brand-colors', scope: '.header-video-stories' %}
+  <header-video-stories>
+    <dialog class="header-video-stories" id="HeaderVideoStories-{{ section.id }}" aria-label="Video stories">
+      <div class="header-video-stories__progress" aria-hidden="true">
+        {% for block in story_blocks %}<span><i data-story-progress="{{ forloop.index0 }}"></i></span>{% endfor %}
+      </div>
+      <span class="header-video-stories__count" data-story-count aria-live="polite">1 / {{ story_blocks.size }}</span>
+      <div class="header-video-stories__controls">
+        <button type="button" data-story-pause aria-label="Pause video" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path data-pause-icon d="M7 4h3v16H7zm7 0h3v16h-3z"/><path data-play-icon d="m8 4 12 8-12 8z" hidden/></svg></button>
+        <button type="button" data-story-close aria-label="Close video stories"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+      </div>
+      <div class="header-video-stories__stage">
+        {% for block in story_blocks %}
+          <article class="header-video-stories__slide" data-story-slide="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+            {{ block.settings.video | video_tag: autoplay: false, muted: true, loop: false, controls: false, playsinline: true, preload: 'metadata', image_size: '720x' }}
+            {% if block.settings.link != blank and block.settings.button_label != blank %}<a href="{{ block.settings.link }}">{{ block.settings.button_label | escape }}</a>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+      <button type="button" class="header-video-stories__arrow header-video-stories__arrow--prev" data-story-prev aria-label="Previous video" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+      <button type="button" class="header-video-stories__arrow header-video-stories__arrow--next" data-story-next aria-label="Next video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+    </dialog>
+  </header-video-stories>
+{% endif %}

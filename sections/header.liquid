@@ -18,6 +18,7 @@
   {% render 'header-mobile-menu-drawer', section: section %}
   {% render 'header-search-drawer', section: section %}
 </olecute-header>
+{% render 'header-video-stories', section: section %}
 {% schema %}
 {
   "name": "Olecute header",
@@ -28,7 +29,7 @@
       "header"
     ]
   },
-  "max_blocks": 8,
+  "max_blocks": 16,
   "settings": [
     {
       "type": "text",
@@ -268,6 +269,28 @@
           "id": "show_indicator",
           "label": "Show indicator",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "story_video",
+      "name": "Story video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
         }
       ]
     }

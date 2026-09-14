@@ -27,7 +27,7 @@
 .olecute-header__logo { display: block; width: max-content; max-width: 100%; font-family: var(--font-heading--family, sans-serif); font-weight: 900; letter-spacing: -.055em; line-height: .85; white-space: nowrap; }
 .olecute-header__logo--standard { font-size: 30px; }
 .olecute-header__quote { display: block; font-family: 'Segoe Print', 'Bradley Hand', cursive; font-size: clamp(14px, 1.55vw, 22px); font-weight: 600; line-height: 1.2; text-align: center; }
-.olecute-header__menu { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-primary-dark); color: var(--color-white) !important; padding: 8px 13px; border-radius: 30px; font-size: 10px !important; line-height: 1; white-space: nowrap; }
+.olecute-header__menu { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-white); color: var(--color-primary) !important; padding: 8px 13px; border-radius: 30px; font-size: 10px !important; line-height: 1; white-space: nowrap; }
 .olecute-header__menu svg { width: 13px; height: 13px; }
 .olecute-header__left { gap: 12px; flex-shrink: 0; }
 .olecute-header__icons { flex-shrink: 0; }

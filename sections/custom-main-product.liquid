@@ -1,0 +1,157 @@
+{% liquid
+  assign selected = product.selected_or_first_available_variant
+  assign style_value = product.metafields.custom.style.value
+  assign color_value = product.metafields.custom.primary_color.value
+  assign fit_value = product.metafields.custom.model_fit_check.value
+  assign product_video = product.media | where: 'media_type', 'video' | first
+  if product_video == blank
+    assign product_video = product.media | where: 'media_type', 'external_video' | first
+  endif
+%}
+{% render 'brand-colors', scope: '.custom-main-product' %}
+<custom-product-options class="custom-commerce custom-main-product" data-section-id="{{ section.id }}" {% render 'custom-product-data', product: product %}>
+  <div class="custom-main-product__intro">
+    <div class="custom-main-product__desktop-highlights">{% render 'custom-product-highlights', product: product %}</div>
+    <div class="custom-main-product__heading">
+      <h1>{{ product.title | escape }}</h1>
+      <div class="custom-main-product__desktop-wishlist">{% render 'custom-wishlist-button', product: product, variant: selected %}</div>
+      <div class="custom-main-product__mobile-price" data-custom-price>{% render 'custom-product-price', product: product, variant: selected, show_discount: true %}</div>
+    </div>
+    {% if style_value != blank %}<p class="custom-main-product__mobile-style">{{ style_value | escape }}</p>{% endif %}
+    <dl class="custom-main-product__meta">
+      {% if style_value != blank %}<div><dt>Style</dt><dd>{{ style_value | escape }}</dd></div>{% endif %}
+      {% if color_value != blank %}<div><dt>Color</dt><dd>{{ color_value | escape }}</dd></div>{% endif %}
+      {% if fit_value != blank %}<div><dt>Model Fit Check</dt><dd>{{ fit_value | escape }}</dd></div>{% endif %}
+    </dl>
+    {% if product_video != blank %}
+      <div class="custom-main-product__editorial-video">
+        {% case product_video.media_type %}
+          {% when 'video' %}{{ product_video | video_tag: controls: true, preload: 'none', image_size: '420x' }}
+          {% when 'external_video' %}{{ product_video | external_video_tag: loading: 'lazy' }}
+        {% endcase %}
+      </div>
+    {% endif %}
+
+  <div class="custom-main-product__accordions">
+    {% assign shipping_content = section.settings.shipping_content | default: shop.shipping_policy.body %}
+    {% assign returns_content = section.settings.returns_content | default: shop.refund_policy.body %}
+    {% assign accordion_titles = 'Details & Description|Shipping & Delivery|Return & Exchange' | split: '|' %}
+    {% for title in accordion_titles %}
+      {% case forloop.index %}{% when 1 %}{% assign accordion_content = product.description %}{% when 2 %}{% assign accordion_content = shipping_content %}{% when 3 %}{% assign accordion_content = returns_content %}{% endcase %}
+      <div class="custom-main-product__accordion">
+        <button type="button" aria-expanded="false" aria-controls="ProductAccordion-{{ section.id }}-{{ forloop.index }}" data-accordion-trigger><span>{{ title }}</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
+        <div id="ProductAccordion-{{ section.id }}-{{ forloop.index }}" class="custom-main-product__accordion-panel" inert><div><div class="rte">{{ accordion_content }}</div></div></div>
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+
+  <div class="custom-main-product__media" data-product-media-gallery tabindex="0" aria-label="Product media">
+    {% if fit_value != blank %}<span class="custom-main-product__fit">{{ fit_value | escape }}</span>{% endif %}
+    <div class="custom-main-product__mobile-wishlist">{% render 'custom-wishlist-button', product: product, variant: selected %}</div>
+    <div class="custom-main-product__media-track">
+      {% for media in product.media %}
+        {% liquid
+          assign media_loading = 'lazy'
+          assign media_priority = 'auto'
+          if forloop.first
+            assign media_loading = 'eager'
+            assign media_priority = 'high'
+          endif
+        %}
+        <div class="custom-main-product__media-item{% if media.media_type == 'video' or media.media_type == 'external_video' %} custom-main-product__media-item--video{% endif %}" data-product-media data-media-index="{{ forloop.index }}">
+          {% case media.media_type %}
+            {% when 'image' %}
+              {{ media.preview_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: '(max-width: 749px) calc(100vw - 12px), 34vw', loading: media_loading, fetchpriority: media_priority, decoding: 'async', alt: media.alt | default: product.title }}
+            {% when 'video' %}
+              <button type="button" class="custom-main-product__video-toggle" data-video-toggle aria-label="Enlarge product video">{{ media | video_tag: controls: true, preload: 'metadata', image_size: '720x' }}<span>Touch to zoom in</span></button>
+            {% when 'external_video' %}
+              <button type="button" class="custom-main-product__video-toggle" data-video-toggle aria-label="Enlarge product video">{{ media | external_video_tag: loading: 'lazy' }}<span>Touch to zoom in</span></button>
+            {% when 'model' %}{{ media | model_viewer_tag: reveal: 'interaction', toggleable: true }}
+          {% endcase %}
+        </div>
+      {% else %}
+        <div class="custom-main-product__media-item">{{ 'product-1' | placeholder_svg_tag }}</div>
+      {% endfor %}
+    </div>
+    <span class="custom-main-product__counter" aria-live="polite"><b data-media-current>1</b>/{{ product.media.size | at_least: 1 }}</span>
+    <div class="custom-main-product__mobile-highlights">{% render 'custom-product-highlights', product: product %}</div>
+  </div>
+
+  <div class="custom-main-product__purchase">
+    {% for block in section.blocks %}
+      {% if block.type == 'more_styles' %}
+        <div class="custom-main-product__styles" style="--style-width:{{ block.settings.image_width }}px;--style-height:{{ block.settings.image_height }}px;--style-gap:{{ block.settings.gap }}px" {{ block.shopify_attributes }}>
+          {% if block.settings.label != blank %}<p>{{ block.settings.label | escape }}</p>{% endif %}
+          <div>
+            {% for style_product in block.settings.products %}
+              <a href="{{ style_product.url }}" aria-label="{{ style_product.title | escape }}">
+                {% if style_product.featured_image %}{{ style_product.featured_image | image_url: width: 360 | image_tag: widths: '120, 180, 240, 360', sizes: block.settings.image_width | append: 'px', loading: 'lazy', alt: style_product.featured_image.alt | default: style_product.title }}{% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <div class="custom-main-product__sizing">
+      <div class="custom-main-product__size-head">{% render 'custom-size-switcher' %}<button type="button" data-custom-chart-open>What's my size?</button></div>
+      <div class="custom-measurements"><span>Chest <b data-measure="chest">-</b></span><span>High Waist <b data-measure="waist">-</b></span><span>Hip <b data-measure="hips">-</b></span></div>
+    </div>
+    {% render 'custom-variant-selector', product: product, selected_variant: selected %}
+    <div class="custom-main-product__desktop-price" data-custom-price>{% render 'custom-product-price', product: product, variant: selected, show_discount: true %}</div>
+    <div class="custom-main-product__actions">
+      {% render 'custom-add-to-cart', variant: selected %}
+      <form action="{{ routes.cart_add_url }}" method="post" data-buy-now-form><input type="hidden" name="id" value="{{ selected.id }}"><input type="hidden" name="quantity" value="1"><input type="hidden" name="return_to" value="/checkout"><button type="submit" class="custom-main-product__buy" {% unless selected.available %}disabled{% endunless %}>BUY NOW</button></form>
+    </div>
+    <div class="custom-main-product__benefits">
+      {% for block in section.blocks %}{% if block.type == 'benefit' %}<div class="custom-main-product__benefit" {{ block.shopify_attributes }}>{% if block.settings.icon != blank %}{{ block.settings.icon | image_url: width: 80 | image_tag: widths: '40, 80', sizes: '28px', loading: 'lazy' }}{% endif %}<span>{{ block.settings.text | escape | newline_to_br }}</span></div>{% endif %}{% endfor %}
+    </div>
+    {% render 'custom-size-chart', product: product %}
+  </div>
+
+</custom-product-options>
+
+{% stylesheet %}
+  .custom-main-product{--cmp-pad:20px;display:grid!important;grid-template-columns:minmax(260px,1fr) minmax(380px,1.05fr) minmax(330px,1fr);grid-template-rows:auto 1fr auto;grid-template-areas:"intro media purchase" "intro media purchase" "accordions media purchase";height:calc(100dvh - var(--header-group-height,var(--header-height,0px)));min-height:580px;overflow:visible!important;background:var(--color-background);color:var(--color-text)}
+  .custom-main-product__intro{grid-area:intro;display:flex;min-height:0;flex-direction:column;padding:var(--cmp-pad) 14px var(--cmp-pad) 20px}.custom-main-product__desktop-highlights{margin-bottom:7px}.custom-main-product__heading{display:flex;align-items:center;gap:8px}.custom-main-product h1{margin:0;font-family:var(--font-heading--family,inherit);font-size:20px;font-weight:500;line-height:1.15}.custom-main-product__heading .custom-wishlist-button{width:30px;height:30px}.custom-main-product__meta{margin:6px 0 0}.custom-main-product__meta div{display:grid;grid-template-columns:96px 1fr;gap:0}.custom-main-product__meta :is(dt,dd){margin:0;font-size:10px}.custom-main-product__meta dt{color:var(--color-text-secondary)}.custom-main-product__editorial-video{width:150px;height:260px;margin:auto 0 0 auto}.custom-main-product__editorial-video :is(video,iframe){width:100%;height:100%;border:0;object-fit:cover;object-position:top}
+  .custom-main-product__media{grid-area:media;min-width:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:var(--color-background-secondary)}.custom-main-product__media::-webkit-scrollbar{display:none}.custom-main-product__media-track{display:block}.custom-main-product__media-item{position:relative;width:100%;min-height:100%}.custom-main-product__media-item>img,.custom-main-product__media-item>svg{display:block;width:100%;height:auto}.custom-main-product__media-item :is(video,iframe,model-viewer){display:block;width:100%;min-height:70vh;border:0;object-fit:cover}.custom-main-product__media-item--video{display:none}.custom-main-product__fit,.custom-main-product__mobile-wishlist,.custom-main-product__counter,.custom-main-product__mobile-highlights{display:none}
+  .custom-main-product__purchase{grid-area:purchase;display:flex;min-width:0;min-height:0;flex-direction:column;padding:20px 22px 8px 14px}.custom-main-product__styles{margin-top:auto;order:5}.custom-main-product__styles>p{margin:0 0 8px;font-size:10px}.custom-main-product__styles>div{display:flex;flex-wrap:wrap;gap:var(--style-gap)}.custom-main-product__styles a{display:block;width:var(--style-width);height:var(--style-height);overflow:hidden;border-radius:8px;background:var(--color-background-secondary)}.custom-main-product__styles :is(img,svg){width:100%;height:100%;object-fit:cover;object-position:top}.custom-main-product__sizing{order:1}.custom-main-product__size-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}.custom-main-product__purchase>.custom-variants{order:2}.custom-main-product__desktop-price{order:3;margin-top:25px;font-weight:600}.custom-main-product__desktop-price .custom-price{display:grid;grid-template-columns:auto 1fr;width:max-content}.custom-main-product__desktop-price .custom-price s{grid-column:1}.custom-main-product__actions{display:flex;gap:7px;order:6;margin-top:7px}.custom-main-product__actions>*{flex:1}.custom-main-product__actions .custom-add-button,.custom-main-product__buy{width:100%;min-height:42px;border:1px solid var(--color-primary-dark);border-radius:24px}.custom-main-product__buy{background:var(--color-primary-dark);color:var(--color-white)!important}.custom-main-product__benefits{display:flex;justify-content:space-between;gap:12px;order:7;margin-top:5px}.custom-main-product__benefit{display:flex;align-items:center;justify-content:center;gap:7px;flex:1;font-size:9px;text-align:center}.custom-main-product__benefit:nth-child(n+3){display:none}.custom-main-product__benefit img{width:24px;height:24px;object-fit:contain}.custom-main-product__purchase>.custom-size-chart{inset:var(--header-group-height,var(--header-height,0px)) auto 0 0;width:calc(66.66vw);height:calc(100dvh - var(--header-group-height,var(--header-height,0px)));max-height:none;padding:clamp(30px,10vh,100px) max(24px,calc((66.66vw - 360px)/2));border-radius:0;background:color-mix(in srgb,var(--color-background) 94%,transparent)}.custom-main-product__purchase>.custom-size-chart::backdrop{background:transparent;backdrop-filter:none}
+  .custom-main-product__accordions{grid-area:accordions;padding:0 14px 4px 20px}.custom-main-product__accordion{border-top:1px solid var(--color-border)}.custom-main-product__accordion:last-child{border-bottom:1px solid var(--color-border)}.custom-main-product__accordion>button{display:flex;width:100%;min-height:33px;align-items:center;justify-content:space-between;padding:7px 0;border:0;background:transparent;color:var(--color-text-secondary);font-size:10px;text-align:left;text-transform:uppercase}.custom-main-product__accordion svg{width:12px;height:12px;fill:none;stroke:currentColor;transition:transform .25s ease}.custom-main-product__accordion button[aria-expanded=true] svg{transform:rotate(180deg)}.custom-main-product__accordion-panel{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s .3s}.custom-main-product__accordion-panel>div{overflow:hidden}.custom-main-product__accordion-panel .rte{padding:2px 0 12px}.custom-main-product__accordion-panel[data-open]{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .3s ease}
+  .custom-main-product__mobile-price,.custom-main-product__mobile-style{display:none}
+  @media(max-width:950px){.custom-main-product__purchase>.custom-variants{order:5;margin:0 -5px;padding:0 7px;background:var(--color-white)}}
+  @media(max-width:950px){.custom-main-product{display:flex!important;height:auto;min-height:0;flex-direction:column;padding:8px 5px 0;overflow:hidden!important}.custom-main-product__media{order:1;position:relative;overflow:visible;border-radius:13px}.custom-main-product__media-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:13px}.custom-main-product__media-item{display:grid!important;place-items:center;flex:0 0 100%;height:min(135vw,calc(100dvh - var(--header-group-height,var(--header-height,0px)) - 12px));min-height:0;scroll-snap-align:start;overflow:hidden;background:var(--color-background-secondary)}.custom-main-product__media-item>img{width:100%;height:100%;object-fit:cover;object-position:top}.custom-main-product__media-item :is(model-viewer){width:100%;height:100%;min-height:0}.custom-main-product__media-item--video{justify-items:end;align-items:end;padding:0 10px 44px}.custom-main-product__video-toggle{position:relative;width:27vw;height:44vw;padding:0;border:0;background:transparent;transition:width .25s ease,height .25s ease}.custom-main-product__video-toggle[data-expanded]{width:68vw;height:min(114vw,calc(100dvh - 80px))}.custom-main-product__video-toggle :is(video,iframe){width:100%;height:100%;min-height:0;pointer-events:none;object-fit:cover}.custom-main-product__video-toggle span{position:absolute;right:5px;bottom:5px;padding:3px 5px;background:color-mix(in srgb,var(--color-white) 78%,transparent);font-size:8px}.custom-main-product__fit,.custom-main-product__counter{display:block;position:absolute;z-index:3;left:10px;padding:4px 7px;border-radius:10px;background:color-mix(in srgb,var(--color-white) 82%,transparent);font-size:8px}.custom-main-product__fit{top:9px}.custom-main-product__counter{bottom:8px}.custom-main-product__counter b{font-weight:400}.custom-main-product__mobile-wishlist{display:block;position:absolute;z-index:3;top:7px;right:7px}.custom-main-product__mobile-highlights{display:block;position:absolute;z-index:3;right:7px;bottom:7px}.custom-main-product__mobile-highlights .custom-highlights{justify-content:flex-end}.custom-main-product__mobile-highlights .custom-highlights span{background:color-mix(in srgb,var(--color-white) 84%,transparent)}.custom-main-product__intro{display:contents}.custom-main-product__heading{order:2;margin-top:9px}.custom-main-product__mobile-style{order:2}.custom-main-product__accordions{order:8;margin:35px -5px 0;padding:0 12px 0;background:var(--color-white)}.custom-main-product__desktop-highlights,.custom-main-product__desktop-wishlist,.custom-main-product__meta,.custom-main-product__editorial-video{display:none}.custom-main-product__heading{justify-content:space-between}.custom-main-product h1{font-size:12px;font-weight:600;text-transform:uppercase}.custom-main-product__mobile-price{display:block;margin-left:auto}.custom-main-product__mobile-price .custom-price{justify-content:flex-end;font-weight:600}.custom-main-product__mobile-price .custom-price>*:not(.custom-price__current){display:none}.custom-main-product__mobile-style{display:block;margin:2px 0 0;color:var(--color-text-secondary);font-size:9px}.custom-main-product__purchase{display:contents}.custom-main-product__styles{order:3;margin:9px 0 0}.custom-main-product__styles>p{margin-bottom:4px}.custom-main-product__styles>div{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.custom-main-product__styles a{flex:0 0 min(var(--style-width),22vw);width:min(var(--style-width),22vw);height:min(var(--style-height),31vw)}.custom-main-product__sizing{order:4;margin:9px -5px 0;padding:7px 7px 2px;border-radius:14px 14px 0 0;background:var(--color-white)}.custom-main-product__size-head{margin:0;flex-direction:row-reverse}.custom-main-product__sizing .custom-size-switcher{position:absolute;left:10px;margin-top:-37px}.custom-main-product__sizing .custom-measurements{gap:5px;flex-wrap:nowrap;justify-content:flex-start;padding-right:94px;white-space:nowrap}.custom-main-product__sizing [data-custom-chart-open]{margin-left:auto}.custom-main-product>.custom-variants{order:5;margin:0 -5px;padding:0 7px;background:var(--color-white)}.custom-main-product .custom-variants fieldset{margin:4px 0 9px;flex-wrap:nowrap;overflow-x:auto;padding:4px;scrollbar-width:none}.custom-main-product .custom-variants legend{display:none}.custom-main-product .custom-variants button{flex:0 0 39px;min-width:39px;min-height:39px;padding:6px}.custom-main-product__desktop-price{display:none}.custom-main-product__actions{order:6;display:flex;flex-direction:column;gap:6px;margin:0 -5px;padding:0 7px 7px;background:var(--color-white)}.custom-main-product__actions form{width:100%}.custom-main-product__actions .custom-add-button,.custom-main-product__buy{min-height:39px}.custom-main-product__benefits{order:7;margin:0 -5px;padding:12px 8px;background:var(--color-white)}.custom-main-product__benefit:nth-child(n){display:flex}.custom-main-product__benefit{flex-direction:column;font-size:8px}.custom-main-product__benefit img{width:27px;height:27px}.custom-main-product__accordion>button{min-height:38px;text-transform:none}.custom-main-product__purchase>.custom-size-chart{inset:auto auto 8px 50%;width:calc(100vw - 16px);height:auto;max-height:calc(100dvh - 24px);padding:34px 0 0;border-radius:16px;transform:translateX(-50%);background:var(--color-white)}.custom-main-product__purchase>.custom-size-chart::backdrop{background:color-mix(in srgb,var(--color-primary-dark) 25%,transparent)}}
+  @media(min-width:951px){
+    .custom-main-product-section{display:block!important;height:auto!important;min-height:0!important;overflow:visible!important;contain:none!important}
+    .custom-main-product.custom-commerce{--pdp-sticky-top:var(--header-group-height,var(--header-height,0px));--pdp-viewport-height:calc(100svh - var(--pdp-sticky-top));display:grid!important;grid-template-columns:32% 34% 32%;grid-template-rows:auto;grid-template-areas:"intro media purchase";column-gap:1%;width:100%;height:auto!important;min-height:var(--pdp-viewport-height);align-items:start;padding:0 1.5vw;overflow:visible!important;contain:none!important}
+    .custom-main-product__intro,.custom-main-product__purchase{position:sticky;top:var(--pdp-sticky-top);box-sizing:border-box;width:100%;max-width:100%;height:var(--pdp-viewport-height);min-height:0;align-self:start;overflow:hidden}
+    .custom-main-product__intro{display:flex;justify-content:flex-start;padding:1vw 0}
+    .custom-main-product__heading{flex:0 0 auto}
+    .custom-main-product__editorial-video{flex:0 1 19vw;min-height:0;margin:auto 0 1vw auto}
+    .custom-main-product__accordions{position:static;flex:0 0 auto;width:100%;max-height:42%;margin-top:auto;padding:0;overflow:auto;background:var(--color-background);overscroll-behavior:contain}
+    .custom-main-product__media{position:static;display:block;width:100%;max-width:100%;height:auto!important;min-height:var(--pdp-viewport-height);overflow:visible!important;overscroll-behavior:auto;contain:none!important}
+    .custom-main-product__media-track{position:static;display:block;width:100%;height:auto!important;max-height:none!important;overflow:visible!important;contain:none!important}
+    .custom-main-product__media-item{position:relative;display:block;width:100%;height:var(--pdp-viewport-height);min-height:var(--pdp-viewport-height);margin:0 0 .3vw;overflow:hidden}
+    .custom-main-product__media-item:last-child{margin-bottom:0}
+    .custom-main-product__media-item>img,.custom-main-product__media-item>svg{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+    .custom-main-product__media-item :is(video,iframe,model-viewer){width:100%;height:100%;min-height:0}
+    .custom-main-product__purchase{display:flex;padding:1vw 0 0 5px}
+    .custom-main-product__sizing{flex:0 0 auto}
+    .custom-main-product__purchase>.custom-variants{flex:0 0 auto}
+    .custom-main-product .custom-variants fieldset{margin:clamp(6px,1.2svh,12px) 0}
+    .custom-main-product .custom-variants button{min-height:clamp(36px,5.5svh,44px)}
+    .custom-main-product__desktop-price{flex:0 0 auto;margin-top:clamp(10px,3svh,25px)}
+    .custom-main-product__styles{flex:0 1 auto;min-height:0;margin-top:auto;overflow:hidden}
+    .custom-main-product__styles a{height:min(var(--style-height),18svh)}
+    .custom-main-product__actions,.custom-main-product__benefits{flex:0 0 auto}
+    .custom-main-product__purchase>.custom-size-chart{inset:var(--pdp-sticky-top) auto 0 0;height:var(--pdp-viewport-height)}
+  }
+  @media(prefers-reduced-motion:reduce){.custom-main-product *{scroll-behavior:auto!important}.custom-main-product__accordion-panel,.custom-main-product__accordion svg,.custom-main-product__video-toggle{transition:none}}
+{% endstylesheet %}
+
+{% javascript %}
+  (()=>{const roots=document.querySelectorAll('.custom-main-product:not([data-main-ready])');for(const root of roots){root.dataset.mainReady='true';const gallery=root.querySelector('[data-product-media-gallery]'),track=root.querySelector('.custom-main-product__media-track'),items=[...root.querySelectorAll('[data-product-media]')],counter=root.querySelector('[data-media-current]');if(gallery&&items.length&&counter&&'IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)counter.textContent=visible.target.dataset.mediaIndex},{root:track,threshold:[.45,.65,.85]});items.forEach(item=>observer.observe(item))}root.addEventListener('click',event=>{const video=event.target.closest('[data-video-toggle]');if(video){const expanded=video.toggleAttribute('data-expanded');video.setAttribute('aria-label',expanded?'Reduce product video':'Enlarge product video')}const trigger=event.target.closest('[data-accordion-trigger]');if(!trigger)return;const opening=trigger.getAttribute('aria-expanded')!=='true';root.querySelectorAll('[data-accordion-trigger]').forEach(button=>{button.setAttribute('aria-expanded','false');const panel=document.getElementById(button.getAttribute('aria-controls'));panel?.removeAttribute('data-open');panel?.setAttribute('inert','')});if(opening){trigger.setAttribute('aria-expanded','true');const panel=document.getElementById(trigger.getAttribute('aria-controls'));panel?.setAttribute('data-open','');panel?.removeAttribute('inert')}});root.addEventListener('custom:variant-change',event=>{const button=root.querySelector('.custom-main-product__buy');if(button)button.disabled=!event.detail.variant.available})}})();
+{% endjavascript %}
+
+{% schema %}
+{"name":"Custom main product","tag":"section","class":"custom-main-product-section","settings":[{"type":"richtext","id":"shipping_content","label":"Shipping and delivery content"},{"type":"richtext","id":"returns_content","label":"Return and exchange content"}],"blocks":[{"type":"more_styles","name":"More Styles","limit":1,"settings":[{"type":"text","id":"label","label":"Label","default":"More Styles"},{"type":"product_list","id":"products","label":"Products"},{"type":"range","id":"image_width","label":"Image width","min":50,"max":160,"step":2,"unit":"px","default":80},{"type":"range","id":"image_height","label":"Image height","min":70,"max":220,"step":2,"unit":"px","default":116},{"type":"range","id":"gap","label":"Gap","min":2,"max":24,"step":1,"unit":"px","default":6}]},{"type":"benefit","name":"Benefit","limit":3,"settings":[{"type":"image_picker","id":"icon","label":"Icon"},{"type":"textarea","id":"text","label":"Text"}]}],"presets":[{"name":"Custom main product","blocks":[{"type":"more_styles"},{"type":"benefit"},{"type":"benefit"},{"type":"benefit"}]}]}
+{% endschema %}
