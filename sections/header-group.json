@@ -77,6 +77,14 @@
             "link": "shopify://collections/all",
             "button_label": "Shop now"
           }
+        },
+        "story_video_xQ39VG": {
+          "type": "story_video",
+          "settings": {
+            "video": "shopify://files/videos/31d5ac2ee5c74eb98c1fc20ecf064e79.mp4",
+            "link": "shopify://collections/all",
+            "button_label": "Shop now"
+          }
         }
       },
       "block_order": [
@@ -87,7 +95,8 @@
         "nav_4",
         "nav_5",
         "nav_6",
-        "story_video_WgUUqn"
+        "story_video_WgUUqn",
+        "story_video_xQ39VG"
       ],
       "settings": {
         "wordmark": "OLECUTE",
