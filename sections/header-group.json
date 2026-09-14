@@ -18,7 +18,7 @@
           "type": "nav_item",
           "settings": {
             "label": "New in",
-            "link": "",
+            "link": "shopify://collections/new-in",
             "show_indicator": false
           }
         },
