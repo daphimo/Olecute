@@ -1,3 +1,4 @@
+// Vertical wheel behavior from the supplied 0.2.28 reference; native input otherwise.
 function createReferenceScroll() {
   const platform = navigator.userAgentData?.platform || navigator.platform || '';
   const multiplier = /Win|Linux/.test(platform) ? 0.84 : 0.4;
@@ -69,6 +70,7 @@ function createReferenceScroll() {
     listen(document, 'visibilitychange', cancel);
     listen(document, 'pointerdown', cancel, { capture: true, passive: true });
     listen(document, 'touchstart', cancel, { capture: true, passive: true });
+    // Cancel momentum only; keyboard defaults are never prevented or virtualized.
     listen(document, 'keydown', cancel, { capture: true });
     observer = new ResizeObserver(resize);
     observer.observe(document.body);
