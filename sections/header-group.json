@@ -14,62 +14,6 @@
     "header_section": {
       "type": "header",
       "blocks": {
-        "nav_item_j4CL7D": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Home",
-            "link": "/",
-            "show_indicator": false
-          }
-        },
-        "nav_1": {
-          "type": "nav_item",
-          "settings": {
-            "label": "New in",
-            "link": "shopify://collections/new-in",
-            "show_indicator": false
-          }
-        },
-        "nav_2": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Shop All",
-            "link": "shopify://collections/all",
-            "show_indicator": false
-          }
-        },
-        "nav_3": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Dresses",
-            "link": "shopify://collections/dresses",
-            "show_indicator": false
-          }
-        },
-        "nav_4": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Trending",
-            "link": "shopify://collections/trending",
-            "show_indicator": true
-          }
-        },
-        "nav_5": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Tops",
-            "link": "shopify://collections/tops",
-            "show_indicator": false
-          }
-        },
-        "nav_6": {
-          "type": "nav_item",
-          "settings": {
-            "label": "Co Ords",
-            "link": "shopify://collections/co-ord-sets",
-            "show_indicator": false
-          }
-        },
         "story_video_WgUUqn": {
           "type": "story_video",
           "settings": {
@@ -88,13 +32,6 @@
         }
       },
       "block_order": [
-        "nav_item_j4CL7D",
-        "nav_1",
-        "nav_2",
-        "nav_3",
-        "nav_4",
-        "nav_5",
-        "nav_6",
         "story_video_WgUUqn",
         "story_video_xQ39VG"
       ],
@@ -102,7 +39,6 @@
         "wordmark": "OLECUTE",
         "logo": "shopify://shop_images/logo1.png",
         "animation_type": "text_to_logo",
-        "quote": "GIVING YOU A NEW STYLE",
         "scroll_distance": 650,
         "wishlist_link": "shopify://pages/wishlist",
         "special_link": "",
@@ -131,10 +67,7 @@
         "chat_link": "https://wa.me/918952011127",
         "return_link": "shopify://pages/return-exchange-policy",
         "return_policy_link": "shopify://pages/return-policy",
-        "submit_link": "shopify://pages/submit-request",
-        "drawer_image_left": "shopify://shop_images/download_-_2026-05-06T003635.711.png",
-        "drawer_image_center": "shopify://shop_images/adfjpeg_2x_839aa034-da36-4b82-9f.png",
-        "drawer_image_right": "shopify://shop_images/download_-_2026-05-06T003703.332.png"
+        "submit_link": "shopify://pages/submit-request"
       }
     }
   },

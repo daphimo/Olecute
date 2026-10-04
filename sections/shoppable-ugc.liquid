@@ -1,0 +1,133 @@
+{{ 'shoppable-ugc.css' | asset_url | stylesheet_tag }}
+{% render 'brand-colors', scope: '.shoppable-ugc, .shoppable-ugc__dialog' %}
+<script src="{{ 'shoppable-ugc.js' | asset_url }}" type="module"></script>
+
+{% if section.settings.data_source == 'metaobjects' %}{% assign ugc_items = shop.metaobjects.shopable_video_popup.values %}{% else %}{% assign ugc_items = section.blocks %}{% endif %}
+{% assign rendered_count = 0 %}
+{% capture ugc_cards %}
+  {% for item in ugc_items %}
+    {% if section.settings.data_source == 'metaobjects' and rendered_count >= section.settings.metaobject_limit %}{% break %}{% endif %}
+    {% if section.settings.data_source == 'metaobjects' %}{% assign item_video = item.video.value %}{% assign item_product = item.product.value %}{% assign item_poster = item_video.preview_image %}{% else %}{% assign item_video = item.settings.video %}{% assign item_product = item.settings.product %}{% assign item_poster = item.settings.poster_image | default: item_video.preview_image %}{% endif %}
+    {% if item_video != blank and item_video.sources != blank %}
+      {% assign rendered_count = rendered_count | plus: 1 %}
+      <li class="splide__slide shoppable-ugc__slide" data-block-id="{{ item.id }}" {% if section.settings.data_source == 'blocks' %}{{ item.shopify_attributes }}{% endif %}>
+        <article class="shoppable-ugc__card">
+          <div class="shoppable-ugc__media">
+            <video preload="metadata" playsinline {% if section.settings.autoplay_videos %}autoplay{% endif %} {% if section.settings.loop_videos %}loop{% endif %} muted {% if item_poster != blank %}poster="{{ item_poster | image_url: width: 900 }}"{% endif %}>
+              {% for source in item_video.sources %}<source src="{{ source.url }}" type="{{ source.mime_type }}">{% endfor %}
+            </video>
+          </div>
+          <button class="shoppable-ugc__open" type="button" data-reel-open data-reel-index="{{ rendered_count | minus: 1 }}" aria-label="Watch shoppable video {{ rendered_count }}"></button>
+          <button class="shoppable-ugc__play" type="button" aria-label="Play video" {% if section.settings.autoplay_videos %}hidden{% endif %}><span data-play>{{ 'icon-play.svg' | inline_asset_content }}</span><span data-pause hidden>{{ 'icon-pause.svg' | inline_asset_content }}</span></button>
+          {% render 'shoppable-ugc-product-stripe', product: item_product, button_label: section.settings.shop_button_label, show_wishlist: false %}
+        </article>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign reel_count = 0 %}
+{% capture ugc_reels %}
+  {% for item in ugc_items %}
+    {% if section.settings.data_source == 'metaobjects' and reel_count >= section.settings.metaobject_limit %}{% break %}{% endif %}
+    {% if section.settings.data_source == 'metaobjects' %}{% assign item_video = item.video.value %}{% assign item_product = item.product.value %}{% assign item_poster = item_video.preview_image %}{% else %}{% assign item_video = item.settings.video %}{% assign item_product = item.settings.product %}{% assign item_poster = item.settings.poster_image | default: item_video.preview_image %}{% endif %}
+    {% if item_video != blank and item_video.sources != blank %}
+      {% assign reel_count = reel_count | plus: 1 %}
+      <li class="splide__slide shoppable-ugc__reel-slide">
+        <div class="shoppable-ugc__reel-player">
+          <video class="shoppable-ugc__reel-video" preload="metadata" playsinline {% if section.settings.loop_videos %}loop{% endif %} {% if item_poster != blank %}poster="{{ item_poster | image_url: width: 1200 }}"{% endif %}>{% for source in item_video.sources %}<source src="{{ source.url }}" type="{{ source.mime_type }}">{% endfor %}</video>
+          <div class="shoppable-ugc__reel-overlay">
+            <div class="shoppable-ugc__reel-top">
+              {% if settings.logo != blank %}<div class="shoppable-ugc__logo">{{ settings.logo | image_url: width: 300 | image_tag: widths: '150,300', sizes: '130px', loading: 'lazy', alt: shop.name }}</div>{% else %}<strong class="shoppable-ugc__logo">{{ shop.name | escape }}</strong>{% endif %}
+              <button class="shoppable-ugc__close" type="button" data-reel-close aria-label="Close videos"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'close' %}</svg></button>
+            </div>
+            <div class="shoppable-ugc__reel-actions">
+              {% if item_product != blank and section.settings.show_wishlist %}<div class="shoppable-ugc__reel-wishlist">{% render 'custom-wishlist-button', product: item_product %}<span>Wishlist</span></div>{% endif %}
+              <button class="shoppable-ugc__sound" type="button" data-reel-sound aria-label="Unmute video" aria-pressed="true"><svg data-sound-on viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'volume' %}</svg><svg data-sound-off viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'mute' %}</svg></button>
+            </div>
+            {% render 'shoppable-ugc-product-stripe', product: item_product, button_label: section.settings.shop_button_label, show_wishlist: false %}
+          </div>
+        </div>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% if rendered_count > 0 or request.design_mode %}
+<shoppable-ugc
+  class="section section--page-width shoppable-ugc"
+  data-autoplay-videos="{{ section.settings.autoplay_videos }}"
+  data-autoplay-slides="{{ section.settings.autoplay_slides }}"
+  data-interval="{{ section.settings.slide_speed | times: 1000 }}"
+  data-pause-offscreen="{{ section.settings.pause_offscreen }}"
+  data-slide-type="{{ section.settings.slide_type }}"
+  data-desktop="{{ section.settings.desktop_count }}"
+  data-mobile="{{ section.settings.mobile_count }}"
+  style="--ugc-top: {{ section.settings.padding_top }}px; --ugc-bottom: {{ section.settings.padding_bottom }}px; --ugc-mobile-top: {{ section.settings.padding_top_mobile }}px; --ugc-mobile-bottom: {{ section.settings.padding_bottom_mobile }}px; --ugc-ratio: {{ section.settings.video_aspect_ratio }}; --ugc-radius: {{ section.settings.card_radius }}px; --ugc-border-opacity: {{ section.settings.card_border_opacity }}%; --ugc-gap: {{ section.settings.card_gap }}px; --ugc-mobile-gap: {{ section.settings.card_gap_mobile }}px; --ugc-product-size: {{ section.settings.product_image_size }}px;"
+>
+  <div class="shoppable-ugc__inner">
+    {% if section.settings.show_header %}<header class="shoppable-ugc__header shoppable-ugc__header--{{ section.settings.header_alignment }}">{% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow | escape }}</p>{% endif %}{% if section.settings.heading != blank %}<h2 id="ShoppableUgcHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>{% endif %}{% if section.settings.description != blank %}<div>{{ section.settings.description | escape | newline_to_br }}</div>{% endif %}</header>{% endif %}
+    {% if rendered_count > 0 %}
+      <div class="splide shoppable-ugc__slider" role="region" {% if section.settings.heading != blank %}aria-labelledby="ShoppableUgcHeading-{{ section.id }}"{% else %}aria-label="Shoppable videos"{% endif %}>
+        {% if section.settings.show_navigation %}<div class="splide__arrows shoppable-ugc__arrows"><button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous video"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg></button><button class="splide__arrow splide__arrow--next" type="button" aria-label="Next video"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg></button></div>{% endif %}
+        <div class="splide__track"><ul class="splide__list">{{ ugc_cards }}</ul></div>
+      </div>
+      {% if section.settings.show_progress %}<div class="shoppable-ugc__progress" role="progressbar" aria-label="Video slider progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span data-ugc-progress></span></div>{% endif %}
+    {% elsif request.design_mode %}<p class="shoppable-ugc__empty">Add shoppable video blocks or configure the Metaobject source.</p>{% endif %}
+  </div>
+  {% if rendered_count > 0 %}
+    <dialog class="shoppable-ugc__dialog" data-reel-dialog aria-label="Shoppable videos">
+      <div class="splide shoppable-ugc__reels" data-reel-slider><div class="splide__track"><ul class="splide__list">{{ ugc_reels }}</ul></div></div>
+    </dialog>
+  {% endif %}
+</shoppable-ugc>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Shoppable UGC",
+  "tag": "section",
+  "class": "shoppable-ugc-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 20,
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "checkbox", "id": "show_header", "label": "Show header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SHOP THE MOMENT" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Watch. Discover. Shop." },
+    { "type": "textarea", "id": "description", "label": "Description" },
+    { "type": "select", "id": "header_alignment", "label": "Header alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }] },
+    { "type": "header", "content": "Video source" },
+    { "type": "select", "id": "data_source", "label": "Video source", "default": "blocks", "options": [{ "value": "blocks", "label": "Section blocks" }, { "value": "metaobjects", "label": "shopable_video_popup Metaobjects" }] },
+    { "type": "range", "id": "metaobject_limit", "label": "Maximum Metaobject videos", "min": 1, "max": 20, "step": 1, "default": 12 },
+    { "type": "header", "content": "Slider" },
+    { "type": "select", "id": "slide_type", "label": "Slide type", "default": "slide", "options": [{ "value": "slide", "label": "Stop at ends" }, { "value": "loop", "label": "Loop" }] },
+    { "type": "select", "id": "desktop_count", "label": "Videos visible on desktop", "default": "3.5", "options": [{ "value": "2.5", "label": "2.5" }, { "value": "3", "label": "3" }, { "value": "3.5", "label": "3.5" }, { "value": "4", "label": "4" }, { "value": "4.5", "label": "4.5" }] },
+    { "type": "select", "id": "mobile_count", "label": "Videos visible on mobile", "default": "1.25", "options": [{ "value": "1", "label": "1" }, { "value": "1.25", "label": "1.25" }, { "value": "1.5", "label": "1.5" }] },
+    { "type": "checkbox", "id": "show_navigation", "label": "Show navigation", "default": true },
+    { "type": "checkbox", "id": "show_progress", "label": "Show progress bar", "default": true },
+    { "type": "checkbox", "id": "autoplay_slides", "label": "Autoplay slides", "default": false },
+    { "type": "range", "id": "slide_speed", "label": "Slide interval", "min": 2, "max": 10, "step": 1, "unit": "s", "default": 5 },
+    { "type": "range", "id": "card_gap", "label": "Desktop gap", "min": 4, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "card_gap_mobile", "label": "Mobile gap", "min": 4, "max": 30, "step": 2, "unit": "px", "default": 12 },
+    { "type": "select", "id": "video_aspect_ratio", "label": "Video aspect ratio", "default": "9 / 14", "options": [{ "value": "9 / 16", "label": "9:16" }, { "value": "9 / 14", "label": "9:14" }, { "value": "4 / 5", "label": "4:5" }, { "value": "3 / 4", "label": "3:4" }] },
+    { "type": "header", "content": "Playback" },
+    { "type": "checkbox", "id": "autoplay_videos", "label": "Autoplay videos", "default": true },
+    { "type": "checkbox", "id": "loop_videos", "label": "Loop videos", "default": true },
+    { "type": "checkbox", "id": "pause_offscreen", "label": "Pause offscreen videos", "default": true },
+    { "type": "header", "content": "Cards" },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 18 },
+    { "type": "range", "id": "card_border_opacity", "label": "Border opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 20 },
+    { "type": "range", "id": "product_image_size", "label": "Product image size", "min": 40, "max": 80, "step": 2, "unit": "px", "default": 54 },
+    { "type": "text", "id": "shop_button_label", "label": "Shop button label", "default": "Shop" },
+    { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist in reel", "default": true },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "blocks": [{ "type": "video", "name": "Shoppable video", "settings": [{ "type": "video", "id": "video", "label": "Video" }, { "type": "image_picker", "id": "poster_image", "label": "Poster image" }, { "type": "product", "id": "product", "label": "Product" }] }],
+  "presets": [{ "name": "Shoppable UGC", "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }] }]
+}
+{% endschema %}

@@ -15,10 +15,11 @@ class OlecuteHeader extends HTMLElement {
     this.mobile = matchMedia('(max-width: 749px)');
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)');
     this.home = this.dataset.home === 'true';
-    this.parts = Object.fromEntries(['wordmark', 'landing-nav', 'landing-quote', 'landing-menu', 'standard-nav', 'standard-quote', 'resting-logo'].map((key) => [key, this.querySelector(`[data-${key}]`)]));
+    this.parts = Object.fromEntries(['wordmark', 'landing-menu', 'resting-logo'].map((key) => [key, this.querySelector(`[data-${key}]`)]));
     this.counts = [...this.querySelectorAll('[data-cart-count]')];
     this.dialogs = [...this.querySelectorAll('[data-header-dialog]')];
     this.triggers = [...this.querySelectorAll('[data-header-open]')];
+    this.dropdowns = [...this.querySelectorAll('.olecute-header__dropdown')];
     this.listen(this, 'click', this.onClick);
     this.listen(this, 'input', this.onSearchInput);
     document.addEventListener('click', this.onExternalSearch, { capture: true, signal: this.controller.signal });
@@ -29,6 +30,24 @@ class OlecuteHeader extends HTMLElement {
     this.listen(this.reduced, 'change', this.schedule);
     this.listen(document, StandardEvents.cartLinesUpdate, this.onCartUpdate);
     this.listen(document, 'theme-drawer:open', this.closeDrawer);
+    for (const dropdown of this.dropdowns) {
+      this.listen(dropdown, 'mouseenter', () => {
+        if (this.mobile.matches) return;
+        clearTimeout(dropdown.hoverCloseTimer);
+        this.dropdowns.forEach((item) => { if (item !== dropdown) item.removeAttribute('open'); });
+        dropdown.setAttribute('open', '');
+      });
+      this.listen(dropdown, 'mouseleave', (event) => {
+        if (event.relatedTarget instanceof Node && dropdown.contains(event.relatedTarget)) return;
+        clearTimeout(dropdown.hoverCloseTimer);
+        dropdown.hoverCloseTimer = setTimeout(() => {
+          if (!dropdown.matches(':hover') && !dropdown.contains(document.activeElement)) dropdown.removeAttribute('open');
+        }, 250);
+      });
+      this.listen(dropdown, 'focusout', (event) => {
+        if (!dropdown.contains(event.relatedTarget) && !dropdown.matches(':hover')) dropdown.removeAttribute('open');
+      });
+    }
     for (const dialog of this.dialogs) {
       this.listen(dialog, 'cancel', (event) => { event.preventDefault(); this.closeDrawer(); });
       this.listen(dialog, 'close', () => { if (this.activeDialog === dialog && !dialog.open) this.releaseDrawer(); });
@@ -83,8 +102,8 @@ class OlecuteHeader extends HTMLElement {
     const logo = this.parts.wordmark?.firstElementChild;
     if (logo && !this.mobile.matches) {
       const width = this.clientWidth - (this.clientWidth <= 1100 ? 32 : 40);
-      this.compactX = (this.parts['landing-menu']?.offsetWidth || 70) + 12;
-      this.style.setProperty('--resting-logo-x', `${this.compactX}px`);
+      this.compactX = 0;
+      this.style.setProperty('--resting-logo-x', '0px');
       const image = logo.querySelector('img');
       if (image) {
         const ratio = Number(image.getAttribute('width')) / Number(image.getAttribute('height')) || 4;
@@ -133,31 +152,21 @@ class OlecuteHeader extends HTMLElement {
     if (this.home) {
       const p = this.reduced.matches ? 1 : clamp(y / Number(this.dataset.distance || 650));
       const shrink = 1 - Math.pow(1 - p, 2);
-      let departure = phase(p, .35, .76);
-      if (this.parts['landing-nav']?.contains(document.activeElement)) departure = Math.min(departure, .5);
-      const menu = phase(p, .52, .9);
+      const menu = phase(p, .9, 1);
       const logoFade = this.parts['resting-logo'] ? phase(p, .84, 1) : 0;
       this.set({
         surface: phase(p, .78, 1),
         'logo-scale': 1 + ((this.compactScale || .15) - 1) * shrink,
-        'logo-x': `${(this.compactX || 80) * shrink}px`, 'logo-y': `${78 + ((this.compactY ?? 21) - 78) * shrink}px`,
+        'logo-x': `${(this.compactX ?? 0) * shrink}px`, 'logo-y': `${78 + ((this.compactY ?? 21) - 78) * shrink}px`,
         'wordmark-opacity': 1 - logoFade, 'image-logo-opacity': logoFade,
         'logo-color': `${phase(p, .5, .85) * 100}%`,
-        'nav-opacity': 1 - departure, 'nav-y': `${-50 * departure}px`,
-        'quote-opacity': 1 - departure, 'quote-y': `${-45 * departure}px`,
-        'menu-opacity': menu, 'menu-x': `${-100 * (1 - menu)}px`,
+        'menu-opacity': menu, 'menu-y': `${-10 * (1 - menu)}px`,
       });
       this.visibility(this.parts.wordmark, logoFade < .5);
       this.visibility(this.parts['resting-logo'], logoFade >= .5);
-      this.visibility(this.parts['landing-nav'], departure < .99);
-      this.visibility(this.parts['landing-quote'], departure < .99);
       this.visibility(this.parts['landing-menu'], menu > .1);
     } else {
-      let p = this.reduced.matches ? 0 : phase(y / 100, 0, 1);
-      if (this.parts['standard-nav']?.contains(document.activeElement)) p = Math.min(p, .5);
-      this.set({ surface: 1, 'nav-opacity': 1 - p, 'nav-y': `${-22 * p}px`, 'quote-opacity': p, 'quote-y': `${16 * (1 - p)}px` });
-      this.visibility(this.parts['standard-nav'], p < .99);
-      this.visibility(this.parts['standard-quote'], p > .01);
+      this.set({ surface: 1 });
     }
   }
 

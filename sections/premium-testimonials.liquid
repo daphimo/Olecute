@@ -1,0 +1,188 @@
+{{ 'premium-testimonials.css' | asset_url | stylesheet_tag }}
+{% render 'brand-colors', scope: '.olecute-testimonials' %}
+<script src="{{ 'premium-testimonials.js' | asset_url }}" type="module"></script>
+
+<olecute-testimonials
+  class="section section--page-width olecute-testimonials"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-interval="{{ section.settings.autoplay_speed | times: 1000 }}"
+  data-desktop="{{ section.settings.cards_desktop }}"
+  data-tablet="{{ section.settings.cards_tablet }}"
+  data-mobile="{{ section.settings.cards_mobile }}"
+  data-gap="{{ section.settings.gap_desktop }}"
+  data-mobile-gap="{{ section.settings.gap_mobile }}"
+  style="--reviews-media-height: {{ section.settings.media_height }}px; --reviews-media-height-mobile: {{ section.settings.media_height_mobile }}px; --reviews-media-position: {{ section.settings.media_position }}; --reviews-radius: {{ section.settings.card_radius }}px; --reviews-card-padding: {{ section.settings.card_padding }}px; --reviews-top: {{ section.settings.padding_top }}px; --reviews-bottom: {{ section.settings.padding_bottom }}px; --reviews-mobile-top: {{ section.settings.mobile_padding_top }}px; --reviews-mobile-bottom: {{ section.settings.mobile_padding_bottom }}px; --reviews-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --reviews-modal-width: {{ section.settings.popup_width }}px;"
+>
+  <div class="olecute-testimonials__inner">
+    <header class="olecute-testimonials__header">
+      <div class="olecute-testimonials__intro">
+        {% if section.settings.eyebrow != blank %}<p class="olecute-testimonials__eyebrow"><span aria-hidden="true"></span>{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {% if section.settings.heading != blank or section.settings.highlighted_heading != blank %}
+          <h2 id="ReviewsHeading-{{ section.id }}" class="olecute-testimonials__heading">
+            {% if section.settings.heading != blank %}<span>{{ section.settings.heading | escape }}</span>{% endif %}
+            {% if section.settings.highlighted_heading != blank %}<em>{{ section.settings.highlighted_heading | escape }}</em>{% endif %}
+          </h2>
+        {% endif %}
+        {% if section.settings.show_rating or section.settings.show_trusted_text %}
+          <div class="olecute-testimonials__summary">
+            {% if section.settings.show_rating %}
+              <span class="olecute-testimonials__stars" aria-label="{{ section.settings.rating }} out of 5 stars">
+                {% for index in (1..5) %}<svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'star' %}</svg>{% endfor %}
+              </span>
+              <strong>{{ section.settings.rating | escape }}</strong>
+            {% endif %}
+            {% if section.settings.show_trusted_text and section.settings.trusted_text != blank %}<span class="olecute-testimonials__trusted"><i aria-hidden="true"></i>{{ section.settings.trusted_text | escape }}</span>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </header>
+
+    {% if section.blocks.size > 0 %}
+      <div class="splide olecute-testimonials__slider" role="region" aria-labelledby="ReviewsHeading-{{ section.id }}">
+        {% if section.settings.show_navigation and section.blocks.size > 1 %}
+          <div class="splide__arrows olecute-testimonials__arrows">
+            <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg></button>
+            <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg></button>
+          </div>
+        {% endif %}
+        <div class="splide__track">
+          <ul class="splide__list">
+            {% for block in section.blocks %}
+              {% liquid
+                assign has_media = false
+                if block.settings.media_type == 'image' and block.settings.image != blank
+                  assign has_media = true
+                elsif block.settings.media_type == 'video' and block.settings.video != blank
+                  assign has_media = true
+                endif
+                assign initial = block.settings.customer_initial | default: block.settings.customer_name | slice: 0
+              %}
+              <li class="splide__slide olecute-testimonials__slide" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+                <button class="olecute-testimonials__card" type="button" data-review-open="{{ block.id }}" {% unless block.settings.enable_popup %}data-popup-disabled{% endunless %} aria-label="Read full review by {{ block.settings.customer_name | escape }}">
+                  {% if has_media %}
+                    <span class="olecute-testimonials__media">
+                      {% if block.settings.product_label != blank %}<span class="olecute-testimonials__label">{{ block.settings.product_label | escape }}</span>{% endif %}
+                      {% if block.settings.media_type == 'image' %}
+                        {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320,480,640,800,1000', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 40vw, 85vw', alt: block.settings.image.alt }}
+                      {% else %}
+                        {{ block.settings.video | video_tag: image_size: '1000x', autoplay: false, loop: true, muted: true, controls: false, preload: 'metadata' }}
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                  <span class="olecute-testimonials__body">
+                    <span class="olecute-testimonials__card-stars" aria-label="{{ block.settings.rating }} out of 5 stars">{% for index in (1..5) %}<svg viewBox="0 0 20 20" aria-hidden="true" {% if index > block.settings.rating %}class="is-empty"{% endif %}>{% render 'icon', icon: 'star' %}</svg>{% endfor %}</span>
+                    <span class="olecute-testimonials__review">{% if block.settings.show_quote_icon %}<svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'quote' %}</svg>{% endif %}<span>{{ block.settings.review_text | escape | newline_to_br }}</span></span>
+                    <span class="olecute-testimonials__customer">
+                      {% if block.settings.avatar != blank %}{{ block.settings.avatar | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', sizes: '42px', class: 'olecute-testimonials__avatar', alt: block.settings.customer_name }}{% else %}<span class="olecute-testimonials__initial">{{ initial | escape }}</span>{% endif %}
+                      <span class="olecute-testimonials__identity"><strong>{{ block.settings.customer_name | escape }}</strong>{% if block.settings.verified %}<small>Verified Purchase</small>{% endif %}</span>
+                      <svg class="olecute-testimonials__card-arrow" viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg>
+                    </span>
+                  </span>
+                </button>
+                {% if block.settings.enable_popup %}
+                  <template data-review-template="{{ block.id }}">
+                    <div class="olecute-testimonials__modal-media" data-modal-media {% unless section.settings.popup_show_media and has_media %}hidden{% endunless %}>
+                      {% if section.settings.popup_show_media and has_media %}
+                        {% if block.settings.media_type == 'image' %}
+                          {{ block.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '600,900,1200,1800', sizes: '(min-width: 750px) 45vw, 90vw', alt: block.settings.image.alt }}
+                        {% else %}
+                          {{ block.settings.video | video_tag: image_size: '1800x', autoplay: false, loop: false, muted: false, controls: true, preload: 'metadata' }}
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                    <div class="olecute-testimonials__modal-copy">
+                      {% if block.settings.product_label != blank %}<span class="olecute-testimonials__modal-label">{{ block.settings.product_label | escape }}</span>{% endif %}
+                      {% if section.settings.popup_show_rating %}<span class="olecute-testimonials__card-stars" aria-label="{{ block.settings.rating }} out of 5 stars">{% for index in (1..5) %}<svg viewBox="0 0 20 20" aria-hidden="true" {% if index > block.settings.rating %}class="is-empty"{% endif %}>{% render 'icon', icon: 'star' %}</svg>{% endfor %}</span>{% endif %}
+                      <blockquote>{{ block.settings.review_text | escape | newline_to_br }}</blockquote>
+                      <div class="olecute-testimonials__modal-customer"><strong>{{ block.settings.customer_name | escape }}</strong>{% if section.settings.popup_show_verified and block.settings.verified %}<span>Verified Purchase</span>{% endif %}</div>
+                      {% if block.settings.url != blank %}<a class="olecute-testimonials__product-link" href="{{ block.settings.url }}">View product <svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'arrow' %}</svg></a>{% endif %}
+                    </div>
+                  </template>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% if section.settings.show_progress and section.blocks.size > 1 %}<div class="olecute-testimonials__progress" aria-hidden="true"><span data-progress></span></div>{% endif %}
+    {% elsif request.design_mode %}
+      <p class="olecute-testimonials__empty">Add testimonial blocks to populate this section.</p>
+    {% endif %}
+  </div>
+
+  <dialog class="olecute-testimonials__dialog" data-review-dialog aria-label="Customer review">
+    <div class="olecute-testimonials__modal">
+      <button class="olecute-testimonials__close" type="button" data-review-close aria-label="Close review"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'close' %}</svg></button>
+      <div class="olecute-testimonials__modal-content" data-modal-content></div>
+    </div>
+  </dialog>
+</olecute-testimonials>
+
+{% schema %}
+{
+  "name": "Premium testimonials",
+  "tag": "section",
+  "class": "premium-testimonials-section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "max_blocks": 16,
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "REAL WOMEN, REAL REVIEWS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What our customers" },
+    { "type": "text", "id": "highlighted_heading", "label": "Highlighted heading", "default": "are saying" },
+    { "type": "text", "id": "rating", "label": "Overall rating", "default": "4.9" },
+    { "type": "text", "id": "trusted_text", "label": "Trusted text", "default": "Trusted by 1 Million+ women across India" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show rating", "default": true },
+    { "type": "checkbox", "id": "show_trusted_text", "label": "Show trusted text", "default": true },
+    { "type": "checkbox", "id": "show_navigation", "label": "Show navigation arrows", "default": true },
+    { "type": "header", "content": "Slider" },
+    { "type": "range", "id": "cards_desktop", "label": "Cards per view desktop", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "range", "id": "cards_tablet", "label": "Cards per view tablet", "min": 1, "max": 3, "step": 1, "default": 2 },
+    { "type": "select", "id": "cards_mobile", "label": "Cards per view mobile", "default": "1.1", "options": [{ "value": "1", "label": "1" }, { "value": "1.1", "label": "1.1" }, { "value": "1.2", "label": "1.2" }] },
+    { "type": "range", "id": "gap_desktop", "label": "Desktop gap", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "gap_mobile", "label": "Mobile gap", "min": 6, "max": 24, "step": 2, "unit": "px", "default": 12 },
+    { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": false },
+    { "type": "range", "id": "autoplay_speed", "label": "Autoplay speed", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 6 },
+    { "type": "checkbox", "id": "show_progress", "label": "Show progress bar", "default": true },
+    { "type": "header", "content": "Media and cards" },
+    { "type": "range", "id": "media_height", "label": "Media height desktop", "min": 160, "max": 440, "step": 10, "unit": "px", "default": 240 },
+    { "type": "range", "id": "media_height_mobile", "label": "Media height mobile", "min": 160, "max": 360, "step": 10, "unit": "px", "default": 230 },
+    { "type": "select", "id": "media_position", "label": "Media position", "default": "center top", "options": [{ "value": "center top", "label": "Center top" }, { "value": "center center", "label": "Center" }, { "value": "center bottom", "label": "Center bottom" }] },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "card_padding", "label": "Card content padding", "min": 14, "max": 36, "step": 2, "unit": "px", "default": 20 },
+    { "type": "header", "content": "Popup" },
+    { "type": "checkbox", "id": "popup_show_media", "label": "Show media", "default": true },
+    { "type": "checkbox", "id": "popup_show_rating", "label": "Show rating", "default": true },
+    { "type": "checkbox", "id": "popup_show_verified", "label": "Show verified purchase", "default": true },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 50, "max": 95, "step": 5, "unit": "%", "default": 80 },
+    { "type": "range", "id": "popup_width", "label": "Popup maximum width", "min": 700, "max": 1000, "step": 25, "unit": "px", "default": 900 },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "select", "id": "media_type", "label": "Media type", "default": "image", "options": [{ "value": "image", "label": "Image" }, { "value": "video", "label": "Video" }] },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "video", "id": "video", "label": "Video" },
+        { "type": "image_picker", "id": "avatar", "label": "Customer avatar" },
+        { "type": "text", "id": "product_label", "label": "Product or category", "default": "CO-ORD SET" },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "review_text", "label": "Review", "default": "The quality, fit and thoughtful details made this piece feel truly special." },
+        { "type": "text", "id": "customer_name", "label": "Customer name", "default": "Olecute customer" },
+        { "type": "text", "id": "customer_initial", "label": "Customer initial", "default": "O" },
+        { "type": "checkbox", "id": "verified", "label": "Verified purchase", "default": true },
+        { "type": "checkbox", "id": "show_quote_icon", "label": "Show quote icon", "default": true },
+        { "type": "url", "id": "url", "label": "Optional product URL" },
+        { "type": "checkbox", "id": "enable_popup", "label": "Enable popup", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Premium testimonials", "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }] }]
+}
+{% endschema %}

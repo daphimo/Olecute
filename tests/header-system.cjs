@@ -20,7 +20,7 @@ const sectionText = fs.readFileSync(path.join(root,'sections/header.liquid'),'ut
 const schema = JSON.parse(sectionText.match(/{% schema %}([\s\S]*?){% endschema %}/)[1]);
 const settings = Object.fromEntries(schema.settings.map((setting)=>[setting.id, setting.default || '']));
 settings.drawer_menu = {links:[{title:'Clothing',url:'/collections/clothing',links:[{title:'Tops',url:'/collections/tops',links:[{title:'Cotton',url:'/collections/cotton',links:[]}]}]},{title:'New',url:'/collections/new',links:[]}]};
-const blocks = schema.presets[0].blocks.map((block,i)=>({...block,id:'nav-'+i,settings:{...block.settings,link:'/collections/all'}}));
+const blocks = [];
 const routes = {root_url:'/',cart_url:'/cart',account_url:'/account',search_url:'/search',predictive_search_url:'/search/suggest',all_products_collection_url:'/collections/all'};
 
 async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
@@ -56,25 +56,28 @@ async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
   const url=`http://127.0.0.1:${server.address().port}`;
   const settle=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   const scroll=async(y)=>{await page.evaluate(y=>{const el=document.querySelector('olecute-header');el.scroller.scrollTo({top:y,behavior:'instant'});el.schedule();},y);await settle();};
-  const vars=()=>page.locator('olecute-header').evaluate(el=>Object.fromEntries(['logo-scale','menu-opacity','nav-opacity','quote-opacity','mobile-quote'].map(key=>[key,Number(el.style.getPropertyValue('--'+key))])));
+  const vars=()=>page.locator('olecute-header').evaluate(el=>Object.fromEntries(['logo-scale','menu-opacity'].map(key=>[key,Number(el.style.getPropertyValue('--'+key))])));
   try {
     await page.goto(url);await page.waitForFunction(()=>document.querySelector('olecute-header').scroller);await settle();
     const scales=[];
     for(const y of [0,180,350,500,690]) {await scroll(y);scales.push((await vars())['logo-scale']);}
     assert(scales.every((value,i)=>i===0||value<scales[i-1]),'Homepage scale must shrink continuously');
     assert.equal((await vars())['menu-opacity'],1);
-    assert.equal((await vars())['nav-opacity'],0);
-    assert(await page.locator('[data-landing-nav]').evaluate(el=>el.inert));
-    await page.locator('[data-landing-menu] button').click();
-    assert(await page.locator('#desktop-menu-test').evaluate(el=>el.open));
-    assert.equal(await page.locator('#desktop-menu-test').evaluate(el=>el.getBoundingClientRect().height),900);
-    await page.keyboard.press('Tab');
-    assert(await page.evaluate(()=>document.activeElement.closest('dialog')!==null));
-    await page.locator('#desktop-menu-test [data-header-open]').click();
-    assert(await page.locator('#search-test').evaluate(el=>el.open));
-    await page.keyboard.press('Escape');await settle();
-    assert.equal(await page.locator('.page-wrapper').evaluate(()=>window.scrollY),690);
-    assert(await page.locator('[data-landing-menu] button').evaluate(el=>el===document.activeElement));
+    assert.equal(await page.locator('.olecute-header__desktop [data-header-open^="desktop-menu"]').count(),0);
+    assert.equal(await page.locator('[id^="desktop-menu-"]').count(),0);
+    assert(await page.locator('[data-landing-menu] .olecute-header__desktop-nav').isVisible());
+    const dropdown=page.locator('[data-landing-menu] .olecute-header__dropdown').first();
+    assert.equal(await dropdown.locator('summary').evaluate(el=>getComputedStyle(el).pointerEvents),'auto');
+    await dropdown.hover();
+    assert(await dropdown.evaluate(el=>el.open));
+    assert.equal(await dropdown.locator('.olecute-header__chevron').count(),1);
+    assert.equal(await dropdown.locator('.olecute-header__dropdown-panel').evaluate(el=>getComputedStyle(el).pointerEvents),'auto');
+    const dropdownLinks=dropdown.locator('.olecute-header__dropdown-panel a');
+    await dropdownLinks.first().hover();
+    await dropdownLinks.last().hover();
+    assert(await dropdown.evaluate(el=>el.open),'Dropdown stays open while moving between child links');
+    await page.locator('[data-landing-menu] .olecute-header__desktop-nav-item').last().hover();
+    assert.equal(await dropdown.evaluate(el=>el.open),false);
     await page.locator('.olecute-header__desktop [data-header-open="search-test"]').click();
     assert(await page.locator('#search-test').evaluate(el=>el.open));
     const requests=[];
@@ -120,7 +123,8 @@ async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
     await page.evaluate(()=>{const event=new Event('cart:lines:update');event.promise=Promise.resolve({cart:{totalQuantity:7}});document.dispatchEvent(event);});
     assert.deepEqual(await page.locator('[data-cart-count]').allTextContents(),['7','7','7']);
     await page.goto(url+'/internal');await settle();
-    assert.equal((await vars())['nav-opacity'],1);await scroll(140);assert.equal((await vars())['quote-opacity'],1);
+    assert(await page.locator('.olecute-header__standard .olecute-header__desktop-nav').isVisible());
+    assert.equal(await page.locator('.olecute-header__standard .olecute-header__left .olecute-header__menu').count(),0);
     for(const width of [320,390,430,749,750,990,1360]) {
       await page.setViewportSize({width,height:900});await settle();await scroll(0);
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No horizontal viewport overflow at '+width);
@@ -202,17 +206,14 @@ async function fixture(home, mode = 'text_to_logo', hasLogo = true) {
     assert.equal(await page.locator('.olecute-header__spinner').evaluate(el=>getComputedStyle(el).animationName),'none');
     await page.emulateMedia({reducedMotion:'no-preference'});await settle();
     await scroll(690);
-    await page.locator('[data-landing-menu] button').click();
     await page.evaluate(()=>{const old=document.querySelector('olecute-header');const replacement=old.cloneNode(true);replacement.querySelectorAll('dialog').forEach(dialog=>dialog.removeAttribute('open'));old.replaceWith(replacement);});
     await settle();
     assert.equal(await page.locator('.page-wrapper').evaluate(el=>el.style.overflow),'');
-    await page.locator('[data-landing-menu] button').click();
-    assert(await page.locator('#desktop-menu-test').evaluate(el=>el.open));
+    assert(await page.locator('[data-landing-menu] .olecute-header__desktop-nav').isVisible());
     await page.setViewportSize({width:390,height:844});await settle();
-    assert.equal(await page.locator('#desktop-menu-test').evaluate(el=>el.open),false);
     await page.setViewportSize({width:1360,height:900});await settle();
     const output=process.env.HEADER_SCREENSHOTS;
-    if(output){fs.mkdirSync(output,{recursive:true});await page.locator('[data-landing-menu] button').click();await page.waitForTimeout(300);await page.screenshot({path:path.join(output,'desktop-drawer.png')});await page.keyboard.press('Escape');await page.setViewportSize({width:390,height:844});await settle();await page.locator('.olecute-header__mobile [data-header-open="mobile-menu-test"]').click();await page.waitForTimeout(300);await page.screenshot({path:path.join(output,'mobile-drawer.png')});await page.keyboard.press('Escape');await page.setViewportSize({width:1360,height:900});await settle();for(const y of [0,200,400,690]){await scroll(y);await page.screenshot({path:path.join(output,`home-${y}.png`)});}await page.setViewportSize({width:390,height:844});await scroll(0);await page.screenshot({path:path.join(output,'mobile.png')});}
+    if(output){fs.mkdirSync(output,{recursive:true});await page.setViewportSize({width:390,height:844});await settle();await page.locator('.olecute-header__mobile [data-header-open="mobile-menu-test"]').click();await page.waitForTimeout(300);await page.screenshot({path:path.join(output,'mobile-drawer.png')});await page.keyboard.press('Escape');await page.setViewportSize({width:1360,height:900});await settle();for(const y of [0,200,400,690]){await scroll(y);await page.screenshot({path:path.join(output,`home-${y}.png`)});}await page.setViewportSize({width:390,height:844});await scroll(0);await page.screenshot({path:path.join(output,'mobile.png')});}
     assert.deepEqual(errors,[],'No browser exceptions');
     console.log('PASS: Liquid rendering, continuous timeline, internal transition, 7 viewport sizes, image logos and animation modes, mobile bounds/buttons/count, drawers, focus, scroll restoration, cart updates and reduced motion.');
   } finally {await browser.close();server.close();}

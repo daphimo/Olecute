@@ -1,0 +1,24 @@
+{% doc %}
+  Renders the product card attached to a shoppable UGC video.
+
+  @param {product} product - Product displayed in the card.
+  @param {string} button_label - Product link label.
+  @param {boolean} [show_wishlist] - Whether to render the Olecute wishlist control.
+{% enddoc %}
+
+{% if product != blank %}
+  {% assign selected_variant = product.selected_or_first_available_variant %}
+  <div class="shoppable-ugc__product">
+    <div class="shoppable-ugc__product-image">
+      {% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 180 | image_tag: widths: '90,180', sizes: '64px', loading: 'lazy', alt: product.title }}{% endif %}
+    </div>
+    <div class="shoppable-ugc__product-info">
+      <h3>{{ product.title | escape }}</h3>
+      {% if selected_variant != blank %}
+        <div class="shoppable-ugc__prices"><span>{{ selected_variant.price | money }}</span>{% if selected_variant.compare_at_price > selected_variant.price %}<s>{{ selected_variant.compare_at_price | money }}</s>{% endif %}</div>
+      {% endif %}
+    </div>
+    {% if show_wishlist %}<div class="shoppable-ugc__wishlist">{% render 'custom-wishlist-button', product: product, variant: selected_variant %}</div>{% endif %}
+    <a class="shoppable-ugc__shop" href="{{ product.url }}" aria-label="{{ button_label | escape }} {{ product.title | escape }}">{{ button_label | default: 'Shop' | escape }}</a>
+  </div>
+{% endif %}

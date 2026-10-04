@@ -60,8 +60,8 @@
 
     --rs-gallery-background: {{ section.settings.background_color }};
 
-    --rs-gallery-image-fit: {{ section.settings.image_fit }};
-    --rs-gallery-image-position: {{ section.settings.image_position }};
+    --rs-gallery-media-fit: {{ section.settings.image_fit }};
+    --rs-gallery-media-position: {{ section.settings.image_position }};
 
     --rs-gallery-hover-scale: {{ hover_scale }};
   "
@@ -100,21 +100,27 @@
                 {% endif %}
               >
 
-                {% for image_index in (1..5) %}
+                {% for media_index in (1..5) %}
 
                   {%- liquid
-                    assign image_setting = 'image_' | append: image_index
-                    assign link_setting = 'link_' | append: image_index
-                    assign alt_setting = 'alt_' | append: image_index
+                    assign media_type_setting = 'media_type_' | append: media_index
+                    assign image_setting = 'image_' | append: media_index
+                    assign video_setting = 'video_' | append: media_index
+                    assign link_setting = 'link_' | append: media_index
+                    assign alt_setting = 'alt_' | append: media_index
 
+                    assign gallery_media_type = block.settings[media_type_setting] | default: 'image'
                     assign gallery_image = block.settings[image_setting]
+                    assign gallery_video = block.settings[video_setting]
                     assign gallery_link = block.settings[link_setting]
                     assign custom_alt = block.settings[alt_setting]
 
                     if custom_alt != blank
                       assign final_alt = custom_alt
-                    elsif gallery_image.alt != blank
+                    elsif gallery_media_type == 'image' and gallery_image.alt != blank
                       assign final_alt = gallery_image.alt
+                    elsif gallery_media_type == 'video' and gallery_video.alt != blank
+                      assign final_alt = gallery_video.alt
                     else
                       assign final_alt = ''
                     endif
@@ -127,7 +133,7 @@
                   <div
                     class="
                       rs-infinite-gallery__item
-                      rs-infinite-gallery__item--{{ image_index }}
+                      rs-infinite-gallery__item--{{ media_index }}
                     "
                   >
 
@@ -143,13 +149,28 @@
                       <div class="rs-infinite-gallery__media">
                     {% endif %}
 
-                    {% if gallery_image != blank %}
+                    {% if gallery_media_type == 'video' and gallery_video != blank %}
+
+                      {{
+                        gallery_video
+                        | video_tag:
+                          class: 'rs-infinite-gallery__asset rs-infinite-gallery__video',
+                          autoplay: true,
+                          loop: true,
+                          muted: true,
+                          controls: false,
+                          playsinline: true,
+                          preload: 'metadata',
+                          image_size: '1200x'
+                      }}
+
+                    {% elsif gallery_media_type == 'image' and gallery_image != blank %}
 
                       {{
                         gallery_image
                         | image_url: width: 2400
                         | image_tag:
-                          class: 'rs-infinite-gallery__image',
+                          class: 'rs-infinite-gallery__asset rs-infinite-gallery__image',
                           widths: '360, 540, 720, 960, 1200, 1600, 2000, 2400',
                           sizes: '100vw',
                           loading: 'lazy',
@@ -188,7 +209,7 @@
     {% else %}
 
       <div class="rs-infinite-gallery__empty">
-        Add a Gallery Group block to start adding images.
+        Add a Gallery Group block to start adding media.
       </div>
 
     {% endif %}
@@ -367,7 +388,7 @@
     {
       "type": "range",
       "id": "item_gap",
-      "label": "Image gap - desktop",
+      "label": "Media gap - desktop",
       "min": 0,
       "max": 60,
       "step": 1,
@@ -377,7 +398,7 @@
     {
       "type": "range",
       "id": "item_gap_mobile",
-      "label": "Image gap - mobile",
+      "label": "Media gap - mobile",
       "min": 0,
       "max": 40,
       "step": 1,
@@ -481,12 +502,12 @@
 
     {
       "type": "header",
-      "content": "Images"
+      "content": "Media"
     },
     {
       "type": "select",
       "id": "image_fit",
-      "label": "Image fit",
+      "label": "Media fit",
       "options": [
         {
           "value": "cover",
@@ -502,7 +523,7 @@
     {
       "type": "select",
       "id": "image_position",
-      "label": "Image position",
+      "label": "Media position",
       "options": [
         {
           "value": "center center",
@@ -530,7 +551,7 @@
     {
       "type": "range",
       "id": "hover_zoom",
-      "label": "Image hover zoom",
+      "label": "Media hover zoom",
       "min": 100,
       "max": 120,
       "step": 1,
@@ -626,17 +647,32 @@
       "settings": [
         {
           "type": "header",
-          "content": "Image 1"
+          "content": "Media 1"
+        },
+        {
+          "type": "select",
+          "id": "media_type_1",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
         },
         {
           "type": "image_picker",
           "id": "image_1",
-          "label": "Image"
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "video_1",
+          "label": "Media video"
         },
         {
           "type": "url",
           "id": "link_1",
-          "label": "Image link"
+          "label": "Media link"
         },
         {
           "type": "text",
@@ -646,17 +682,32 @@
 
         {
           "type": "header",
-          "content": "Image 2"
+          "content": "Media 2"
+        },
+        {
+          "type": "select",
+          "id": "media_type_2",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
         },
         {
           "type": "image_picker",
           "id": "image_2",
-          "label": "Image"
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "video_2",
+          "label": "Media video"
         },
         {
           "type": "url",
           "id": "link_2",
-          "label": "Image link"
+          "label": "Media link"
         },
         {
           "type": "text",
@@ -666,17 +717,32 @@
 
         {
           "type": "header",
-          "content": "Image 3"
+          "content": "Media 3"
+        },
+        {
+          "type": "select",
+          "id": "media_type_3",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
         },
         {
           "type": "image_picker",
           "id": "image_3",
-          "label": "Image"
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "video_3",
+          "label": "Media video"
         },
         {
           "type": "url",
           "id": "link_3",
-          "label": "Image link"
+          "label": "Media link"
         },
         {
           "type": "text",
@@ -686,17 +752,32 @@
 
         {
           "type": "header",
-          "content": "Image 4"
+          "content": "Media 4"
+        },
+        {
+          "type": "select",
+          "id": "media_type_4",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
         },
         {
           "type": "image_picker",
           "id": "image_4",
-          "label": "Image"
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "video_4",
+          "label": "Media video"
         },
         {
           "type": "url",
           "id": "link_4",
-          "label": "Image link"
+          "label": "Media link"
         },
         {
           "type": "text",
@@ -706,17 +787,32 @@
 
         {
           "type": "header",
-          "content": "Image 5"
+          "content": "Media 5"
+        },
+        {
+          "type": "select",
+          "id": "media_type_5",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
         },
         {
           "type": "image_picker",
           "id": "image_5",
-          "label": "Image"
+          "label": "Media image"
+        },
+        {
+          "type": "video",
+          "id": "video_5",
+          "label": "Media video"
         },
         {
           "type": "url",
           "id": "link_5",
-          "label": "Image link"
+          "label": "Media link"
         },
         {
           "type": "text",

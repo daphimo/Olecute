@@ -74,7 +74,7 @@
 }
 
 
-/* Also pause while keyboard focusing a linked image */
+/* Also pause while keyboard focusing linked media */
 
 .rs-infinite-gallery--pause-hover
 .rs-infinite-gallery__viewport:focus-within
@@ -140,7 +140,7 @@
 }
 
 
-/* Large left image */
+/* Large left media item */
 
 .rs-infinite-gallery__item--1 {
   grid-column: 1 / 3;
@@ -198,17 +198,17 @@
 
 
 /* ============================================
-   IMAGE
+   MEDIA
 ============================================ */
 
-.rs-infinite-gallery__image {
+.rs-infinite-gallery__asset {
   width: 100%;
   height: 100%;
 
   display: block;
 
-  object-fit: var(--rs-gallery-image-fit);
-  object-position: var(--rs-gallery-image-position);
+  object-fit: var(--rs-gallery-media-fit);
+  object-position: var(--rs-gallery-media-position);
 
   transform: scale(1);
 
@@ -307,7 +307,7 @@
      Each Shopify block becomes:
      [ 1 ][ 2 ][ 3 ][ 4 ][ 5 ]
 
-     Each image = one full available mobile width
+     Each media item = one full available mobile width
   -------------------------------------------- */
 
   .rs-infinite-gallery__grid {
@@ -360,12 +360,12 @@
   }
 
 
-  .rs-infinite-gallery__image {
+  .rs-infinite-gallery__asset {
     width: 100%;
     height: 100%;
 
-    object-fit: var(--rs-gallery-image-fit);
-    object-position: var(--rs-gallery-image-position);
+    object-fit: var(--rs-gallery-media-fit);
+    object-position: var(--rs-gallery-media-position);
   }
 
 }
@@ -380,7 +380,7 @@
     animation-play-state: paused;
   }
 
-  .rs-infinite-gallery__image {
+  .rs-infinite-gallery__asset {
     transition: none;
   }
 

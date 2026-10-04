@@ -1,7 +1,6 @@
 {% assign config = section.settings %}
 <div class="drawer-navigation">
   <div class="drawer-columns">
-    <div class="drawer-featured">{% render 'header-block-items', section: section %}</div>
     <nav class="drawer-menu" aria-label="Main navigation">
       {% for link in config.drawer_menu.links %}
         {% capture item_id %}{{ drawer }}-{{ section.id }}-{{ forloop.index }}{% endcapture %}
@@ -9,15 +8,6 @@
       {% endfor %}
     </nav>
   </div>
-  {% if drawer == 'desktop-menu' %}
-    <div class="drawer-image-strip">
-      {% assign positions = 'left,center,right' | split: ',' %}
-      {% for position in positions %}
-        {% assign key = 'drawer_image_' | append: position %}
-        <div class="drawer-image-panel">{% if config[key] != blank %}{{ config[key] | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '400,800,1200,1600', sizes: '(min-width: 750px) 50vw, 100vw' }}{% endif %}</div>
-      {% endfor %}
-    </div>
-  {% endif %}
 </div>
 <nav class="drawer-utilities" aria-label="Account and assistance">
   {% assign utilities = 'login,order_status,faq' | split: ',' %}

@@ -14,7 +14,6 @@
     {% render 'header-desktop-standard', section: section %}
   {% endif %}
   {% render 'header-mobile', section: section %}
-  {% render 'header-desktop-menu-drawer', section: section %}
   {% render 'header-mobile-menu-drawer', section: section %}
   {% render 'header-search-drawer', section: section %}
 </olecute-header>
@@ -63,12 +62,6 @@
       ],
       "default": "text_to_logo",
       "info": "Desktop homepage animation only. Mobile and other pages always use the logo image."
-    },
-    {
-      "type": "text",
-      "id": "quote",
-      "label": "Quote",
-      "default": "YOU KNOW WHERE TO GET IT"
     },
     {
       "type": "range",
@@ -232,46 +225,9 @@
       "type": "url",
       "id": "submit_link",
       "label": "Submit request link"
-    },
-    {
-      "type": "image_picker",
-      "id": "drawer_image_left",
-      "label": "Desktop drawer image left"
-    },
-    {
-      "type": "image_picker",
-      "id": "drawer_image_center",
-      "label": "Desktop drawer image center"
-    },
-    {
-      "type": "image_picker",
-      "id": "drawer_image_right",
-      "label": "Desktop drawer image right"
     }
   ],
   "blocks": [
-    {
-      "type": "nav_item",
-      "name": "Navigation item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_indicator",
-          "label": "Show indicator",
-          "default": false
-        }
-      ]
-    },
     {
       "type": "story_video",
       "name": "Story video",
@@ -297,57 +253,7 @@
   ],
   "presets": [
     {
-      "name": "Olecute header",
-      "blocks": [
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "New in",
-            "link": "",
-            "show_indicator": false
-          }
-        },
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "Shop All",
-            "link": "shopify://collections/all",
-            "show_indicator": false
-          }
-        },
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "Kurtis",
-            "link": "",
-            "show_indicator": false
-          }
-        },
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "Trending",
-            "link": "",
-            "show_indicator": true
-          }
-        },
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "Tops",
-            "link": "",
-            "show_indicator": false
-          }
-        },
-        {
-          "type": "nav_item",
-          "settings": {
-            "label": "Bottom",
-            "link": "",
-            "show_indicator": false
-          }
-        }
-      ]
+      "name": "Olecute header"
     }
   ]
 }

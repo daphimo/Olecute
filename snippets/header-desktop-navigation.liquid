@@ -1,0 +1,35 @@
+{% if section.settings.drawer_menu.links != blank %}
+  <nav class="olecute-header__desktop-nav" aria-label="Main navigation">
+    <ul class="olecute-header__desktop-nav-list" role="list">
+      {% for link in section.settings.drawer_menu.links %}
+        <li class="olecute-header__desktop-nav-item">
+          {% if link.links != blank %}
+            <details class="olecute-header__dropdown">
+              <summary>
+                <span>{{ link.title | escape }}</span>
+                <svg class="olecute-header__chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false">
+                  <path d="M1 1.25 6 6.25l5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </summary>
+              <div class="olecute-header__dropdown-panel">
+                <a class="olecute-header__dropdown-all" href="{{ link.url }}">Shop all {{ link.title | escape }}</a>
+                {% for child in link.links %}
+                  <div class="olecute-header__dropdown-group">
+                    <a href="{{ child.url }}">{{ child.title | escape }}</a>
+                    {% if child.links != blank %}
+                      <ul role="list">
+                        {% for grandchild in child.links %}<li><a href="{{ grandchild.url }}">{{ grandchild.title | escape }}</a></li>{% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </details>
+          {% else %}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}
