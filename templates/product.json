@@ -12,6 +12,15 @@
     "main": {
       "type": "custom-main-product",
       "blocks": {
+        "policy_callout": {
+          "type": "policy",
+          "settings": {
+            "heading": "Risk-free",
+            "text": "Try it, love it — or return it within 5 days, no questions asked.",
+            "link_label": "Our Policy",
+            "policy_url": "shopify://policies/refund-policy"
+          }
+        },
         "benefit_delivery": {
           "type": "benefit",
           "settings": {
@@ -32,6 +41,7 @@
         }
       },
       "block_order": [
+        "policy_callout",
         "benefit_delivery",
         "benefit_returns",
         "benefit_customers"
@@ -40,6 +50,23 @@
         "shipping_content": "",
         "returns_content": ""
       }
+    },
+    "custom_size_chart": {
+      "type": "custom-size-chart",
+      "blocks": {
+        "size_xs": {"type":"size","settings":{"size":"XS","bust":"34","waist":"26","shoulder":"14","hips":"36"}},
+        "size_s": {"type":"size","settings":{"size":"S","bust":"36","waist":"28","shoulder":"14.5","hips":"38"}},
+        "size_m": {"type":"size","settings":{"size":"M","bust":"38","waist":"30","shoulder":"15","hips":"40"}},
+        "size_l": {"type":"size","settings":{"size":"L","bust":"40","waist":"32","shoulder":"15.5","hips":"42"}},
+        "size_xl": {"type":"size","settings":{"size":"XL","bust":"42","waist":"34","shoulder":"16","hips":"44"}},
+        "size_2xl": {"type":"size","settings":{"size":"2XL","bust":"44","waist":"36","shoulder":"16.5","hips":"46"}},
+        "size_3xl": {"type":"size","settings":{"size":"3XL","bust":"46","waist":"38","shoulder":"17","hips":"48"}},
+        "size_4xl": {"type":"size","settings":{"size":"4XL","bust":"48","waist":"40","shoulder":"17.5","hips":"50"}},
+        "size_5xl": {"type":"size","settings":{"size":"5XL","bust":"50","waist":"42","shoulder":"18","hips":"52"}},
+        "size_6xl": {"type":"size","settings":{"size":"6XL","bust":"52","waist":"44","shoulder":"18.5","hips":"54"}}
+      },
+      "block_order": ["size_xs","size_s","size_m","size_l","size_xl","size_2xl","size_3xl","size_4xl","size_5xl","size_6xl"],
+      "settings": {}
     },
     "custom_tabbed_product_grid_fjxtyg": {
       "type": "custom-tabbed-product-grid",
@@ -214,6 +241,7 @@
   },
   "order": [
     "main",
+    "custom_size_chart",
     "custom_tabbed_product_grid_fjxtyg",
     "product_recommendations_qggXJq"
   ]

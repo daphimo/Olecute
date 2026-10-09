@@ -1,9 +1,24 @@
+{% doc %}
+  Renders product variant option controls with an optional size guide trigger.
+
+  @param {product} product - Product containing the options.
+  @param {variant} selected_variant - Currently selected variant.
+  @param {boolean} [show_size_guide] - Whether to show the size guide beside the Size option.
+  @param {string} [size_guide_label] - Label for the size guide trigger.
+{% enddoc %}
+
 {% unless product.has_only_default_variant %}
   <div class="custom-variants">
     {% for option in product.options_with_values %}
       {% assign option_index = forloop.index0 %}
+      {% assign option_name = option.name | downcase %}
       <fieldset data-custom-option="{{ option_index }}">
-        <legend>{{ option.name | escape }}</legend>
+        <legend class="custom-variants__legend">
+          <span>{{ option.name | escape }}</span>
+          {% if show_size_guide and option_name == 'size' %}
+            <button type="button" class="custom-variants__size-guide" data-size-chart-open>{{ size_guide_label | escape }}</button>
+          {% endif %}
+        </legend>
         {% for value in option.values %}
           {% assign option_value = value.name | default: value %}
           <button type="button" data-custom-option-value="{{ option_value | escape }}" aria-pressed="{% if selected_variant.options[option_index] == option_value %}true{% else %}false{% endif %}">{{ option_value | escape }}</button>

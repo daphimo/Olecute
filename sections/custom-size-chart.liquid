@@ -1,0 +1,147 @@
+{{ 'custom-size-chart.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-size-chart.js' | asset_url }}" defer></script>
+
+{% capture size_chart_scope %}#SizeChartDialog-{{ section.id }}{% endcapture %}
+{% render 'brand-colors', scope: size_chart_scope %}
+
+<dialog class="custom-size-chart-section" id="SizeChartDialog-{{ section.id }}" data-size-chart-dialog data-section-id="{{ section.id }}" aria-labelledby="SizeChartTitle-{{ section.id }}">
+  <div class="custom-size-chart-section__shell">
+    <header class="custom-size-chart-section__header">
+      <button type="button" class="custom-size-chart-section__close" data-size-chart-close aria-label="Close size guide">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+      </button>
+      <div>
+        <p class="custom-size-chart-section__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        <h2 id="SizeChartTitle-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        {% if section.settings.intro != blank %}<div class="custom-size-chart-section__intro rte">{{ section.settings.intro }}</div>{% endif %}
+      </div>
+    </header>
+
+    <div class="custom-size-chart-section__body">
+      <section class="custom-size-chart-section__calculator" aria-labelledby="SizeFinderTitle-{{ section.id }}">
+        <div class="custom-size-chart-section__section-heading">
+          <div><h3 id="SizeFinderTitle-{{ section.id }}">{{ section.settings.finder_heading | escape }}</h3>{% if section.settings.finder_text != blank %}<p>{{ section.settings.finder_text | escape }}</p>{% endif %}</div>
+        </div>
+        <form data-size-chart-form novalidate>
+          <div class="custom-size-chart-section__fields">
+            <div class="custom-size-chart-section__field">
+              <label for="SizeChartBust-{{ section.id }}">Bust measurement</label>
+              <div class="custom-size-chart-section__input-wrap"><input id="SizeChartBust-{{ section.id }}" name="bust" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 36" required aria-describedby="SizeChartError-{{ section.id }}"><span data-calculator-unit-label>in</span></div>
+            </div>
+            <fieldset class="custom-size-chart-section__units" data-calculator-units>
+              <legend>Measurement unit</legend>
+              <button type="button" data-unit="in" aria-pressed="true">Inches</button><button type="button" data-unit="cm" aria-pressed="false">CM</button>
+            </fieldset>
+            <div class="custom-size-chart-section__field custom-size-chart-section__field--waist">
+              <label for="SizeChartWaist-{{ section.id }}">Waist measurement <span>(optional)</span></label>
+              <div class="custom-size-chart-section__input-wrap"><input id="SizeChartWaist-{{ section.id }}" name="waist" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 28" aria-describedby="SizeChartError-{{ section.id }}"><span data-calculator-unit-label>in</span></div>
+            </div>
+          </div>
+          <p class="custom-size-chart-section__error" id="SizeChartError-{{ section.id }}" data-size-chart-error aria-live="polite"></p>
+          <button class="custom-size-chart-section__submit" type="submit">{{ section.settings.button_label | escape }} <span aria-hidden="true">→</span></button>
+          <div class="custom-size-chart-section__result" data-size-chart-result role="status" aria-live="polite" hidden></div>
+        </form>
+      </section>
+
+      <section class="custom-size-chart-section__chart" aria-labelledby="SizeTableTitle-{{ section.id }}">
+        <div class="custom-size-chart-section__chart-head">
+          <div class="custom-size-chart-section__section-heading"><div><h3 id="SizeTableTitle-{{ section.id }}">{{ section.settings.table_heading | escape }}</h3></div></div>
+          <fieldset class="custom-size-chart-section__units" data-table-units><legend>Table unit</legend><button type="button" data-unit="in" aria-pressed="true">Inches</button><button type="button" data-unit="cm" aria-pressed="false">CM</button></fieldset>
+        </div>
+        <div class="custom-size-chart-section__table-wrap">
+          <table>
+            <thead><tr><th scope="col">Size</th><th scope="col">Bust <small data-table-unit-label>inches</small></th><th scope="col">Waist <small data-table-unit-label>inches</small></th><th scope="col">Shoulder <small data-table-unit-label>inches</small></th><th scope="col">Hips <small data-table-unit-label>inches</small></th></tr></thead>
+            <tbody data-size-chart-rows>
+              {% assign rendered_sizes = '|' %}
+              {% assign visible_rows = 0 %}
+              {% for block in section.blocks %}
+                {% assign size_token = '|' | append: block.settings.size | append: '|' %}
+                {% assign bust_number = block.settings.bust | plus: 0 %}
+                {% assign waist_number = block.settings.waist | plus: 0 %}
+                {% assign shoulder_number = block.settings.shoulder | plus: 0 %}
+                {% assign hips_number = block.settings.hips | plus: 0 %}
+                {% assign has_value = false %}
+                {% if bust_number > 0 or waist_number > 0 or shoulder_number > 0 or hips_number > 0 %}{% assign has_value = true %}{% endif %}
+                {% unless rendered_sizes contains size_token %}
+                  {% if has_value %}
+                    {% assign visible_rows = visible_rows | plus: 1 %}
+                    <tr data-size="{{ block.settings.size | escape }}" data-bust="{% if bust_number > 0 %}{{ bust_number }}{% endif %}" data-waist="{% if waist_number > 0 %}{{ waist_number }}{% endif %}" {{ block.shopify_attributes }}>
+                      <th scope="row">{{ block.settings.size | escape }}</th>
+                      <td data-inches="{% if bust_number > 0 %}{{ bust_number }}{% endif %}">{% if bust_number > 0 %}{{ block.settings.bust | escape }}{% else %}—{% endif %}</td>
+                      <td data-inches="{% if waist_number > 0 %}{{ waist_number }}{% endif %}">{% if waist_number > 0 %}{{ block.settings.waist | escape }}{% else %}—{% endif %}</td>
+                      <td data-inches="{% if shoulder_number > 0 %}{{ shoulder_number }}{% endif %}">{% if shoulder_number > 0 %}{{ block.settings.shoulder | escape }}{% else %}—{% endif %}</td>
+                      <td data-inches="{% if hips_number > 0 %}{{ hips_number }}{% endif %}">{% if hips_number > 0 %}{{ block.settings.hips | escape }}{% else %}—{% endif %}</td>
+                    </tr>
+                  {% endif %}
+                  {% assign rendered_sizes = rendered_sizes | append: block.settings.size | append: '|' %}
+                {% endunless %}
+              {% endfor %}
+            </tbody>
+          </table>
+          {% if visible_rows == 0 %}<p class="custom-size-chart-section__empty">Size measurements are not available yet.</p>{% endif %}
+        </div>
+      </section>
+
+      <section class="custom-size-chart-section__measure" aria-label="Measurement instructions">
+        {% if section.settings.measure_heading != blank %}<div class="custom-size-chart-section__section-heading"><div><h3 id="MeasureTitle-{{ section.id }}">{{ section.settings.measure_heading | escape }}</h3></div></div>{% endif %}
+        <div class="custom-size-chart-section__measure-grid">
+          {% assign measure_titles = 'Bust|Waist|Shoulder|Hips' | split: '|' %}
+          {% for title in measure_titles %}{% assign key = title | downcase %}{% assign content = section.settings[key] %}{% if content != blank %}<article><span aria-hidden="true">{{ forloop.index }}</span><h4>{{ title }}</h4><p>{{ content | escape }}</p></article>{% endif %}{% endfor %}
+        </div>
+        {% if section.settings.additional_info != blank %}<div class="custom-size-chart-section__additional rte">{{ section.settings.additional_info }}</div>{% endif %}
+        {% if section.settings.footer_note != blank %}<p class="custom-size-chart-section__note">{{ section.settings.footer_note | escape }}</p>{% endif %}
+      </section>
+    </div>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Custom size chart",
+  "tag": "section",
+  "class": "custom-size-chart-section-wrapper",
+  "limit": 1,
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Fit guide" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your perfect fit" },
+    { "type": "richtext", "id": "intro", "label": "Introduction", "default": "<p>Use your body measurements to find the closest size, then review the chart for the fit you prefer.</p>" },
+    { "type": "text", "id": "finder_heading", "label": "Calculator heading", "default": "Find your size" },
+    { "type": "text", "id": "finder_text", "label": "Calculator text", "default": "Enter your measurements for a quick recommendation." },
+    { "type": "text", "id": "button_label", "label": "Calculator button", "default": "Find my size" },
+    { "type": "text", "id": "table_heading", "label": "Table heading", "default": "Body measurements" },
+    { "type": "text", "id": "measure_heading", "label": "Instructions heading", "default": "How to measure" },
+    { "type": "textarea", "id": "bust", "label": "Bust instructions", "default": "Measure around the fullest part of your chest, keeping the measuring tape horizontal." },
+    { "type": "textarea", "id": "waist", "label": "Waist instructions", "default": "Measure around your natural waist or the narrowest point of your torso." },
+    { "type": "textarea", "id": "shoulder", "label": "Shoulder instructions", "default": "Measure across the back from one shoulder point to the other." },
+    { "type": "textarea", "id": "hips", "label": "Hips instructions", "default": "Measure around the fullest part of your hips, keeping the tape horizontal." },
+    { "type": "richtext", "id": "additional_info", "label": "Additional sizing information" },
+    { "type": "textarea", "id": "footer_note", "label": "Footer note", "default": "Between sizes? Consider the larger size for a roomier fit. These are body measurements, not garment measurements." }
+  ],
+  "max_blocks": 10,
+  "blocks": [
+    { "type": "size", "name": "Size", "settings": [
+      { "type": "select", "id": "size", "label": "Size", "options": [{"value":"XS","label":"XS"},{"value":"S","label":"S"},{"value":"M","label":"M"},{"value":"L","label":"L"},{"value":"XL","label":"XL"},{"value":"2XL","label":"2XL"},{"value":"3XL","label":"3XL"},{"value":"4XL","label":"4XL"},{"value":"5XL","label":"5XL"},{"value":"6XL","label":"6XL"}], "default": "M" },
+      { "type": "text", "id": "bust", "label": "Bust (inches)" },
+      { "type": "text", "id": "waist", "label": "Waist (inches)" },
+      { "type": "text", "id": "shoulder", "label": "Shoulder (inches)" },
+      { "type": "text", "id": "hips", "label": "Hips (inches)" }
+    ] }
+  ],
+  "presets": [{
+    "name": "Custom size chart",
+    "blocks": [
+      {"type":"size","settings":{"size":"XS","bust":"34","waist":"26","shoulder":"14","hips":"36"}},
+      {"type":"size","settings":{"size":"S","bust":"36","waist":"28","shoulder":"14.5","hips":"38"}},
+      {"type":"size","settings":{"size":"M","bust":"38","waist":"30","shoulder":"15","hips":"40"}},
+      {"type":"size","settings":{"size":"L","bust":"40","waist":"32","shoulder":"15.5","hips":"42"}},
+      {"type":"size","settings":{"size":"XL","bust":"42","waist":"34","shoulder":"16","hips":"44"}},
+      {"type":"size","settings":{"size":"2XL","bust":"44","waist":"36","shoulder":"16.5","hips":"46"}},
+      {"type":"size","settings":{"size":"3XL","bust":"46","waist":"38","shoulder":"17","hips":"48"}},
+      {"type":"size","settings":{"size":"4XL","bust":"48","waist":"40","shoulder":"17.5","hips":"50"}},
+      {"type":"size","settings":{"size":"5XL","bust":"50","waist":"42","shoulder":"18","hips":"52"}},
+      {"type":"size","settings":{"size":"6XL","bust":"52","waist":"44","shoulder":"18.5","hips":"54"}}
+    ]
+  }]
+}
+{% endschema %}

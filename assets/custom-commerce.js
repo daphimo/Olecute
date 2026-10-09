@@ -2,16 +2,6 @@ import { lockScroll, unlockScroll } from '@theme/utilities';
 import { morphSection } from '@theme/section-renderer';
 import { CartLinesUpdateEvent } from '@shopify/events';
 
-export function measurement(value, unit = 'in') {
-  if (value && typeof value === 'object') value = value.value ?? value;
-  if (Array.isArray(value)) value = value.join('-');
-  const text = String(value ?? '').trim();
-  if (!/^\d+(?:\.\d+)?(?:\s*[-–—/]\s*\d+(?:\.\d+)?)?$/.test(text)) return '-';
-  const values = text.split(/\s*[-–—/]\s*/).map(Number);
-  if (values.some(number => !number || !Number.isFinite(number))) return '-';
-  return values.map(number => unit === 'cm' ? Math.round(number * 254) / 100 : number).join('-') + (unit === 'cm' ? ' cm' : ' Inch');
-}
-
 function startCommerce() {
   const config = document.getElementById('custom-commerce-config');
   if (!config) return;
@@ -19,7 +9,6 @@ function startCommerce() {
   const quick = document.getElementById('custom-quick-add');
   const toast = document.getElementById('custom-wishlist-toast');
   const key = 'olecute_wishlist_v1';
-  const measurementKeys = ['chest','waist','hips','bust','to_fit_waist','pyjama_waist','inseam_length','front_length','across_shoulder'];
   const opened = new Set(), returnFocus = new WeakMap(), cache = new Map();
   let scrollLock, pendingQuick, toastTimer, cartBusy = false, storageOK = true;
   const safeURL = (value, image = false) => {
@@ -167,7 +156,7 @@ function startCommerce() {
       this.variants = JSON.parse(this.dataset.variants || '[]');
       this.optionNames = JSON.parse(this.dataset.optionNames || '[]');
       this.sizeIndex = this.optionNames.findIndex(name => /size/i.test(name));
-      this.unit = 'in'; this.selected = this.variants.find(v=>v.id===this.dataset.selected) || this.variants[0];
+      this.selected = this.variants.find(v=>v.id===this.dataset.selected) || this.variants[0];
       if (this.selected) this.update();
     }
     update() {
@@ -178,23 +167,15 @@ function startCommerce() {
       this.querySelectorAll('.custom-add-button').forEach(add => { add.disabled = !variant.available || cartBusy;add.textContent = cartBusy ? 'Adding...' : variant.available ? 'ADD TO CART' : 'Sold out'; });
       this.querySelectorAll('[data-custom-option]').forEach(group => {
         const index = Number(group.dataset.customOption);
-        group.querySelectorAll('button').forEach(button => {
+        group.querySelectorAll('[data-custom-option-value]').forEach(button => {
           const value = button.dataset.customOptionValue;
           button.setAttribute('aria-pressed',String(variant.options[index] === value));
           button.disabled = !this.variants.some(v=>v.available && v.options.every((option,i)=>option === (i===index ? value : variant.options[i])));
         });
       });
-      this.querySelectorAll('[data-measure]').forEach(el => el.textContent = measurement(variant[el.dataset.measure],this.unit));
-      this.querySelectorAll('[data-custom-unit]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.customUnit === this.unit)));
-      const rows = this.querySelector('[data-custom-chart-rows]');rows?.replaceChildren();
-      const variants = this.variants.filter(v=>this.sizeIndex < 0 || v.options.every((value,i)=>i===this.sizeIndex || value===variant.options[i]));
-      for (const item of rows ? variants : []) {
-        const row = document.createElement('tr');
-        for (const value of [this.sizeIndex < 0 ? item.options.join(' / ') : item.options[this.sizeIndex], ...measurementKeys.map(key=>measurement(item[key],this.unit))]) { const cell = document.createElement('td');cell.textContent = value;row.append(cell); }rows.append(row);
-      }
       const button = this.querySelector('[data-custom-wishlist]');
       if (button) { const item = JSON.parse(button.dataset.wishlistItem);item.variantId = variant.id;item.price = variant.price;item.image = variant.image || item.image;item.size = this.sizeIndex < 0 ? '' : variant.options[this.sizeIndex];item.url = item.url.split('?')[0]+'?variant='+variant.id;button.dataset.wishlistItem = JSON.stringify(item);syncWishlist(this); }
-      this.dispatchEvent(new CustomEvent('custom:variant-change',{bubbles:true,detail:{variant,unit:this.unit}}));
+      this.dispatchEvent(new CustomEvent('custom:variant-change',{bubbles:true,detail:{variant}}));
     }
   }
   if (!customElements.get('custom-product-options')) customElements.define('custom-product-options',ProductOptions);
@@ -216,11 +197,6 @@ function startCommerce() {
       const selected = [...options.selected.options];selected[Number(button.closest('[data-custom-option]').dataset.customOption)] = button.dataset.customOptionValue;
       const variant = options.variants.find(v=>v.available && v.options.every((value,i)=>value===selected[i]));if (variant) { options.selected = variant;options.update(); }
     }
-    if (button.matches('[data-custom-unit]')) {
-      if (options) { options.unit = button.dataset.customUnit;options.update(); }
-      else { const scope = button.closest('[data-custom-measurements]');scope?.querySelectorAll('[data-inches]').forEach(el=>{let value;try{value=JSON.parse(el.dataset.inches);}catch{value=el.dataset.inches;}el.textContent=measurement(value,button.dataset.customUnit);});button.parentElement.querySelectorAll('button').forEach(el=>el.setAttribute('aria-pressed',String(el===button))); }
-    }
-    if (button.matches('[data-custom-chart-open]')) { const chart = (options || button.closest('[data-custom-size-scope]'))?.querySelector('[data-custom-chart]');if (chart) openDialog(chart,button); }
     if (button.matches('[data-custom-wishlist]')) {
       wishlist = readWishlist();const item = JSON.parse(button.dataset.wishlistItem);item.variantId = String(item.variantId);
       const exists = wishlist.some(entry=>entry.variantId===item.variantId);
@@ -230,13 +206,13 @@ function startCommerce() {
     if (button.matches('[data-custom-wishlist-remove]')) { wishlist = readWishlist();saveWishlist(wishlist.filter(item=>item.variantId!==button.closest('[data-variant-id]').dataset.variantId)); }
     if (button.matches('[data-custom-toast-close]')) hideToast();
   });
-  document.addEventListener('close',event => { if (event.target.matches?.('.custom-quick-add,.custom-size-chart')) closed(event.target); },true);
+  document.addEventListener('close',event => { if (event.target.matches?.('.custom-quick-add')) closed(event.target); },true);
   document.addEventListener('shopify:section:load',event=>{syncWishlist(event.target);renderWishlist();});
   document.addEventListener('shopify:section:unload',()=>{pendingQuick?.abort();if (quick.open) closeQuick();});
   window.addEventListener('storage',event=>{if (event.key===key || event.key===null) {wishlist=readWishlist();syncWishlist();renderWishlist();}});
   window.addEventListener('pageshow',()=>{wishlist=readWishlist();syncWishlist();renderWishlist();});
   syncWishlist();renderWishlist();
-  return { addToCart, measurement, syncWishlist, renderWishlist };
+  return { addToCart, syncWishlist, renderWishlist };
 }
 if (!window.OlecuteCommerce) window.OlecuteCommerce = startCommerce();
 export const addToCart = (...args) => window.OlecuteCommerce.addToCart(...args);
