@@ -305,6 +305,73 @@
         "mobile_padding_bottom": 20
       }
     },
+    "shoppable_ugc_home": {
+      "type": "shoppable-ugc",
+      "blocks": {
+        "ugc_video_1": {
+          "type": "video",
+          "settings": {
+            "product": ""
+          }
+        },
+        "ugc_video_2": {
+          "type": "video",
+          "settings": {
+            "product": ""
+          }
+        },
+        "ugc_video_3": {
+          "type": "video",
+          "settings": {
+            "product": ""
+          }
+        },
+        "ugc_video_4": {
+          "type": "video",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "ugc_video_1",
+        "ugc_video_2",
+        "ugc_video_3",
+        "ugc_video_4"
+      ],
+      "name": "Shoppable UGC",
+      "settings": {
+        "show_header": true,
+        "eyebrow": "SHOP THE MOMENT",
+        "heading": "Watch. Discover. Shop.",
+        "description": "",
+        "header_alignment": "left",
+        "data_source": "blocks",
+        "metaobject_limit": 12,
+        "slide_type": "slide",
+        "desktop_count": "3.5",
+        "mobile_count": "1.25",
+        "show_navigation": true,
+        "show_progress": true,
+        "autoplay_slides": false,
+        "slide_speed": 5,
+        "card_gap": 16,
+        "card_gap_mobile": 12,
+        "video_aspect_ratio": "9 / 14",
+        "autoplay_videos": true,
+        "loop_videos": true,
+        "pause_offscreen": true,
+        "card_radius": 18,
+        "card_border_opacity": 20,
+        "product_image_size": 54,
+        "shop_button_label": "Shop",
+        "show_wishlist": true,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
     "custom_tabbed_collection_F4bkca": {
       "type": "custom-tabbed-collection",
       "blocks": {
@@ -521,73 +588,6 @@
         "mobile_padding_top": 48,
         "mobile_padding_bottom": 48
       }
-    },
-    "shoppable_ugc_home": {
-      "type": "shoppable-ugc",
-      "blocks": {
-        "ugc_video_1": {
-          "type": "video",
-          "settings": {
-            "product": ""
-          }
-        },
-        "ugc_video_2": {
-          "type": "video",
-          "settings": {
-            "product": ""
-          }
-        },
-        "ugc_video_3": {
-          "type": "video",
-          "settings": {
-            "product": ""
-          }
-        },
-        "ugc_video_4": {
-          "type": "video",
-          "settings": {
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "ugc_video_1",
-        "ugc_video_2",
-        "ugc_video_3",
-        "ugc_video_4"
-      ],
-      "name": "Shoppable UGC",
-      "settings": {
-        "show_header": true,
-        "eyebrow": "SHOP THE MOMENT",
-        "heading": "Watch. Discover. Shop.",
-        "description": "",
-        "header_alignment": "left",
-        "data_source": "blocks",
-        "metaobject_limit": 12,
-        "slide_type": "slide",
-        "desktop_count": "3.5",
-        "mobile_count": "1.25",
-        "show_navigation": true,
-        "show_progress": true,
-        "autoplay_slides": false,
-        "slide_speed": 5,
-        "card_gap": 16,
-        "card_gap_mobile": 12,
-        "video_aspect_ratio": "9 / 14",
-        "autoplay_videos": true,
-        "loop_videos": true,
-        "pause_offscreen": true,
-        "card_radius": 18,
-        "card_border_opacity": 20,
-        "product_image_size": 54,
-        "shop_button_label": "Shop",
-        "show_wishlist": true,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40
-      }
     }
   },
   "order": [
@@ -596,9 +596,9 @@
     "infinite_gallery_grid_H8T9Ez",
     "custom_featured_collection_hCELLR",
     "custom_featured_collection_emaRmQ",
-    "custom_tabbed_collection_F4bkca",
-    "custom_offer_timer_kVn9YV",
+    "shoppable_ugc_home",
     "premium_testimonials_home",
-    "shoppable_ugc_home"
+    "custom_tabbed_collection_F4bkca",
+    "custom_offer_timer_kVn9YV"
   ]
 }
