@@ -318,7 +318,7 @@
             "discover_label": "Discover more"
           }
         },
-        "tab_YxChCx": {
+        "tab_WQpKyJ": {
           "type": "tab",
           "settings": {
             "label": "",
@@ -328,7 +328,17 @@
             "discover_label": "Discover more"
           }
         },
-        "tab_7ARRTR": {
+        "tab_yQ33nW": {
+          "type": "tab",
+          "settings": {
+            "label": "",
+            "collection": "shirts",
+            "products_to_show": 10,
+            "show_discover": true,
+            "discover_label": "Discover more"
+          }
+        },
+        "tab_YxChCx": {
           "type": "tab",
           "settings": {
             "label": "",
@@ -337,10 +347,22 @@
             "show_discover": true,
             "discover_label": "Discover more"
           }
+        },
+        "tab_7ARRTR": {
+          "type": "tab",
+          "settings": {
+            "label": "",
+            "collection": "tunic",
+            "products_to_show": 10,
+            "show_discover": true,
+            "discover_label": "Discover more"
+          }
         }
       },
       "block_order": [
         "tab_cTxGi8",
+        "tab_WQpKyJ",
+        "tab_yQ33nW",
         "tab_YxChCx",
         "tab_7ARRTR"
       ],
