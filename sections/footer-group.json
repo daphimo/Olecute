@@ -100,31 +100,31 @@
         "menu_group_weL9kF": {
           "type": "menu_group",
           "settings": {
-            "menu": "co-ords"
+            "menu": ""
           }
         },
         "menu_group_jQyxV9": {
           "type": "menu_group",
           "settings": {
-            "menu": "dresses"
+            "menu": ""
           }
         },
         "menu_group_XdUfR4": {
           "type": "menu_group",
           "settings": {
-            "menu": "shirts"
+            "menu": ""
           }
         },
         "menu_group_kbCRn9": {
           "type": "menu_group",
           "settings": {
-            "menu": "tops"
+            "menu": ""
           }
         },
         "menu_group_yRKEdC": {
           "type": "menu_group",
           "settings": {
-            "menu": "tunics"
+            "menu": ""
           }
         }
       },
@@ -135,6 +135,7 @@
         "menu_group_kbCRn9",
         "menu_group_yRKEdC"
       ],
+      "disabled": true,
       "name": "Collection link groups",
       "settings": {
         "background_color": "#eeeeee",

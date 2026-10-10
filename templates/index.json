@@ -405,6 +405,7 @@
           "type": "testimonial",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
             "product_label": "CO-ORD SET",
             "rating": 5,
             "review_text": "The quality, fit and thoughtful details made this piece feel truly special.",
@@ -420,6 +421,7 @@
           "type": "testimonial",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/WhatsAppImage2026-09-29at2.23.35PM.jpg",
             "product_label": "DRESSES",
             "rating": 5,
             "review_text": "Beautiful fabric and a flattering fit. It looked even better in person.",
@@ -435,6 +437,7 @@
           "type": "testimonial",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/WhatsAppImage2026-09-29at2.23.35PM_1.jpg",
             "product_label": "TOPS",
             "rating": 5,
             "review_text": "Comfortable, polished and easy to style. I keep reaching for it.",
@@ -449,10 +452,28 @@
         "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "media_type": "image",
+            "media_type": "video",
+            "image": "shopify://shop_images/WhatsAppImage2026-09-29at2.24.22PM.jpg",
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "product_label": "NEW IN",
             "rating": 5,
             "review_text": "The packaging and finishing were lovely, and the piece feels premium.",
+            "customer_name": "Olecute customer",
+            "customer_initial": "O",
+            "verified": true,
+            "show_quote_icon": true,
+            "url": "",
+            "enable_popup": true
+          }
+        },
+        "testimonial_F4j3CN": {
+          "type": "testimonial",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/WhatsAppImage2026-09-29at2.24.22PM.jpg",
+            "product_label": "TOPS",
+            "rating": 5,
+            "review_text": "Comfortable, polished and easy to style. I keep reaching for it.",
             "customer_name": "Olecute customer",
             "customer_initial": "O",
             "verified": true,
@@ -466,7 +487,8 @@
         "testimonial_1",
         "testimonial_2",
         "testimonial_3",
-        "testimonial_4"
+        "testimonial_4",
+        "testimonial_F4j3CN"
       ],
       "name": "Premium testimonials",
       "settings": {
