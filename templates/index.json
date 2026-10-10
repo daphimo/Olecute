@@ -51,21 +51,24 @@
           "type": "collection",
           "settings": {
             "collection": "tops",
-            "title_override": ""
+            "title_override": "",
+            "image_override": "shopify://shop_images/Elevated_Tops_Editorial_Collection.png"
           }
         },
         "collection_fpbtBU": {
           "type": "collection",
           "settings": {
             "collection": "tunic",
-            "title_override": ""
+            "title_override": "",
+            "image_override": "shopify://shop_images/Effortless_Lavender_Tunic_Editorial.png"
           }
         },
         "collection_cWmNGz": {
           "type": "collection",
           "settings": {
             "collection": "shirts",
-            "title_override": ""
+            "title_override": "",
+            "image_override": "shopify://shop_images/Elegant_Blush_Shirt_Essentials.png"
           }
         },
         "collection_3mwXNp": {
@@ -79,7 +82,8 @@
           "type": "collection",
           "settings": {
             "collection": "co-ord-sets",
-            "title_override": ""
+            "title_override": "",
+            "image_override": "shopify://shop_images/Mauve_Co-Ord_Set_Editorial_Ad.png"
           }
         },
         "collection_gwgmFX": {
