@@ -429,7 +429,7 @@
             "customer_initial": "O",
             "verified": true,
             "show_quote_icon": true,
-            "url": "",
+            "url": "shopify://products/olecutes-midi-pure-cotton-dress",
             "enable_popup": true
           }
         },
@@ -445,7 +445,7 @@
             "customer_initial": "O",
             "verified": true,
             "show_quote_icon": true,
-            "url": "",
+            "url": "shopify://products/olecutes-premium-light-pink-shirt",
             "enable_popup": true
           }
         },
@@ -461,7 +461,7 @@
             "customer_initial": "O",
             "verified": true,
             "show_quote_icon": true,
-            "url": "",
+            "url": "shopify://products/olecutes-premium-tunic",
             "enable_popup": true
           }
         },
@@ -478,7 +478,7 @@
             "customer_initial": "O",
             "verified": true,
             "show_quote_icon": true,
-            "url": "",
+            "url": "shopify://products/olecutes-printed-pure-cotton-top",
             "enable_popup": true
           }
         },
@@ -494,7 +494,7 @@
             "customer_initial": "O",
             "verified": true,
             "show_quote_icon": true,
-            "url": "",
+            "url": "shopify://products/olecutes-trending-cord-sets",
             "enable_popup": true
           }
         }
