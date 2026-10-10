@@ -4,6 +4,7 @@
 
 {% if section.settings.data_source == 'metaobjects' %}{% assign ugc_items = shop.metaobjects.shopable_video_popup.values %}{% else %}{% assign ugc_items = section.blocks %}{% endif %}
 {% assign rendered_count = 0 %}
+{% assign popup_logo_sizes = section.settings.popup_logo_size | append: 'px' %}
 {% capture ugc_cards %}
   {% for item in ugc_items %}
     {% if section.settings.data_source == 'metaobjects' and rendered_count >= section.settings.metaobject_limit %}{% break %}{% endif %}
@@ -38,7 +39,7 @@
           <video class="shoppable-ugc__reel-video" preload="metadata" playsinline {% if section.settings.loop_videos %}loop{% endif %} {% if item_poster != blank %}poster="{{ item_poster | image_url: width: 1200 }}"{% endif %}>{% for source in item_video.sources %}<source src="{{ source.url }}" type="{{ source.mime_type }}">{% endfor %}</video>
           <div class="shoppable-ugc__reel-overlay">
             <div class="shoppable-ugc__reel-top">
-              {% if settings.logo != blank %}<div class="shoppable-ugc__logo">{{ settings.logo | image_url: width: 300 | image_tag: widths: '150,300', sizes: '130px', loading: 'lazy', alt: shop.name }}</div>{% else %}<strong class="shoppable-ugc__logo">{{ shop.name | escape }}</strong>{% endif %}
+              {% if section.settings.popup_logo != blank %}<div class="shoppable-ugc__logo{% if section.settings.popup_logo_monochrome %} shoppable-ugc__logo--monochrome{% endif %}">{{ section.settings.popup_logo | image_url: width: 600 | image_tag: widths: '120,240,360,480,600', sizes: popup_logo_sizes, loading: 'lazy', alt: shop.name }}</div>{% else %}<strong class="shoppable-ugc__logo">{{ shop.name | escape }}</strong>{% endif %}
               <button class="shoppable-ugc__close" type="button" data-reel-close aria-label="Close videos"><svg viewBox="0 0 20 20" aria-hidden="true">{% render 'icon', icon: 'close' %}</svg></button>
             </div>
             <div class="shoppable-ugc__reel-actions">
@@ -63,7 +64,7 @@
   data-slide-type="{{ section.settings.slide_type }}"
   data-desktop="{{ section.settings.desktop_count }}"
   data-mobile="{{ section.settings.mobile_count }}"
-  style="--ugc-top: {{ section.settings.padding_top }}px; --ugc-bottom: {{ section.settings.padding_bottom }}px; --ugc-mobile-top: {{ section.settings.padding_top_mobile }}px; --ugc-mobile-bottom: {{ section.settings.padding_bottom_mobile }}px; --ugc-ratio: {{ section.settings.video_aspect_ratio }}; --ugc-radius: {{ section.settings.card_radius }}px; --ugc-border-opacity: {{ section.settings.card_border_opacity }}%; --ugc-gap: {{ section.settings.card_gap }}px; --ugc-mobile-gap: {{ section.settings.card_gap_mobile }}px; --ugc-product-size: {{ section.settings.product_image_size }}px;"
+  style="--ugc-top: {{ section.settings.padding_top }}px; --ugc-bottom: {{ section.settings.padding_bottom }}px; --ugc-mobile-top: {{ section.settings.padding_top_mobile }}px; --ugc-mobile-bottom: {{ section.settings.padding_bottom_mobile }}px; --ugc-ratio: {{ section.settings.video_aspect_ratio }}; --ugc-radius: {{ section.settings.card_radius }}px; --ugc-border-opacity: {{ section.settings.card_border_opacity }}%; --ugc-gap: {{ section.settings.card_gap }}px; --ugc-mobile-gap: {{ section.settings.card_gap_mobile }}px; --ugc-product-size: {{ section.settings.product_image_size }}px; --ugc-logo-size: {{ section.settings.popup_logo_size }}px; --ugc-logo-opacity: {{ section.settings.popup_logo_opacity | divided_by: 100.0 }};"
 >
   <div class="shoppable-ugc__inner">
     {% if section.settings.show_header %}<header class="shoppable-ugc__header shoppable-ugc__header--{{ section.settings.header_alignment }}">{% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow | escape }}</p>{% endif %}{% if section.settings.heading != blank %}<h2 id="ShoppableUgcHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>{% endif %}{% if section.settings.description != blank %}<div>{{ section.settings.description | escape | newline_to_br }}</div>{% endif %}</header>{% endif %}
@@ -121,6 +122,11 @@
     { "type": "range", "id": "product_image_size", "label": "Product image size", "min": 40, "max": 80, "step": 2, "unit": "px", "default": 54 },
     { "type": "text", "id": "shop_button_label", "label": "Shop button label", "default": "Shop" },
     { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist in reel", "default": true },
+    { "type": "header", "content": "Popup logo" },
+    { "type": "image_picker", "id": "popup_logo", "label": "Logo" },
+    { "type": "checkbox", "id": "popup_logo_monochrome", "label": "Show logo in monochrome", "default": false },
+    { "type": "range", "id": "popup_logo_opacity", "label": "Logo opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "popup_logo_size", "label": "Logo width", "min": 40, "max": 240, "step": 10, "unit": "px", "default": 130 },
     { "type": "header", "content": "Spacing" },
     { "type": "range", "id": "padding_top", "label": "Desktop top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
     { "type": "range", "id": "padding_bottom", "label": "Desktop bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },

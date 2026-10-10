@@ -20,5 +20,10 @@ for (const requirement of ['object-fit: cover', 'object-fit: contain', '::backdr
 for (const requirement of ["render 'brand-colors'", "render 'icon'", 'block.shopify_attributes', 'data-review-template']) {
   assert(liquid.includes(requirement), `Missing Liquid integration: ${requirement}`);
 }
+assert.equal(
+  (liquid.match(/video_tag:[^\n]*autoplay: true, loop: true, muted: true/g) || []).length,
+  2,
+  'Card and popup videos autoplay, loop, and stay muted'
+);
 
 console.log('PASS: testimonial schema and slider, modal, media, icon, and Theme Editor invariants');

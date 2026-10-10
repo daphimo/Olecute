@@ -17,5 +17,7 @@ for (const value of ["render 'brand-colors'", "render 'custom-wishlist-button'",
   else assert(liquid.includes(value) || fs.readFileSync('snippets/shoppable-ugc-product-stripe.liquid', 'utf8').includes(value), `Missing integration: ${value}`);
 }
 for (const value of ['var(--color-primary)', 'var(--color-accent-pink)', 'var(--color-accent-yellow)', 'object-fit: cover', '@media (max-width: 749px)']) assert(css.includes(value), `Missing style: ${value}`);
+for (const id of ['popup_logo', 'popup_logo_monochrome', 'popup_logo_opacity', 'popup_logo_size']) assert(schema.settings.some((setting) => setting.id === id), `Missing popup logo setting: ${id}`);
+for (const value of ['section.settings.popup_logo', '--ugc-logo-size', '--ugc-logo-opacity', 'shoppable-ugc__logo--monochrome']) assert(liquid.includes(value) || css.includes(value), `Missing popup logo integration: ${value}`);
 
 console.log('PASS: Shoppable UGC schema, brand, commerce, slider, reel, editor, and homepage integrations');

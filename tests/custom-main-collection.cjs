@@ -4,9 +4,11 @@ const {Liquid}=dep('liquidjs'),{chromium}=dep('playwright');
 const root=path.resolve(__dirname,'..'),temp=fs.mkdtempSync(path.join(os.tmpdir(),'collection-fixture-'));
 for(const name of fs.readdirSync(path.join(root,'snippets')).filter(n=>n.endsWith('.liquid'))){const s=fs.readFileSync(path.join(root,'snippets',name),'utf8').replace(/{%-? doc[\s\S]*?enddoc -?%}/g,'').replace(/{% stylesheet %}/g,'<style>').replace(/{% endstylesheet %}/g,'</style>');fs.writeFileSync(path.join(temp,name),s);}
 const source=fs.readFileSync(path.join(root,'sections/custom-main-collection.liquid'),'utf8');
+const collectionCss=fs.readFileSync(path.join(root,'assets/custom-main-collection.css'),'utf8');
 const schema=JSON.parse(source.match(/{% schema %}([\s\S]*?){% endschema %}/)[1]);
 const settings=Object.fromEntries(schema.settings.map(s=>[s.id,s.default]));
 assert(source.includes('paginate collection.products by section.settings.products_per_page'));
+assert(collectionCss.includes('.custom-main-collection [data-collection-results]{padding-top:18px}'));
 const engine=new Liquid({root:temp,extname:'.liquid'});
 engine.registerFilter('asset_url',n=>'/assets/'+n);engine.registerFilter('stylesheet_tag',n=>`<link rel="stylesheet" href="${n}">`);
 engine.registerFilter('pluralize',(n,singular,plural)=>Number(n)===1?singular:plural);engine.registerFilter('t',n=>n);engine.registerFilter('money',n=>'Rs. '+n/100);engine.registerFilter('inline_asset_content',n=>fs.readFileSync(path.join(root,'assets',n),'utf8'));

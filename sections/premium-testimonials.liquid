@@ -65,7 +65,7 @@
                       {% if block.settings.media_type == 'image' %}
                         {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320,480,640,800,1000', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 40vw, 85vw', alt: block.settings.image.alt }}
                       {% else %}
-                        {{ block.settings.video | video_tag: image_size: '1000x', autoplay: false, loop: true, muted: true, controls: false, preload: 'metadata' }}
+                        {{ block.settings.video | video_tag: image_size: '1000x', autoplay: true, loop: true, muted: true, controls: false, preload: 'metadata' }}
                       {% endif %}
                     </span>
                   {% endif %}
@@ -86,7 +86,7 @@
                         {% if block.settings.media_type == 'image' %}
                           {{ block.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '600,900,1200,1800', sizes: '(min-width: 750px) 45vw, 90vw', alt: block.settings.image.alt }}
                         {% else %}
-                          {{ block.settings.video | video_tag: image_size: '1800x', autoplay: false, loop: false, muted: false, controls: true, preload: 'metadata' }}
+                          {{ block.settings.video | video_tag: image_size: '1800x', autoplay: true, loop: true, muted: true, controls: true, preload: 'metadata' }}
                         {% endif %}
                       {% endif %}
                     </div>
