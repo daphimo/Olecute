@@ -311,33 +311,59 @@
         "ugc_video_1": {
           "type": "video",
           "settings": {
-            "product": ""
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
           }
         },
-        "ugc_video_2": {
+        "video_cVHhQq": {
           "type": "video",
           "settings": {
-            "product": ""
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
           }
         },
-        "ugc_video_3": {
+        "video_Wq4HHP": {
           "type": "video",
           "settings": {
-            "product": ""
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
           }
         },
-        "ugc_video_4": {
+        "video_gdLnPh": {
           "type": "video",
           "settings": {
-            "product": ""
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
+          }
+        },
+        "video_bbxB9k": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
+          }
+        },
+        "video_qraUF9": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
+            "poster_image": "shopify://shop_images/WhatsAppImage2026-09-29at2.39.00PM.jpg",
+            "product": "olecutes-midi-pure-cotton-dress"
           }
         }
       },
       "block_order": [
         "ugc_video_1",
-        "ugc_video_2",
-        "ugc_video_3",
-        "ugc_video_4"
+        "video_cVHhQq",
+        "video_Wq4HHP",
+        "video_gdLnPh",
+        "video_bbxB9k",
+        "video_qraUF9"
       ],
       "name": "Shoppable UGC",
       "settings": {
@@ -349,7 +375,7 @@
         "data_source": "blocks",
         "metaobject_limit": 12,
         "slide_type": "slide",
-        "desktop_count": "3.5",
+        "desktop_count": "4.5",
         "mobile_count": "1.25",
         "show_navigation": true,
         "show_progress": true,
@@ -370,6 +396,110 @@
         "padding_bottom": 64,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40
+      }
+    },
+    "premium_testimonials_home": {
+      "type": "premium-testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "media_type": "image",
+            "product_label": "CO-ORD SET",
+            "rating": 5,
+            "review_text": "The quality, fit and thoughtful details made this piece feel truly special.",
+            "customer_name": "Olecute customer",
+            "customer_initial": "O",
+            "verified": true,
+            "show_quote_icon": true,
+            "url": "",
+            "enable_popup": true
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "media_type": "image",
+            "product_label": "DRESSES",
+            "rating": 5,
+            "review_text": "Beautiful fabric and a flattering fit. It looked even better in person.",
+            "customer_name": "Olecute customer",
+            "customer_initial": "O",
+            "verified": true,
+            "show_quote_icon": true,
+            "url": "",
+            "enable_popup": true
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "media_type": "image",
+            "product_label": "TOPS",
+            "rating": 5,
+            "review_text": "Comfortable, polished and easy to style. I keep reaching for it.",
+            "customer_name": "Olecute customer",
+            "customer_initial": "O",
+            "verified": true,
+            "show_quote_icon": true,
+            "url": "",
+            "enable_popup": true
+          }
+        },
+        "testimonial_4": {
+          "type": "testimonial",
+          "settings": {
+            "media_type": "image",
+            "product_label": "NEW IN",
+            "rating": 5,
+            "review_text": "The packaging and finishing were lovely, and the piece feels premium.",
+            "customer_name": "Olecute customer",
+            "customer_initial": "O",
+            "verified": true,
+            "show_quote_icon": true,
+            "url": "",
+            "enable_popup": true
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "testimonial_4"
+      ],
+      "name": "Premium testimonials",
+      "settings": {
+        "eyebrow": "REAL WOMEN, REAL REVIEWS",
+        "heading": "What our customers",
+        "highlighted_heading": "are saying",
+        "rating": "4.9",
+        "trusted_text": "Trusted by 1 Million+ women across India",
+        "show_rating": true,
+        "show_trusted_text": true,
+        "show_navigation": true,
+        "cards_desktop": 4,
+        "cards_tablet": 2,
+        "cards_mobile": "1.1",
+        "gap_desktop": 16,
+        "gap_mobile": 12,
+        "autoplay": false,
+        "autoplay_speed": 6,
+        "show_progress": true,
+        "media_height": 240,
+        "media_height_mobile": 230,
+        "media_position": "center top",
+        "card_radius": 12,
+        "card_padding": 20,
+        "popup_show_media": true,
+        "popup_show_rating": true,
+        "popup_show_verified": true,
+        "overlay_opacity": 80,
+        "popup_width": 900,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48
       }
     },
     "custom_tabbed_collection_F4bkca": {
@@ -482,110 +612,6 @@
         "padding_top": 0,
         "padding_bottom": 100,
         "mobile_padding_top": 0,
-        "mobile_padding_bottom": 48
-      }
-    },
-    "premium_testimonials_home": {
-      "type": "premium-testimonials",
-      "blocks": {
-        "testimonial_1": {
-          "type": "testimonial",
-          "settings": {
-            "media_type": "image",
-            "product_label": "CO-ORD SET",
-            "rating": 5,
-            "review_text": "The quality, fit and thoughtful details made this piece feel truly special.",
-            "customer_name": "Olecute customer",
-            "customer_initial": "O",
-            "verified": true,
-            "show_quote_icon": true,
-            "url": "",
-            "enable_popup": true
-          }
-        },
-        "testimonial_2": {
-          "type": "testimonial",
-          "settings": {
-            "media_type": "image",
-            "product_label": "DRESSES",
-            "rating": 5,
-            "review_text": "Beautiful fabric and a flattering fit. It looked even better in person.",
-            "customer_name": "Olecute customer",
-            "customer_initial": "O",
-            "verified": true,
-            "show_quote_icon": true,
-            "url": "",
-            "enable_popup": true
-          }
-        },
-        "testimonial_3": {
-          "type": "testimonial",
-          "settings": {
-            "media_type": "image",
-            "product_label": "TOPS",
-            "rating": 5,
-            "review_text": "Comfortable, polished and easy to style. I keep reaching for it.",
-            "customer_name": "Olecute customer",
-            "customer_initial": "O",
-            "verified": true,
-            "show_quote_icon": true,
-            "url": "",
-            "enable_popup": true
-          }
-        },
-        "testimonial_4": {
-          "type": "testimonial",
-          "settings": {
-            "media_type": "image",
-            "product_label": "NEW IN",
-            "rating": 5,
-            "review_text": "The packaging and finishing were lovely, and the piece feels premium.",
-            "customer_name": "Olecute customer",
-            "customer_initial": "O",
-            "verified": true,
-            "show_quote_icon": true,
-            "url": "",
-            "enable_popup": true
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3",
-        "testimonial_4"
-      ],
-      "name": "Premium testimonials",
-      "settings": {
-        "eyebrow": "REAL WOMEN, REAL REVIEWS",
-        "heading": "What our customers",
-        "highlighted_heading": "are saying",
-        "rating": "4.9",
-        "trusted_text": "Trusted by 1 Million+ women across India",
-        "show_rating": true,
-        "show_trusted_text": true,
-        "show_navigation": true,
-        "cards_desktop": 4,
-        "cards_tablet": 2,
-        "cards_mobile": "1.1",
-        "gap_desktop": 16,
-        "gap_mobile": 12,
-        "autoplay": false,
-        "autoplay_speed": 6,
-        "show_progress": true,
-        "media_height": 240,
-        "media_height_mobile": 230,
-        "media_position": "center top",
-        "card_radius": 12,
-        "card_padding": 20,
-        "popup_show_media": true,
-        "popup_show_rating": true,
-        "popup_show_verified": true,
-        "overlay_opacity": 80,
-        "popup_width": 900,
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "mobile_padding_top": 48,
         "mobile_padding_bottom": 48
       }
     }
