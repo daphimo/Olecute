@@ -149,15 +149,16 @@
             "alt_5": ""
           }
         },
-        "gallery_group_WKxkLD": {
+        "gallery_group_XUmeCY": {
           "type": "gallery_group",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/16_140db61c-f728-405c-946a-973be.png",
             "link_1": "shopify://collections/tops",
             "alt_1": "",
-            "media_type_2": "image",
+            "media_type_2": "video",
             "image_2": "shopify://shop_images/4_a5ba5478-e2bc-414e-a14e-975be9c6a6bc.png",
+            "video_2": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_2": "shopify://collections/tops",
             "alt_2": "",
             "media_type_3": "image",
@@ -166,23 +167,26 @@
             "alt_3": "",
             "media_type_4": "image",
             "image_4": "shopify://shop_images/DSC02412.jpg",
+            "video_4": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_4": "shopify://collections/tops",
             "alt_4": "",
-            "media_type_5": "image",
+            "media_type_5": "video",
             "image_5": "shopify://shop_images/DSC01893.jpg",
+            "video_5": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_5": "shopify://collections/tops",
             "alt_5": ""
           }
         },
-        "gallery_group_m89AxY": {
+        "gallery_group_6e4BY7": {
           "type": "gallery_group",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/16_140db61c-f728-405c-946a-973be.png",
             "link_1": "shopify://collections/tops",
             "alt_1": "",
-            "media_type_2": "image",
+            "media_type_2": "video",
             "image_2": "shopify://shop_images/4_a5ba5478-e2bc-414e-a14e-975be9c6a6bc.png",
+            "video_2": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_2": "shopify://collections/tops",
             "alt_2": "",
             "media_type_3": "image",
@@ -191,23 +195,26 @@
             "alt_3": "",
             "media_type_4": "image",
             "image_4": "shopify://shop_images/DSC02412.jpg",
+            "video_4": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_4": "shopify://collections/tops",
             "alt_4": "",
-            "media_type_5": "image",
+            "media_type_5": "video",
             "image_5": "shopify://shop_images/DSC01893.jpg",
+            "video_5": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_5": "shopify://collections/tops",
             "alt_5": ""
           }
         },
-        "gallery_group_HjHkhX": {
+        "gallery_group_9QMkmM": {
           "type": "gallery_group",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/16_140db61c-f728-405c-946a-973be.png",
             "link_1": "shopify://collections/tops",
             "alt_1": "",
-            "media_type_2": "image",
+            "media_type_2": "video",
             "image_2": "shopify://shop_images/4_a5ba5478-e2bc-414e-a14e-975be9c6a6bc.png",
+            "video_2": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_2": "shopify://collections/tops",
             "alt_2": "",
             "media_type_3": "image",
@@ -216,10 +223,12 @@
             "alt_3": "",
             "media_type_4": "image",
             "image_4": "shopify://shop_images/DSC02412.jpg",
+            "video_4": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_4": "shopify://collections/tops",
             "alt_4": "",
-            "media_type_5": "image",
+            "media_type_5": "video",
             "image_5": "shopify://shop_images/DSC01893.jpg",
+            "video_5": "shopify://files/videos/49eb573b6ba2435e8084b0285ffa04d6.mp4",
             "link_5": "shopify://collections/tops",
             "alt_5": ""
           }
@@ -227,9 +236,9 @@
       },
       "block_order": [
         "gallery_group_PHHqTG",
-        "gallery_group_WKxkLD",
-        "gallery_group_m89AxY",
-        "gallery_group_HjHkhX"
+        "gallery_group_XUmeCY",
+        "gallery_group_6e4BY7",
+        "gallery_group_9QMkmM"
       ],
       "name": "Infinite gallery grid",
       "settings": {
